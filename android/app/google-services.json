@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "28368143613",
+    "project_id": "jobsapp-46310",
+    "storage_bucket": "jobsapp-46310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28368143613:android:aaab33ba93f789bf636a94",
+        "android_client_info": {
+          "package_name": "com.example.graduation_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28368143613-vcgr3rmjdp62meriba3dtqjo1u7ss1u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIHll-c4r75pHig8mYVOf7yrw-B0dYdxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28368143613-vcgr3rmjdp62meriba3dtqjo1u7ss1u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

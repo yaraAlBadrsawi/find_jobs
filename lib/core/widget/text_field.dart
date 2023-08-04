@@ -1,0 +1,166 @@
+
+import 'package:flutter/material.dart';
+import '../../presentation/resource/colors_mangaer.dart';
+import '../../presentation/resource/fonts_manager.dart';
+import '../../presentation/resource/sizes_manager.dart';
+import '../../presentation/resource/styles_manager.dart';
+
+// TextFormField baseTextFormField({
+//   required TextEditingController controller,
+//   String? hintText,
+//   TextInputType? keyboardType,
+//   bool? obscureText,
+//   validator,
+//   FocusNode? focusNode,
+//   onChange,
+// }) {
+//   return TextFormField(
+//     style: getRegularTextStyle(
+//       fontSize: FontSizeManager.s16,
+//       color: ColorsManager.black,
+//     ),
+//     controller: controller,
+//     keyboardType: keyboardType,
+//     cursorColor: ColorsManager.primary,
+//     // obscureText: obscureText.onNull(),
+//     validator: validator,
+//     focusNode: focusNode,
+//     onChanged: onChange ?? (val) {},
+//     decoration: InputDecoration(
+//       filled: true,
+//       contentPadding: EdgeInsets.symmetric(
+//         horizontal: WidthManager.w16,
+//         vertical: HeightManager.h6,
+//       ),
+//       fillColor: ColorsManager.white,
+//       // hintText: hintText!.onNull(),
+//       hintStyle: getRegularTextStyle(
+//         fontSize: FontSizeManager.s16,
+//         color: ColorsManager.grey,
+//       ),
+//       enabledBorder: OutlineInputBorder(
+//         borderSide: const BorderSide(
+//           color: ColorsManager.white,
+//         ),
+//         borderRadius: BorderRadius.circular(
+//           RadiusManager.r6,
+//         ),
+//       ),
+//       focusedBorder: OutlineInputBorder(
+//         borderSide: const BorderSide(
+//           color: ColorsManager.primary,
+//         ),
+//         borderRadius: BorderRadius.circular(
+//           RadiusManager.r6,
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
+
+
+class AppTextFields extends StatelessWidget {
+  const AppTextFields({
+    super.key,
+    this.controller,
+    this.keyboardType,
+    this.obscure = false,
+    this.validator,
+    required this.hint,
+    this.fillColor,
+    this.filled,
+    this.suffixIcon,
+    this.onChanged,
+    this.readOnly = false,
+    this.prefixIcon,
+    this.maxLines = 1,
+  });
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final bool obscure;
+  final String? Function(String?)? validator;
+  final String hint;
+  final Color? fillColor;
+  final Function(String)? onChanged;
+  final bool? filled;
+  final int maxLines;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final bool readOnly;
+
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      // style: getRegularTextStyle() // TODO: ADD STYLE
+      obscureText: obscure,
+      readOnly:readOnly,
+      validator: validator,
+      onChanged: onChanged,
+      maxLines: maxLines,
+      cursorColor: ColorsManager.primary,
+      decoration: InputDecoration(
+        hintText: hint,
+        // hintStyle: AppStyles.light(),
+        prefixIcon:prefixIcon,
+        suffixIcon: suffixIcon,
+        filled: filled,
+        fillColor:fillColor,
+        border: underlineInputBorder(), //grey
+        errorBorder: underlineInputBorder(color: Colors.red), //red
+        focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
+      ),
+    );
+  }
+}
+
+UnderlineInputBorder underlineInputBorder({Color color = Colors.grey}) {
+  return UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: color,
+      width: 1.5,
+    ),
+  );
+}
+
+class AppPassFields extends StatefulWidget {
+  const AppPassFields(
+      {super.key,
+        this.filled,
+        this.prefixIcon,
+        this.fillColor,
+        this.onChanged,
+        this.validator});
+  final bool? filled;
+  final Color? fillColor;
+  final String? Function(String?)? validator;
+  final Widget? prefixIcon;
+  final Function(String)? onChanged;
+  @override
+  State<AppPassFields> createState() => _AppPassFieldsState();
+}
+
+class _AppPassFieldsState extends State<AppPassFields> {
+  bool secure = true;
+  @override
+  Widget build(BuildContext context) {
+    return AppTextFields(
+      hint: 'Password',
+      validator: widget.validator,
+      obscure: secure,
+      onChanged: widget.onChanged,
+      prefixIcon: widget.prefixIcon,
+      suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              secure = !secure;
+            });
+          },
+          icon: Icon(Icons.remove_red_eye_rounded,
+              color: secure == false ? Colors.green : ColorsManager.primary)),
+      fillColor: widget.fillColor,
+      filled: widget.filled,
+    );
+  }
+}
