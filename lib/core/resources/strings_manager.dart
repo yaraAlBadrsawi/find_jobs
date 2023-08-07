@@ -12,8 +12,13 @@ class StringsManager{
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy 3.';
   static const String getStartButton = 'Let\'s get started';
   static const String bearer = 'Bearer';
+  static const String user = 'User';
+  static const String employer = 'Employer';
+  static const String userAndEmployer = 'User/Employer';
   static const String login = 'Login';
   static const String register = 'Register';
+  static const String name = 'name';
+  static const String phone = 'phone number';
   static const String forgetPassword = 'forgotPassword';
   static const String password = 'Password';
   static const String email = 'Email';
@@ -22,18 +27,30 @@ class StringsManager{
   static const String userName = 'User Name ';
   static const String save = 'save';
   static const String send = 'send';
+  static const String addLinks = 'add links ';
   static const String editProfile = 'Edit profile';
-  static const String termsAndPrivacy =
-      "you agree to the Terms& Privacy Policy ";
+  static const String termsAndPrivacy = "Terms & Privacy Policy ";
+  static const String iAgree = "I must agree!'";
+
   static const String signUp = "sing up";
   static const String signupFailed = "sign up Failed";
   static const String emailCantBeEmpty = "email cant be empty";
   static const String dataCantBeEmpty = "Fields can't be empty";
-  static const String passwordCantBeEmpty = "password cant be empty";
+  static const String passwordCantBeEmpty = "password can\'t be empty";
   static const String shortPassword = "Too short Password";
+  static const String passwordNeedsLetter = "Password should contain letters and numbers ";
+  static const String tooShort = "Too short";
   static const String invalidPassword = "Invalid Password";
-  static const String invalidEmail = "Invalid Email";
+  static const String emptyPassword = "Password can\'t be empty";
+  static const String emptyEmail = "Email can\'t be empty ";
+  static const String requiredName = 'Name can\'t be empty';
+  static const String invalidEmail = "invalid-email";
+  static const String enterValidEmail = "Enter valid e-mail";
+  static const String operationNotAllowed = "operation-not-allowed";
+  static const String notEnabled = " Email/password accounts are not enabled";
   static const String invalidMobileNumber = "Invalid Mobile Number";
+  static const String emailAlready = "email-already-in-use";
+  static const String pickEmail = "Email already in use, Please pick another email!";
   static const String mismatchedPassword = "mismatchedPassword";
   static const String signUpDone = "account has been created successfully";
   static const String contactInfo = 'Contact Info';
@@ -49,8 +66,15 @@ class StringsManager{
   static const String empty = '';
   static const String categories = 'Categories';
   static const String seeAll = 'See All';
-  static const String requiredFullName = 'Full Name Required';
-  static const String requiredPhone = 'Phone Required';
+  static const String requiredPhone = 'Phone can\'t be empty';
+  static const String or = 'or';
+  static const String ok = 'ok';
+  static const String alreadyHaveAccount = 'Already have an account';
+  static const String signIn = 'Sign In';
+  static const String userCollection = 'user';
+  static const String code = 'code';
+  static const String cantSignUp = 'Couldn\'t sign up for firebase, Please try again.';
+  static const String index = 'index'; //TODO:WARNING
 
 
 

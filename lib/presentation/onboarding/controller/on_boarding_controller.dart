@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../config/constants.dart';
-import '../../resource/assets_manager.dart';
-import '../../resource/routes_manager.dart';
-import '../../resource/strings_manager.dart';
+import 'package:graduation_project/core/resources/assets_manager.dart';
+import 'package:graduation_project/core/resources/routes_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
 import '../view/widget/on_boarding_item.dart';
 
 class OnBoardingController extends GetxController {

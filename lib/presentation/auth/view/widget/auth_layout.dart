@@ -1,30 +1,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:graduation_project/presentation/resource/sizes_manager.dart';
 
-import '../../../resource/colors_mangaer.dart';
-import '../../../resource/fonts_manager.dart';
-import '../../../resource/styles_manager.dart';
+import '../../../../core/resources/assets_manager.dart';
+import '../../../../core/resources/colors_mangaer.dart';
+import '../../../../core/resources/fonts_manager.dart';
+import '../../../../core/resources/sizes_manager.dart';
+import '../../../../core/resources/strings_manager.dart';
+import '../../../../core/resources/styles_manager.dart';
+
+
 
 class AuthLayout extends StatelessWidget {
   const AuthLayout(
       {super.key,
-        this.leading,
         required this.header,
         required this.dis,
         this.fields});
-  final Widget? leading, fields;
+  final Widget? fields;
   final String header, dis;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: leading,
-      ),
+      backgroundColor: ColorsManager.background,
+      // appBar: AppBar(
+      //   leading: leading,
+      // ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:  EdgeInsets.symmetric(horizontal: WidthManager.w20,vertical: HeightManager.h60),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -37,12 +41,12 @@ class AuthLayout extends StatelessWidget {
                         header,
                         style:  getRegularTextStyle(
                           fontSize: FontSizeManager.s38,
-                          color: ColorsManager.black,
+                          color: ColorsManager.primary,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(width: WidthManager.w5,),
+                  SizedBox(height: HeightManager.h5,),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: SizedBox(
@@ -54,11 +58,11 @@ class AuthLayout extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: WidthManager.w45,),
+              SizedBox(height: HeightManager.h45,),
 
               //fields
               fields ?? const SizedBox(),
-              SizedBox(width: WidthManager.w45,),
+              SizedBox(height: HeightManager.h45,),
 
               //bottom
               Column(
@@ -67,31 +71,31 @@ class AuthLayout extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        height: .7,
+                        height: HeightManager.h07,
                         width: MediaQuery.of(context).size.width / 2 - 40 - 10,
                         color: ColorsManager.black,
                       ),
                       SizedBox(height: HeightManager.h10,),
                       Text(
-                        'Or',
+                        StringsManager.or,
                         style:getTextStyle(fontSize: FontSizeManager.s12, color: ColorsManager.black),
                       ),
                       SizedBox(height: HeightManager.h10,),
                       Container(
-                        height: .7,
+                        height: HeightManager.h07,
                         width: MediaQuery.of(context).size.width / 2 - 40 - 10,
                         color: ColorsManager.black,
                       )
                     ],
                   ),
-                 // SizedBox(width: WidthManager.w20,),
-                 //  Row(
-                 //    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 //    children: [
-                 //      BoxWidget(image: 'images/Facebook_logo_(square).png'),
-                 //      BoxWidget(image : 'images/Instagram-Icon.png')
-                 //    ],
-                 //  ),
+                 SizedBox(width: WidthManager.w20,),
+                 const  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      BoxWidget(image:AssetsManager.facebook),
+                      BoxWidget(image : AssetsManager.googleIcon)
+                    ],
+                  ),
                 ],
               )
             ],
@@ -111,12 +115,12 @@ class BoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
       return Container(
-        height: 52,
+        height:HeightManager.h52,
         alignment: Alignment.center,
-        width: 52,
+        width: WidthManager.w52,
         decoration: BoxDecoration(
           color: ColorsManager.primary.withOpacity(.2),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(RadiusManager.r10),
           border: Border.all(
             color: ColorsManager.black.withOpacity(.2),
           ),

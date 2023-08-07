@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../util/size_util.dart';
 
+
 class FontFamilyManager {
   static const String fontFamily = 'Poppins';
 }

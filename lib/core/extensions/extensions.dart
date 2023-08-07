@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:graduation_project/presentation/resource/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
 
 extension NonNullString on String? {
   String onNull() {

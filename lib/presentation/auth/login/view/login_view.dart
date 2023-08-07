@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/presentation/auth/view/widget/auth_layout.dart';
-import 'package:graduation_project/presentation/resource/colors_mangaer.dart';
-import 'package:graduation_project/presentation/resource/strings_manager.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
 
-import '../../view/widget/login_body.dart';
+import 'login_body.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -16,7 +17,7 @@ class LoginView extends StatelessWidget {
       fields: Container(
           decoration: BoxDecoration(
               color: ColorsManager.white, borderRadius: BorderRadius.circular(30)),
-          padding: const EdgeInsets.all(20),
+          padding:  EdgeInsets.all(WidthManager.w20),
           child: LoginBody()),
     );
   }

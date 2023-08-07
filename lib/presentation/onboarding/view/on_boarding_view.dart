@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:graduation_project/presentation/onboarding/view/widget/circle_button.dart';
-import 'package:graduation_project/presentation/resource/styles_manager.dart';
+import 'package:graduation_project/core/resources/styles_manager.dart';
 import '../../../core/widget/main_button.dart';
-import '../../resource/colors_mangaer.dart';
-import '../../resource/fonts_manager.dart';
-import '../../resource/sizes_manager.dart';
-import '../../resource/strings_manager.dart';
-import '../view_model/on_boarding_controller.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/fonts_manager.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
+
+import '../controller/on_boarding_controller.dart';
 
 class OnBoardingView extends GetView<OnBoardingController> {
   const OnBoardingView({super.key});
@@ -34,7 +35,13 @@ class OnBoardingView extends GetView<OnBoardingController> {
                   child: Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: MainButton(
-                      Text(StringsManager.skip,
+                      width: WidthManager.w70,
+                      height: HeightManager.h40,
+                      color: ColorsManager.transparent,
+                      onPressed: () {
+                        controller.skipPage();
+                      },
+                      child: Text(StringsManager.skip,
                           style: TextStyle(
                             fontSize: FontSizeManager.s16,
                             fontFamily: FontFamilyManager.fontFamily,
@@ -42,10 +49,6 @@ class OnBoardingView extends GetView<OnBoardingController> {
                             color: ColorsManager.textColor,
                             decoration: TextDecoration.none,
                           )),
-                      ColorsManager.transparent,
-                      () {
-                        controller.skipPage();
-                      },
                     ),
                   ),
                 ),
@@ -63,22 +66,23 @@ class OnBoardingView extends GetView<OnBoardingController> {
                 Visibility(
                   visible: controller.isNotLastedPage(),
                   replacement: MainButton(
-                    Text(
+                    // child =>
+                    width: double.infinity,
+                    height: HeightManager.h40,
+                    color: ColorsManager.primary,
+                    // Color =
+                    // onPressed =>
+                    onPressed: () {
+                      controller.getStart();
+                    },
+                    // child =>
+                    child: Text(
                       StringsManager.getStartButton,
                       style: getRegularTextStyle(
                         fontSize: FontSizeManager.s14,
                         color: ColorsManager.white,
                       ),
                     ),
-                    ColorsManager.primary,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: WidthManager.w100,
-                        vertical: HeightManager.h20),
-                    () {
-                      controller.getStart();
-                    },
-                    minWidth: WidthManager.w15,
-                    height: HeightManager.h40,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,6 +98,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                       ),
                       CircleButton(
                         onPressed: () {
+                          print('controller.nextPage()');
                           controller.nextPage();
                         },
                         iconData: Icons.arrow_forward_outlined,

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../config/constants.dart';
-import '../../../resource/colors_mangaer.dart';
-import '../../../resource/sizes_manager.dart';
-import '../../view_model/on_boarding_controller.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
+import '../../controller/on_boarding_controller.dart';
 
 
 class SliderIndicator extends StatelessWidget {

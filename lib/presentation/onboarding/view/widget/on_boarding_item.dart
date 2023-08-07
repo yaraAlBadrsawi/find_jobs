@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:graduation_project/presentation/onboarding/view/widget/slider_indicator.dart';
 
-import '../../../resource/sizes_manager.dart';
-import '../../../resource/styles_manager.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/styles_manager.dart';
 
 
 class OnBoardingItem extends StatelessWidget {

@@ -35,6 +35,9 @@ class AssetsManager {
   static const String office = '$imagesPath/office.svg';
   static const String star = '$imagesPath/star.svg';
   static const String search = '$imagesPath/search.svg';
+  static const String instagram = '$imagesPath/instagram_icon.svg';
+  static const String googleIcon = '$imagesPath/google_icon.svg';
+  static const String facebook = '$imagesPath/facebook_logo.svg';
   static const String notification = '$imagesPath/notification.svg';
 }
 

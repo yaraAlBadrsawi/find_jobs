@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import '../../presentation/resource/colors_mangaer.dart';
-import '../../presentation/resource/fonts_manager.dart';
-import '../../presentation/resource/sizes_manager.dart';
-import '../../presentation/resource/styles_manager.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/fonts_manager.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/styles_manager.dart';
 
 // TextFormField baseTextFormField({
 //   required TextEditingController controller,
@@ -76,6 +76,8 @@ class AppTextFields extends StatelessWidget {
     this.prefixIcon,
     this.maxLines = 1,
   });
+
+
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscure;
@@ -124,43 +126,44 @@ UnderlineInputBorder underlineInputBorder({Color color = Colors.grey}) {
   );
 }
 
-class AppPassFields extends StatefulWidget {
-  const AppPassFields(
+class AppPassFields extends StatelessWidget {
+   AppPassFields(
       {super.key,
         this.filled,
         this.prefixIcon,
         this.fillColor,
         this.onChanged,
-        this.validator});
+        this.validator,
+      this.controller
+      });
+
   final bool? filled;
   final Color? fillColor;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
   final Function(String)? onChanged;
-  @override
-  State<AppPassFields> createState() => _AppPassFieldsState();
-}
+  final TextEditingController? controller;
 
-class _AppPassFieldsState extends State<AppPassFields> {
-  bool secure = true;
-  @override
+bool secure=true;
+@override
   Widget build(BuildContext context) {
     return AppTextFields(
       hint: 'Password',
-      validator: widget.validator,
+      controller: controller,
+      validator: validator,
       obscure: secure,
-      onChanged: widget.onChanged,
-      prefixIcon: widget.prefixIcon,
+      onChanged: onChanged,
+      prefixIcon:prefixIcon,
       suffixIcon: IconButton(
           onPressed: () {
-            setState(() {
+            // setState(() {
               secure = !secure;
-            });
+            // });
           },
           icon: Icon(Icons.remove_red_eye_rounded,
               color: secure == false ? Colors.green : ColorsManager.primary)),
-      fillColor: widget.fillColor,
-      filled: widget.filled,
+      fillColor: fillColor,
+      filled: filled,
     );
   }
 }

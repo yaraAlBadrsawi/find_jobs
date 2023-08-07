@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/presentation/resource/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
 
 import '../../../../core/widget/main_button.dart';
-import '../../../resource/sizes_manager.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
 
 class CircleButton extends StatelessWidget {
    final Function() onPressed ;
@@ -17,16 +17,18 @@ class CircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainButton(
-        Icon(
+       child: Icon(
       iconData,
       color: ColorsManager.white,
     ),
 
-        ColorsManager.secondary , () => onPressed,
-      shapeBorder: const CircleBorder(),
+    color:    ColorsManager.secondary ,onPressed:  onPressed,
 
-      minWidth: WidthManager.w50,
+      width: WidthManager.w50,
       height: HeightManager.h50,
+      radius: RadiusManager.r40,
+
+
     );
   }
 }

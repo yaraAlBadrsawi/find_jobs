@@ -1,11 +1,10 @@
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
-
-import '../../presentation/resource/strings_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
 
 class FieldValidator {
-  String? validateEmail(String? email) {
+ static String? validateEmail(String? email) {
     if (email!.isEmpty) {
-      return StringsManager.invalidEmail;
+      return StringsManager.emptyEmail;
     }
 
     if (!RegExp(r"\S+@\S+\.\S+").hasMatch(email)) {
@@ -19,40 +18,51 @@ class FieldValidator {
     return null;
   }
 
-  String? validatePassword(String? password) {
+ static String? validatePassword(String? password) {
     if (password!.isEmpty) {
-      return StringsManager.invalidPassword;
+      return StringsManager.emptyPassword;
     }
 
     if (password.length < 8) {
-      return StringsManager.invalidPassword;
+      return StringsManager.shortPassword;
     }
+
+    // Check if the password contains at least one letter
+    RegExp letterRegExp = RegExp(r'[a-zA-Z]');
+    if (!letterRegExp.hasMatch(password)) {
+      return StringsManager.passwordNeedsLetter;
+    }
+
+
 
     return null;
   }
 
-  String? validateFullName(String? fullName) {
+ static String? validateName(String? fullName) {
     if (fullName!.isEmpty) {
-      return StringsManager.requiredFullName;
+      return StringsManager.requiredName;
 
+    }
+    if (fullName.length < 3) {
+      return StringsManager.tooShort;
     }
 
     return null;
   }
 
-  String? validatePhone(String? phone) {
+ static String? validatePhone(String? phone) {
     if (phone!.isEmpty) {
       return StringsManager.requiredPhone;
     }
 
     if (!GetUtils.isPhoneNumber(phone)) {
-      return StringsManager.invalidEmail;
+      return StringsManager.invalidMobileNumber;
     }
 
     return null;
   }
 
-  String? validateCode(value) {
+ static String? validateCode(value) {
     if (value == null || value.trim().isEmpty) {
       return StringsManager.invalidEmptyCode;
     }

@@ -1,12 +1,15 @@
 import '../util/size_util.dart';
 
 class HeightManager {
+  static double h07 = SizeUtil.setHeight(0.7);
   static double h2 = SizeUtil.setHeight(2);
   static double h4 = SizeUtil.setHeight(4);
+  static double h5 = SizeUtil.setHeight(5);
   static double h6 = SizeUtil.setHeight(6);
   static double h8 = SizeUtil.setHeight(8);
   static double h10 = SizeUtil.setHeight(10);
   static double h12 = SizeUtil.setHeight(12);
+  static double h15 = SizeUtil.setHeight(15);
   static double h16 = SizeUtil.setHeight(16);
   static double h18 = SizeUtil.setHeight(18);
   static double h20 = SizeUtil.setHeight(20);
@@ -15,8 +18,10 @@ class HeightManager {
   static double h35 = SizeUtil.setHeight(35);
   static double h40 = SizeUtil.setHeight(40);
   static double h44 = SizeUtil.setHeight(44);
+  static double h45 = SizeUtil.setHeight(45);
   static double h48 = SizeUtil.setHeight(48);
-  static double h50 = SizeUtil.setHeight(52);
+  static double h50 = SizeUtil.setHeight(50);
+  static double h52 = SizeUtil.setHeight(52);
   static double h60 = SizeUtil.setHeight(60);
   static double h70 = SizeUtil.setHeight(70);
   static double h80 = SizeUtil.setHeight(80);
@@ -41,6 +46,7 @@ class HeightManager {
 }
 
 class WidthManager {
+  static double w0 = SizeUtil.setWidth(0);
   static double w1 = SizeUtil.setWidth(1);
   static double w2 = SizeUtil.setWidth(2);
   static double w4 = SizeUtil.setWidth(4);
@@ -64,16 +70,20 @@ class WidthManager {
   static double w45 = SizeUtil.setWidth(45);
   static double w49 = SizeUtil.setWidth(49.0);
   static double w50 = SizeUtil.setWidth(50);
+  static double w52 = SizeUtil.setWidth(52);
   static double w65 = SizeUtil.setWidth(65);
   static double w68 = SizeUtil.setWidth(68.0);
   static double w76 = SizeUtil.setWidth(76.0);
   static double w70 = SizeUtil.setWidth(70);
   static double w80 = SizeUtil.setWidth(80.0);
   static double w100 = SizeUtil.setWidth(100);
+  static double w110 = SizeUtil.setWidth(110);
+  static double w120 = SizeUtil.setWidth(120);
   static double w128 = SizeUtil.setWidth(128);
   static double w166 = SizeUtil.setWidth(166);
   static double w140 = SizeUtil.setWidth(140.0);
   static double w180 = SizeUtil.setWidth(180.0);
+  static double w200 = SizeUtil.setWidth(200);
   static double w205 = SizeUtil.setWidth(205.0);
   static double w325 = SizeUtil.setWidth(375.0);
   static double w375 = SizeUtil.setWidth(375.0);
