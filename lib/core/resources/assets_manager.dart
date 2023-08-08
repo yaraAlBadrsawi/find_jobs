@@ -39,6 +39,7 @@ class AssetsManager {
   static const String googleIcon = '$imagesPath/google_icon.svg';
   static const String facebook = '$imagesPath/facebook_logo.svg';
   static const String notification = '$imagesPath/notification.svg';
+  static const String acceptTerms = '$imagesPath/Accept terms.svg';
 }
 
 class JsonManager {

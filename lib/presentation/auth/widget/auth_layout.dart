@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,16 +8,16 @@ import '../../../../core/resources/sizes_manager.dart';
 import '../../../../core/resources/strings_manager.dart';
 import '../../../../core/resources/styles_manager.dart';
 
-
-
 class AuthLayout extends StatelessWidget {
   const AuthLayout(
       {super.key,
-        required this.header,
-        required this.dis,
-        this.fields});
+      required this.header,
+      required this.dis,
+      required this.subtitle,
+      this.fields});
+
   final Widget? fields;
-  final String header, dis;
+  final String header, dis, subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,8 @@ class AuthLayout extends StatelessWidget {
       //   leading: leading,
       // ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: WidthManager.w20,vertical: HeightManager.h60),
+        padding: EdgeInsets.symmetric(
+            horizontal: WidthManager.w20, vertical: HeightManager.h50),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -36,33 +36,48 @@ class AuthLayout extends StatelessWidget {
               Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         header,
-                        style:  getRegularTextStyle(
+                        style: getRegularTextStyle(
                           fontSize: FontSizeManager.s38,
                           color: ColorsManager.primary,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: HeightManager.h5,),
+                  SizedBox(
+                    height: HeightManager.h5,
+                  ),
                   Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     child: SizedBox(
                       child: Text(
                         dis,
-                        style: getTextStyle(fontSize: FontSizeManager.s12, color: ColorsManager.black),
+                        style: getTextStyle(
+                            fontSize: FontSizeManager.s30,
+                            color: ColorsManager.black),
                       ),
                     ),
                   ),
+                  Text(
+                    subtitle,
+                    style: getTextStyle(
+                        fontSize: FontSizeManager.s14,
+                        color: ColorsManager.grey),
+                  )
                 ],
               ),
-              SizedBox(height: HeightManager.h45,),
+              SizedBox(
+                height: HeightManager.h45,
+              ),
 
               //fields
               fields ?? const SizedBox(),
-              SizedBox(height: HeightManager.h45,),
+              SizedBox(
+                height: HeightManager.h20,
+              ),
 
               //bottom
               Column(
@@ -75,12 +90,18 @@ class AuthLayout extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 2 - 40 - 10,
                         color: ColorsManager.black,
                       ),
-                      SizedBox(height: HeightManager.h10,),
+                      SizedBox(
+                        height: HeightManager.h20,
+                      ),
                       Text(
                         StringsManager.or,
-                        style:getTextStyle(fontSize: FontSizeManager.s12, color: ColorsManager.black),
+                        style: getTextStyle(
+                            fontSize: FontSizeManager.s12,
+                            color: ColorsManager.black),
                       ),
-                      SizedBox(height: HeightManager.h10,),
+                      SizedBox(
+                        height: HeightManager.h10,
+                      ),
                       Container(
                         height: HeightManager.h07,
                         width: MediaQuery.of(context).size.width / 2 - 40 - 10,
@@ -88,12 +109,14 @@ class AuthLayout extends StatelessWidget {
                       )
                     ],
                   ),
-                 SizedBox(width: WidthManager.w20,),
-                 const  Row(
+                  SizedBox(
+                    width: WidthManager.w10,
+                  ),
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      BoxWidget(image:AssetsManager.facebook),
-                      BoxWidget(image : AssetsManager.googleIcon)
+                      BoxWidget(image: AssetsManager.facebook),
+                      BoxWidget(image: AssetsManager.googleIcon)
                     ],
                   ),
                 ],
@@ -106,16 +129,15 @@ class AuthLayout extends StatelessWidget {
   }
 }
 
-
 class BoxWidget extends StatelessWidget {
-  final String image ;
+  final String image;
+
   const BoxWidget({required this.image, super.key});
 
   @override
   Widget build(BuildContext context) {
-
-      return Container(
-        height:HeightManager.h52,
+    return Container(
+        height: HeightManager.h52,
         alignment: Alignment.center,
         width: WidthManager.w52,
         decoration: BoxDecoration(
@@ -125,16 +147,12 @@ class BoxWidget extends StatelessWidget {
             color: ColorsManager.black.withOpacity(.2),
           ),
         ),
-        child:
-    SvgPicture.asset(
-    image,
-      height: HeightManager.h35,
-      width: WidthManager.w35,
-    )
-      );
+        child: SvgPicture.asset(image,
+            height: HeightManager.h35,
+            width: WidthManager.w35,
+            ));
   }
 }
-
 
 /*
 

@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/widget/main_button.dart';
-import 'package:graduation_project/presentation/auth/controller/register_controller.dart';
-import 'package:graduation_project/presentation/auth/view/widget/popup.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
+import 'package:graduation_project/presentation/auth/widget/popup.dart';
 import '../../../../config/constants.dart';
 import '../../../../core/validator/validator.dart';
 import '../../../../core/widget/dialog.dart';
@@ -15,15 +15,15 @@ import '../../../../core/widget/text_field.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 
+import '../../../core/resources/assets_manager.dart';
+import '../register/controller/register_controller.dart';
+
 class Details extends GetView<RegisterController> {
   Details({super.key});
 
   @override
   Widget build(BuildContext context) {
     final currentIndex = controller.current;
-    // final areaList = currentIndex == null
-    //     ? []
-    //     : country[currentIndex.value]['locations'] as List;
 
     return Form(
       key: controller.formKey,
@@ -38,10 +38,7 @@ class Details extends GetView<RegisterController> {
               size: IconSizeManager.s20,
             ),
             validator: (value) {
-              return FieldValidator.validateName(value ?? '');
-            },
-            onChanged: (char) {
-              controller.formKey.currentState!.validate();
+              return FieldValidator.validateName(value);
             },
           ),
           SizedBox(
@@ -51,17 +48,13 @@ class Details extends GetView<RegisterController> {
             hint: StringsManager.email.tr,
             controller: controller.emailController,
             keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.mail,
-              size: 20,
+              size: IconSizeManager.s20,
               color: ColorsManager.primary,
             ),
-            onChanged: (char) {
-              controller.formKey.currentState!.validate();
-            },
             validator: (value) {
-              return FieldValidator.validateEmail(
-                  value ?? StringsManager.empty);
+              return FieldValidator.validateEmail(value);
             },
           ),
           SizedBox(
@@ -77,11 +70,7 @@ class Details extends GetView<RegisterController> {
             ),
             obscure: true,
             validator: (value) {
-              return FieldValidator.validatePassword(
-                  value ?? StringsManager.empty);
-            },
-            onChanged: (char) {
-              controller.formKey.currentState!.validate();
+              return FieldValidator.validatePassword(value);
             },
           ),
           SizedBox(
@@ -111,14 +100,11 @@ class Details extends GetView<RegisterController> {
                 Expanded(
                     flex: 2,
                     child: AppTextFields(
+                      controller: controller.phoneController,
                       hint: StringsManager.phone,
                       keyboardType: TextInputType.number,
-                      onChanged: (val) {
-                        controller.formKey.currentState!.validate();
-                      },
                       validator: (value) {
-                        return FieldValidator.validatePhone(
-                            value ?? StringsManager.empty);
+                        return FieldValidator.validatePhone(value);
                       },
                     )),
               ],
@@ -162,11 +148,33 @@ class Details extends GetView<RegisterController> {
                             ..onTap = () {
                               DialogUtil.showCustomDialog(
                                   title: StringsManager.termsAndPrivacy,
-                                  content: Column(
-                                    children: [
-                                      //image
-                                      // text
-                                    ],
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        //image
+                                        SvgPicture.asset(
+                                            AssetsManager.googleIcon,
+                                            height: HeightManager.h100,
+                                            width: WidthManager.w100,
+                                            colorFilter: const ColorFilter.mode(
+                                                ColorsManager.primary,
+                                                BlendMode.srcIn)),
+                                       SizedBox(height: HeightManager.h20,),
+                                        Text(
+                                          privacyPolicyIntro,
+                                          style: getMediumTextStyle(
+                                              fontSize: FontSizeManager.s16,
+                                              color: ColorsManager.black),
+                                        ),
+                                        Text(
+                                          privacyPolicy,
+                                          style: getMediumTextStyle(
+                                              fontSize: FontSizeManager.s14,
+                                              color: ColorsManager.black),
+                                        )
+                                        // text
+                                      ],
+                                    ),
                                   ));
                               print('Text clicked!');
                             },
@@ -180,7 +188,7 @@ class Details extends GetView<RegisterController> {
           MainButton(
               width: double.infinity,
               height: HeightManager.h40,
-              color: ColorsManager.secondary,
+              color: ColorsManager.primary,
               onPressed: () async {
                 await controller.performRegister(context);
               },

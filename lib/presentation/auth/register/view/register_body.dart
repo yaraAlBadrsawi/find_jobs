@@ -1,24 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graduation_project/presentation/auth/controller/register_controller.dart';
-import 'package:graduation_project/presentation/auth/view/widget/register_details.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
-
-import '../../view/widget/headers.dart';
-
+import '../../widget/headers.dart';
+import '../../widget/register_details.dart';
+import '../controller/register_controller.dart';
 
 class RegisterBody extends GetView<RegisterController> {
-   // late RegisterController controller;
+  // late RegisterController controller;
   final List<String> heads = [
     StringsManager.user,
     StringsManager.employer,
     StringsManager.userAndEmployer,
   ];
 
-   RegisterBody({super.key});
+  RegisterBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +27,22 @@ class RegisterBody extends GetView<RegisterController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (int i = 0; i < heads.length; i++)
-       Obx(() =>   GestureDetector(
-         onTap: () {
-           controller.changeCurrent(i);
-           print('Selected index => ${controller.current}');
-
-         },
-         child: choose(heads[i], i),
-       )),
+                Obx(() => GestureDetector(
+                      onTap: () {
+                        controller.changeCurrent(i);
+                        print('Selected index => ${controller.current}');
+                      },
+                      child: choose(heads[i], i),
+                    )),
             ],
           ),
           Container(
-            padding:  EdgeInsets.all(WidthManager.w10),
+            padding: EdgeInsets.all(WidthManager.w10),
             width: double.infinity,
             decoration: const BoxDecoration(
               color: ColorsManager.white,
             ),
-            child:  Details(),
+            child: Details(),
           ),
         ],
       ),
@@ -62,7 +58,3 @@ class RegisterBody extends GetView<RegisterController> {
     }
   }
 }
-
-
-
-

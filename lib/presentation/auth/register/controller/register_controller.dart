@@ -114,19 +114,17 @@ class RegisterController extends GetxController
     LoadingDialog.show();
     if (formKey.currentState!.validate()) {
       if (isAgreementPolicy.value) {
-
-        FirebaseResponse fbResponse =
-            await Authenticate.signUpWithEmailAndPassword(
+        FirebaseResponse fbResponse = await Authenticate()
+            .signUpWithEmailAndPassword(
                 user: user, password: passwordController.text);
-//TODO: show snack bar to tell user account create done
-        Get.snackbar(fbResponse.message, '${fbResponse.status}',
+        print('Firebase response => ${fbResponse.message}');
+        LoadingDialog.hide();
+        Get.snackbar(fbResponse.message, StringsManager.empty,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: ColorsManager.primary);
-        LoadingDialog.hide();
-        if(current==1){
+        if (current == 1) {
           Get.offNamed(Routes.employerHome);
-
-        }else {
+        } else {
           Get.offNamed(Routes.jobSeekerHome);
         }
       } else {

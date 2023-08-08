@@ -16,10 +16,16 @@ class StringsManager{
   static const String employer = 'Employer';
   static const String userAndEmployer = 'User/Employer';
   static const String login = 'Login';
+  static const String loginDes = 'Welcome Back';
+  static const String registerSub = 'Sign up to enjoy using app';
+  static const String loginSub = ' sign in with your email and password';
+  static const String registerDes = 'Register Account';
+  static const String loginDone = 'Login successfully';
   static const String register = 'Register';
   static const String name = 'name';
   static const String phone = 'phone number';
-  static const String forgetPassword = 'forgotPassword';
+  static const String forgetPassword = ' forgot password ? Rest it ';
+  static const String forgetPasswordC = ' Forgot Password ? ';
   static const String password = 'Password';
   static const String email = 'Email';
   static const String userDataSaved = 'user Data save done ';
@@ -30,7 +36,7 @@ class StringsManager{
   static const String addLinks = 'add links ';
   static const String editProfile = 'Edit profile';
   static const String termsAndPrivacy = "Terms & Privacy Policy ";
-  static const String iAgree = "I must agree!'";
+  static const String iAgree = "I agree  ";
 
   static const String signUp = "sing up";
   static const String signupFailed = "sign up Failed";
@@ -53,6 +59,7 @@ class StringsManager{
   static const String pickEmail = "Email already in use, Please pick another email!";
   static const String mismatchedPassword = "mismatchedPassword";
   static const String signUpDone = "account has been created successfully";
+  static const String accountCreatedSuccessfully = "Account created successfully";
   static const String contactInfo = 'Contact Info';
   static const String doNotHaveAccount = "don't have an account";
   static const String invalidEmptyCode = "This field is required";
@@ -69,12 +76,17 @@ class StringsManager{
   static const String requiredPhone = 'Phone can\'t be empty';
   static const String or = 'or';
   static const String ok = 'ok';
-  static const String alreadyHaveAccount = 'Already have an account';
+  static const String alreadyHaveAccount = 'Already have an account ';
   static const String signIn = 'Sign In';
   static const String userCollection = 'user';
   static const String code = 'code';
+  static const String userType = 'user Type';
+  static const String userId= 'user Id';
   static const String cantSignUp = 'Couldn\'t sign up for firebase, Please try again.';
-  static const String index = 'index'; //TODO:WARNING
+  static const String index = 'index';
+  static const String somethingWrong = 'Something went wrong';
+  static const String passwordResetDone = 'Password reset email sent successfully';
+  static var rememberMe='Remember me'; //TODO:WARNING
 
 
 

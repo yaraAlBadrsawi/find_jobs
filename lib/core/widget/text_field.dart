@@ -74,6 +74,7 @@ class AppTextFields extends StatelessWidget {
     this.onChanged,
     this.readOnly = false,
     this.prefixIcon,
+    this.errorText,
     this.maxLines = 1,
   });
 
@@ -90,6 +91,7 @@ class AppTextFields extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool readOnly;
+  final String? errorText;
 
   Widget build(BuildContext context) {
     return TextFormField(
@@ -109,6 +111,7 @@ class AppTextFields extends StatelessWidget {
         suffixIcon: suffixIcon,
         filled: filled,
         fillColor:fillColor,
+        errorText: errorText,
         border: underlineInputBorder(), //grey
         errorBorder: underlineInputBorder(color: Colors.red), //red
         focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary

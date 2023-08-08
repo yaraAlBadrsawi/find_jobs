@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:graduation_project/presentation/auth/controller/register_controller.dart';
+
+import '../register/controller/register_controller.dart';
 
 class ExpandedSection extends GetView<RegisterController> {
   const ExpandedSection({
