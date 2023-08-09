@@ -76,6 +76,7 @@ class AppTextFields extends StatelessWidget {
     this.prefixIcon,
     this.errorText,
     this.maxLines = 1,
+    this.onTap,
   });
 
 
@@ -92,6 +93,7 @@ class AppTextFields extends StatelessWidget {
   final Widget? prefixIcon;
   final bool readOnly;
   final String? errorText;
+  final Function()? onTap;
 
   Widget build(BuildContext context) {
     return TextFormField(
@@ -103,9 +105,11 @@ class AppTextFields extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       maxLines: maxLines,
+      onTap: onTap,
       cursorColor: ColorsManager.primary,
       decoration: InputDecoration(
         hintText: hint,
+
         // hintStyle: AppStyles.light(),
         prefixIcon:prefixIcon,
         suffixIcon: suffixIcon,
@@ -114,7 +118,25 @@ class AppTextFields extends StatelessWidget {
         errorText: errorText,
         border: underlineInputBorder(), //grey
         errorBorder: underlineInputBorder(color: Colors.red), //red
-        focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
+        // focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
+
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: ColorsManager.white,
+          ),
+          borderRadius: BorderRadius.circular(
+            RadiusManager.r6,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: ColorsManager.primary,
+          ),
+          borderRadius: BorderRadius.circular(
+            RadiusManager.r6,
+          ),
+        ),
+
       ),
     );
   }

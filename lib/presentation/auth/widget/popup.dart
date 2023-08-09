@@ -33,3 +33,32 @@ class AppPopUpMenu extends StatelessWidget {
     );
   }
 }
+
+
+
+class PopUpMenu extends StatelessWidget {
+  final List<String> list;
+  final void Function(String) onSelect;
+
+  const PopUpMenu({super.key, required this.list, required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      onSelected: onSelect,
+      itemBuilder: (BuildContext context) {
+        return list.map((String category) {
+          return PopupMenuItem<String>(
+            value: category,
+            child: Text(category),
+          );
+        }).toList();
+      },
+      child: const Icon(
+        Icons.keyboard_arrow_down_rounded,
+        color:ColorsManager.primary, // Change to your desired color
+        size: 20.0, // Change to your desired size
+      ),
+    );
+  }
+}

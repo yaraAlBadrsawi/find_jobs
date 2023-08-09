@@ -42,7 +42,7 @@ class RegisterBody extends GetView<RegisterController> {
             decoration: const BoxDecoration(
               color: ColorsManager.white,
             ),
-            child: Details(),
+            child: const Details(),
           ),
         ],
       ),

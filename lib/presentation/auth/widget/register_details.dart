@@ -19,7 +19,7 @@ import '../../../core/resources/assets_manager.dart';
 import '../register/controller/register_controller.dart';
 
 class Details extends GetView<RegisterController> {
-  Details({super.key});
+  const Details({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +175,7 @@ class Details extends GetView<RegisterController> {
                                         // text
                                       ],
                                     ),
-                                  ));
-                              print('Text clicked!');
+                                  ), actionText: StringsManager.ok);
                             },
                         )
                       ])),
@@ -191,6 +190,8 @@ class Details extends GetView<RegisterController> {
               color: ColorsManager.primary,
               onPressed: () async {
                 await controller.performRegister(context);
+
+
               },
               child: Text(StringsManager.register.tr)),
           SizedBox(
@@ -218,6 +219,7 @@ class Details extends GetView<RegisterController> {
       ),
     );
   }
+
 }
 
 //

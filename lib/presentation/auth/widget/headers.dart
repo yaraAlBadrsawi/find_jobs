@@ -41,7 +41,7 @@ class Header extends StatelessWidget {
         head,
         textAlign: TextAlign.center,
         style: isSelect == true
-            ? getBoldTextStyle(fontSize: FontSizeManager.s16, color: ColorsManager.secondary)
+            ? getBoldTextStyle(fontSize: FontSizeManager.s16, color: ColorsManager.primary)
             : getMediumTextStyle(fontSize: FontSizeManager.s14, color: ColorsManager.black)
 
 

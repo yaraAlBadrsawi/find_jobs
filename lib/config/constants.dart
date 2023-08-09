@@ -1,9 +1,15 @@
+import 'package:get/get.dart';
+
+import '../core/resources/strings_manager.dart';
+
 class Constants {
   static const double deviceWidth = 375;
   static const double deviceHeight = 812;
   static const int splashDuration = 3;
   static const int onBoardingDurationTime = 1;
   static const int sliderItems = 3;
+  static const int codeVerificationMaxLine = 1;
+  static const double elevationButton = 0;
 }
 
 class ConstantsPrefsKeys {
@@ -13,6 +19,55 @@ class ConstantsPrefsKeys {
   static const String password = 'password';
   static const String loggedIn = 'logged_in';
 }
+
+// String
+List<String> yearsOfExperience = [
+  StringsManager.entryLevel.tr,
+  StringsManager.level1.tr,
+  StringsManager.level2.tr,
+  StringsManager.level3.tr,
+  StringsManager.level4.tr,
+  StringsManager.level5.tr,
+];
+
+List<String> categories = [
+  StringsManager.it.tr,
+  StringsManager.healthcare.tr,
+  StringsManager.finance.tr,
+  StringsManager.marketing.tr,
+  StringsManager.sales.tr,
+  StringsManager.engineering.tr,
+  StringsManager.education.tr,
+  StringsManager.humanResources.tr,
+  StringsManager.customerService.tr,
+  StringsManager.retail.tr,
+  StringsManager.manufacturing.tr,
+  StringsManager.administration.tr,
+  StringsManager.legal.tr,
+  StringsManager.consulting.tr,
+  StringsManager.scienceAndResearch.tr,
+];
+
+List<String> educationLevel = [
+  StringsManager.highSchoolOrDiploma.tr,
+  StringsManager.associateDegree.tr,
+  StringsManager.bachelorDegree,
+  StringsManager.masterDegree.tr,
+  StringsManager.doctorate.tr,
+  StringsManager.professionalCertification,
+  StringsManager.noFormalEducation.tr,
+];
+
+List<String > jobsType=[
+  StringsManager.fullTime,
+  StringsManager.partTime,
+  StringsManager.contract,
+  StringsManager.temporary,
+  StringsManager.internship,
+  StringsManager.volunteer,
+  StringsManager.contractToHire,
+
+];
 
 String privacyPolicyIntro = 'Welcome to Find Jobs App .\n'
     ' This Privacy Policy outlines how we collect, '
