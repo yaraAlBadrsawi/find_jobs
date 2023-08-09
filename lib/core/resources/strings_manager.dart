@@ -64,7 +64,7 @@ class StringsManager{
   static const String doNotHaveAccount = "don't have an account";
   static const String invalidEmptyCode = "This field is required";
   static const String resendCode = 'If you didn\'t receive a code';
-  static const String resend = 'Resend';
+  static const String resend = 'Resend code';
   static const String INTERNAL_SERVER_ERROR =
       'Internal Server Error, Try Again Later';
   static const String UNKNOWN = 'UnKnown, Try Again Later';
@@ -86,7 +86,20 @@ class StringsManager{
   static const String index = 'index';
   static const String somethingWrong = 'Something went wrong';
   static const String passwordResetDone = 'Password reset email sent successfully';
+  static const String subTitleVerification = "Enter the code please";
+  static const String verificationCode = "Verification Code";
+  static const String close = "Close";
+  static const String confirm = "Confirm";
+  static const String changeEmail = "Change Email";
+  static const String checkEmail = "Check Email first ";
+  static const String verifyYourEmail = "Verify your email ";
+  static const String verifyDone = "You successfully verify your email account";
+    static const String verifyMessage =
+      'Please , check your email we sent code to verify your account';
+
+
   static var rememberMe='Remember me'; //TODO:WARNING
+  static var addJob='Add Job';
 
 
 

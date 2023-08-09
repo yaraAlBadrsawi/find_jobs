@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_state_render_dialog/flutter_state_render_dialog.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -9,9 +11,16 @@ import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
+import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
+import 'package:graduation_project/core/widget/main_button.dart';
 
 import '../../../../config/constants.dart';
 import '../../../../core/network/auth/auth.dart';
+import '../../../../core/resources/assets_manager.dart';
+import '../../../../core/resources/fonts_manager.dart';
+import '../../../../core/resources/sizes_manager.dart';
+import '../../../../core/resources/styles_manager.dart';
+import '../../../../core/widget/dialog.dart';
 import '../../../../core/widget/dialog_button.dart';
 import '../../../../core/widget/loading.dart';
 
@@ -122,11 +131,13 @@ class RegisterController extends GetxController
         Get.snackbar(fbResponse.message, StringsManager.empty,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: ColorsManager.primary);
-        if (current == 1) {
-          Get.offNamed(Routes.employerHome);
-        } else {
-          Get.offNamed(Routes.jobSeekerHome);
-        }
+        showVerificationDialog(context);
+
+        // if (current == 1) {
+        //   Get.offNamed(Routes.employerHome);
+        // } else {
+        //   Get.offNamed(Routes.jobSeekerHome);
+        // }
       } else {
         dialogRender(
           context: context,
@@ -154,6 +165,91 @@ class RegisterController extends GetxController
       link.value = linkController.text;
       linkController.text = '';
     }
+  }
+
+  void showVerificationDialog(context) {
+    DialogUtil.showCustomDialog(
+        title: StringsManager.empty,
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                  //TODO : Change image to correct one
+                  AssetsManager.googleIcon,
+                  height: HeightManager.h100,
+                  width: WidthManager.w100,
+                  colorFilter: const ColorFilter.mode(
+                      ColorsManager.primary, BlendMode.srcIn)),
+              SizedBox(
+                height: HeightManager.h20,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  StringsManager.verifyYourEmail,
+                  style: getBoldTextStyle(
+                      fontSize: FontSizeManager.s16,
+                      color: ColorsManager.black),
+                ),
+              ),
+              Text(
+                StringsManager.verifyMessage,
+                style: getMediumTextStyle(
+                    fontSize: FontSizeManager.s14, color: ColorsManager.grey),
+              ),
+              SizedBox(
+                height: HeightManager.h20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Authenticate().resendVerificationCode();
+                },
+                child: Text(
+                  StringsManager.resend,
+                  style: getMediumTextStyle(
+                      fontSize: FontSizeManager.s14,
+                      color: ColorsManager.primary),
+                ),
+              ),
+              SizedBox(
+                height: HeightManager.h20,
+              ),
+              MainButton(
+                  child: const Text(StringsManager.confirm),
+                  width: double.infinity,
+                  height: HeightManager.h40,
+                  color: ColorsManager.primary,
+                  onPressed: () {
+                    // if user verify his email don't show tis snackBar ,, go to home
+                    print('FirebaseAuth.instance.currentUser!.emailVerified => ${FirebaseAuth.instance.currentUser!.emailVerified}');
+                    Get.snackbar(
+                        FirebaseAuth.instance.currentUser!.emailVerified
+                            ? StringsManager.verifyDone
+                            : StringsManager.checkEmail,
+                        '',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: ColorsManager.primary);
+                  }), // text
+              SizedBox(
+                height: HeightManager.h30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                  Authenticate().deleteAccount(context);
+                },
+                child: Text(
+                  StringsManager.changeEmail,
+                  style: getMediumTextStyle(
+                      fontSize: FontSizeManager.s14,
+                      color: ColorsManager.primary),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actionText: StringsManager.empty);
   }
 
   void removeLink() {

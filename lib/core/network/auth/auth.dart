@@ -61,6 +61,8 @@ class Authenticate {
           /// save data in SecureStorage
           Authenticate()._saveUserDataInSecureStorage(user, password);
         }
+        await userCredential.user!.sendEmailVerification();
+
         return FirebaseResponse(
           message: StringsManager.accountCreatedSuccessfully,
           status: true,
@@ -92,7 +94,7 @@ class Authenticate {
     SecureStorage().writeSecureStorage(StringsManager.userId, user.userID);
   }
 
-  Future<User> get getUser async => _auth.currentUser!;
+ Future<User> get getUser async => _auth.currentUser!;
 
   static Future<FirebaseResponse> signInWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -101,6 +103,7 @@ class Authenticate {
           .signInWithEmailAndPassword(email: email, password: password);
 
       if (userCredential.user != null) {
+       SecureStorage().writeSecureStorage(StringsManager.userId, userCredential.user!.uid);
         print('Login done <<GOOD JOBS YARA >>');
 
         return FirebaseResponse(
@@ -151,8 +154,9 @@ class Authenticate {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: emailAddress);
 
   // EMAIL VERIFICATION
-  Future<void> sendEmailVerification(BuildContext context) async {
+  Future<void> sendEmailVerification() async {
     try {
+
       _auth.currentUser!.sendEmailVerification();
       // Email verification sent!
     } on FirebaseAuthException catch (e) {
@@ -163,6 +167,17 @@ class Authenticate {
   //Logout
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  void resendVerificationCode() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await user.sendEmailVerification();
+      }
+    } catch (e) {
+      // Handle errors
+    }
   }
 
   // DELETE ACCOUNT

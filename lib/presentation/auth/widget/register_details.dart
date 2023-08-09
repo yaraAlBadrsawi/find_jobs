@@ -175,8 +175,7 @@ class Details extends GetView<RegisterController> {
                                         // text
                                       ],
                                     ),
-                                  ));
-                              print('Text clicked!');
+                                  ), actionText: StringsManager.ok);
                             },
                         )
                       ])),
@@ -191,6 +190,8 @@ class Details extends GetView<RegisterController> {
               color: ColorsManager.primary,
               onPressed: () async {
                 await controller.performRegister(context);
+
+
               },
               child: Text(StringsManager.register.tr)),
           SizedBox(
@@ -218,6 +219,7 @@ class Details extends GetView<RegisterController> {
       ),
     );
   }
+
 }
 
 //

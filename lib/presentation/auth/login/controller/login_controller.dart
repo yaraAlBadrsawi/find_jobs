@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
 
 import '../../../../core/model/base_model.dart';
 import '../../../../core/network/auth/auth.dart';
+import '../../../../core/network/auth/user_operation.dart';
 import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/widget/loading.dart';
 
@@ -62,8 +64,10 @@ class LoginController extends GetxController {
           backgroundColor: ColorsManager.primary);
 
       if (fbResponse.status) {
-        if (await SecureStorage().readSecureStorage(StringsManager.userType) ==
-            1) {
+        var userID =
+            await SecureStorage().readSecureStorage(StringsManager.userId);
+        UserModel? user = await GetUsers.getCurrentUser(userID);
+        if (user!.userType == 1) {
           Get.offNamed(Routes.employerHome);
         } else {
           Get.offNamed(Routes.jobSeekerHome);

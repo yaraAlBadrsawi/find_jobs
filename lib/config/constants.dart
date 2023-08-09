@@ -4,6 +4,10 @@ class Constants {
   static const int splashDuration = 3;
   static const int onBoardingDurationTime = 1;
   static const int sliderItems = 3;
+  static const int codeVerificationMaxLine = 1;
+  static const double elevationButton = 0;
+
+
 }
 
 class ConstantsPrefsKeys {
