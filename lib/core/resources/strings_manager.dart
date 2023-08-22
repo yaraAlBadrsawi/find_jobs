@@ -1,6 +1,7 @@
 class StringsManager {
   static const String noRoutFound = 'No Rout Found';
   static const String skip = 'Skip';
+  static const String appName = 'JobHorizon';
   static const String onBoardingTitle1 = 'Find your cozy working space 1';
   static const String onBoardingTitle2 = 'Find your cozy working space 2';
   static const String onBoardingTitle3 = 'Find your cozy working space 3';
@@ -66,7 +67,7 @@ class StringsManager {
   static const String doNotHaveAccount = "don't have an account";
   static const String invalidEmptyCode = "This field is required";
   static const String resendCode = 'If you didn\'t receive a code';
-  static const String resend = 'Resend code';
+  static const String resend = 'Resend Email link';
   static const String INTERNAL_SERVER_ERROR =
       'Internal Server Error, Try Again Later';
   static const String UNKNOWN = 'UnKnown, Try Again Later';
@@ -96,25 +97,35 @@ class StringsManager {
   static const String confirm = "Confirm";
   static const String changeEmail = "Change Email";
   static const String checkEmail = "Check Email first ";
-  static const String verifyYourEmail = "Verify your email ";
+  static const String verifyYourEmail = "Verify your email address ";
+  static const String verifyYourEmailSub = "we have just send email verification link on your email pleas check email and click on that link to verify your email address";
+  static const String verifyYourEmailSub2 = "It's not redirected after verification ,click on the continue button ";
   static const String verifyDone = "You successfully verify your email account";
   static const String verifyMessage =
       'Please , check your email we sent code to verify your account';
   static var rememberMe = 'Remember me'; //TODO:WARNING
+  static var home = 'Home';
   static var addJob = 'Add Job';
+
   static var pddJob = 'Post Job';
   static var jobName = 'Job Name';
   static var jobId = 'jobId';
   static var employerId = 'employerId';
   static var jobCategory = 'Job Category';
   static var jobType = 'Job Type';
-  static var jobSalary = 'Job Salary';
+  static var jobSalary = 'Job Salary In Month';
   static var expireDate = 'Expire Date';
   static var educationLevel = 'Education Level';
   static var experienceYear = 'Years of Experience';
   static var responsibilities = 'Responsibilities';
   static var jobDescription = 'Job Description';
+  static var companyDescription = 'Company Description';
+  static var address = 'Address';
+  static var sizeAndIndustry = 'Size and Industry';
+  static var socialMedia = 'Social Media Profiles (Optional)';
+  static var companyAchievements = 'Company Achievements (Optional)';
 
+  static var aboutJobSeeker = 'About the User';
   // education level :
   static var highSchoolOrDiploma = 'High School Diploma or Equivalent';
   static var associateDegree = "Associate's Degree";
@@ -158,6 +169,43 @@ class StringsManager {
   static var internship = 'Internship';
   static var volunteer = 'Volunteer';
   static var contractToHire = 'Contract-to-Hire';
+
+  // Address :
+  static var gaza = 'Gaza';
+  static var beitLahiya = 'Beit Lahiya';
+  static var jabalia = 'Jabalia';
+  static var beitHanoun = 'Beit Hanoun';
+  static var maghaz  = 'Maghazi ';
+  static var nuseirat  = 'Nuseirat ';
+  static var bureij  = 'Bureij ';
+
+  static var deir  = 'Deir al-Balah ';
+  static var khanYuins = 'Khan Yunis';
+  static var rafah  = 'Rafah ';
+
+  static var selectImageSource  = 'Select Image Source ';
+  static var gallery  = 'Gallery';
+  static var camera  = 'Camera';
+  static var yourJobs  = 'Jobs you posted ';
+  static var jobSeekerSubtitle  = 'Find your Dream Job';
+  static var logout  = 'Logout';
+  static var findJob  = 'Find Job';
+  static var savedJob  = 'Saved Job';
+  static var setting  = 'Setting';
+  static var about  = 'About Us';
+  static var recentJobs  = 'Recent Jobs';
+  static var interest  = 'Interest';
+  static var continues  = 'Continue';
+  static var completeInfo  = 'Continue the rest of your information to be able to post jobs';
+  static var interestDes  = 'What Type Of Job your Looking For?';
+  static var profileInfo  = 'Profile Info';
+  static var addJobDes  = 'Add Job to find best ';
+  static var askToSaveLogin  = 'Save your login info? ';
+  static var askToSaveLoginSub1  = "We'll save the login info for you\n";
+  static var askToSaveLoginSub2  = "you won't need to enter it next time you log in.";
+  static var interestCat  = 'Choose your job  categories and well click the job vacancy for you';
+  static var notNow  = 'Not now';
+  // static var categories  = 'About Us';
 
 
 }

@@ -33,6 +33,7 @@ class JobsDetails extends GetView<AddJobController> {
         ),
         // job category
 
+        SizedBox(height: HeightManager.h20,),
         Obx(
           () => AppTextFields(
             readOnly: true,
@@ -46,6 +47,7 @@ class JobsDetails extends GetView<AddJobController> {
                 })),
           ),
         ),
+        SizedBox(height: HeightManager.h20,),
 
         // job type
         Obx(
@@ -62,6 +64,8 @@ class JobsDetails extends GetView<AddJobController> {
           ),
         ),
         //jobSalary
+        SizedBox(height: HeightManager.h20,),
+
         AppTextFields(
           hint: StringsManager.jobSalary.tr,
           controller: controller.jobSalaryController,
@@ -75,6 +79,8 @@ class JobsDetails extends GetView<AddJobController> {
           },
         ),
         //expireDate
+        SizedBox(height: HeightManager.h20,),
+
         AppTextFields(
           readOnly: true,
           hint: StringsManager.expireDate.tr,
@@ -88,6 +94,7 @@ class JobsDetails extends GetView<AddJobController> {
           },
         ),
         //educationLevel
+        SizedBox(height: HeightManager.h20,),
 
         Obx(
           () => AppTextFields(
@@ -101,6 +108,7 @@ class JobsDetails extends GetView<AddJobController> {
                 })),
           ),
         ),
+        SizedBox(height: HeightManager.h20,),
 
         Obx(
           () => AppTextFields(
@@ -113,11 +121,14 @@ class JobsDetails extends GetView<AddJobController> {
                 })),
           ),
         ),
+        SizedBox(height: HeightManager.h20,),
 
         AppTextFields(
           hint: StringsManager.jobDescription.tr,
           controller: controller.jobDescriptionController,
           keyboardType: TextInputType.text,
+          maxLines: 8,
+
           validator: (value) {
             return FieldValidator.validateData(value);
           },

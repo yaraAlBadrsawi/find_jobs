@@ -19,8 +19,11 @@ required Widget content,required String actionText}
 ){
 
     Get.dialog(
+      barrierDismissible:true ,
       AlertDialog(
-        title: Text(title,style: getMediumTextStyle(fontSize: AppSize.s18, color: ColorsManager.primary),),
+        title:
+        Text(title,style: getMediumTextStyle(fontSize: AppSize.s18, color: ColorsManager.primary),),
+
         content:content,
         actions: [
           TextButton(

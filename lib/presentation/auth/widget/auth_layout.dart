@@ -22,107 +22,131 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsManager.background,
-      // appBar: AppBar(
-      //   leading: leading,
-      // ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: WidthManager.w20, vertical: HeightManager.h50),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // page header
-              Column(
+
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                  top: HeightManager.h70),
+              color: ColorsManager.white,
+              child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        header,
-                        style: getRegularTextStyle(
-                          fontSize: FontSizeManager.s38,
-                          color: ColorsManager.primary,
-                        ),
+                      SvgPicture.asset(AssetsManager.logo,
+                          height: HeightManager.h50,
+                          width: WidthManager.w50,
+                          colorFilter: const ColorFilter.mode(
+                              ColorsManager.primary, BlendMode.srcIn)),
+                      SizedBox(
+                        width: WidthManager.w20,
                       ),
-                    ],
+                      Text(
+                        StringsManager.appName,
+                        style: getBoldTextStyle(
+                            fontSize: FontSizeManager.s28,
+                            color: ColorsManager.primary),
+                      ),
+
+
+                    ]
+                    ,
                   ),
-                  SizedBox(
-                    height: HeightManager.h5,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      child: Text(
-                        dis,
-                        style: getTextStyle(
-                            fontSize: FontSizeManager.s30,
-                            color: ColorsManager.black),
+                  SizedBox(height: HeightManager.h20,),
+
+                ],
+              ),
+            ),
+
+            SizedBox(height: HeightManager.h10,),
+            // Container(
+            //   height: HeightManager.h07,
+            //   width: double.infinity,
+            //   color: ColorsManager.black,
+            // ),
+            // SizedBox(height: HeightManager.h10,),
+
+            // page header
+            Column(
+              children: [
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      header,
+                      style: getRegularTextStyle(
+                        fontSize: FontSizeManager.s30,
+                        color: ColorsManager.primary,
                       ),
                     ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: getTextStyle(
-                        fontSize: FontSizeManager.s14,
-                        color: ColorsManager.grey),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: HeightManager.h45,
-              ),
+                  ],
+                ),
+                SizedBox(
+                  height: HeightManager.h5,
+                ),
 
-              //fields
-              fields ?? const SizedBox(),
-              SizedBox(
-                height: HeightManager.h20,
-              ),
+                Text(
+                  subtitle,
+                  style: getTextStyle(
+                      fontSize: FontSizeManager.s14,
+                      color: ColorsManager.grey),
+                )
+              ],
+            ),
+            SizedBox(
+              height: HeightManager.h30,
+            ),
 
-              //bottom
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: HeightManager.h07,
-                        width: MediaQuery.of(context).size.width / 2 - 40 - 10,
-                        color: ColorsManager.black,
-                      ),
-                      SizedBox(
-                        height: HeightManager.h20,
-                      ),
-                      Text(
-                        StringsManager.or,
-                        style: getTextStyle(
-                            fontSize: FontSizeManager.s12,
-                            color: ColorsManager.black),
-                      ),
-                      SizedBox(
-                        height: HeightManager.h10,
-                      ),
-                      Container(
-                        height: HeightManager.h07,
-                        width: MediaQuery.of(context).size.width / 2 - 40 - 10,
-                        color: ColorsManager.black,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: WidthManager.w10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BoxWidget(image: AssetsManager.facebook),
-                      BoxWidget(image: AssetsManager.googleIcon)
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
+            //fields
+            fields ?? const SizedBox(),
+            SizedBox(
+              height: HeightManager.h10,
+            ),
+
+            //bottom
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: HeightManager.h07,
+                      width: MediaQuery.of(context).size.width / 2 - 40 - 10,
+                      color: ColorsManager.black,
+                    ),
+                    SizedBox(
+                      height: HeightManager.h10,
+                    ),
+                    Text(
+                      StringsManager.or,
+                      style: getTextStyle(
+                          fontSize: FontSizeManager.s12,
+                          color: ColorsManager.black),
+                    ),
+                    SizedBox(
+                      height: HeightManager.h10,
+                    ),
+                    Container(
+                      height: HeightManager.h07,
+                      width: MediaQuery.of(context).size.width / 2 - 40 - 10,
+                      color: ColorsManager.black,
+                    )
+                  ],
+                ),
+
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    BoxWidget(image: AssetsManager.facebook),
+                    BoxWidget(image: AssetsManager.googleIcon)
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -137,20 +161,21 @@ class BoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: HeightManager.h52,
+        height: HeightManager.h40,
         alignment: Alignment.center,
-        width: WidthManager.w52,
+        width: WidthManager.w40,
         decoration: BoxDecoration(
           color: ColorsManager.primary.withOpacity(.2),
-          borderRadius: BorderRadius.circular(RadiusManager.r10),
+          borderRadius: BorderRadius.circular(RadiusManager.r30),
           border: Border.all(
             color: ColorsManager.black.withOpacity(.2),
           ),
         ),
-        child: SvgPicture.asset(image,
-            height: HeightManager.h35,
-            width: WidthManager.w35,
-            ));
+        child: SvgPicture.asset(
+          image,
+          height: HeightManager.h40,
+          width: WidthManager.w40,
+        ));
   }
 }
 

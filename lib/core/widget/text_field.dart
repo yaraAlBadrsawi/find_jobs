@@ -108,7 +108,6 @@ class AppTextFields extends StatelessWidget {
       onTap: onTap,
       cursorColor: ColorsManager.primary,
       decoration: InputDecoration(
-        hintText: hint,
 
         // hintStyle: AppStyles.light(),
         prefixIcon:prefixIcon,
@@ -116,16 +115,17 @@ class AppTextFields extends StatelessWidget {
         filled: filled,
         fillColor:fillColor,
         errorText: errorText,
+        label: Text(hint,style: const TextStyle(color: ColorsManager.grey),),
         border: underlineInputBorder(), //grey
         errorBorder: underlineInputBorder(color: Colors.red), //red
         // focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
 
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: ColorsManager.white,
+            color: ColorsManager.lightGrey,
           ),
           borderRadius: BorderRadius.circular(
-            RadiusManager.r6,
+            RadiusManager.r10,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -133,7 +133,7 @@ class AppTextFields extends StatelessWidget {
             color: ColorsManager.primary,
           ),
           borderRadius: BorderRadius.circular(
-            RadiusManager.r6,
+            RadiusManager.r10,
           ),
         ),
 

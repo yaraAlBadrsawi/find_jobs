@@ -2,14 +2,16 @@ const String imagesPath = 'assets/images';
 const String jsonPath = 'assets/json';
 
 class AssetsManager {
-  static const String logo = '$imagesPath/logo.svg';
+ // static const String logo = '$imagesPath/logo.svg';
   static const String background = '$imagesPath/background.png';
   static const String onBoardingIllustration1 =
-      '$imagesPath/illustration1.svg';
+      '$imagesPath/onBoarding1.svg';
   static const String outBoardingIllustration2 =
-      '$imagesPath/illustration2.svg';
+      '$imagesPath/onBoarding2.svg';
   static const String outBoardingIllustration3 =
-      '$imagesPath/illustration3.svg';
+      '$imagesPath/onBoarding3.svg';
+  static const String notData =
+      '$imagesPath/no_data.svg';
   static const String home = '$imagesPath/home.png';
   static const String category = '$imagesPath/category.png';
   static const String profile = '$imagesPath/profile.png';
@@ -40,6 +42,12 @@ class AssetsManager {
   static const String facebook = '$imagesPath/facebook_logo.svg';
   static const String notification = '$imagesPath/notification.svg';
   static const String acceptTerms = '$imagesPath/Accept terms.svg';
+  static const String employerImage = '$imagesPath/employer.png';
+  static const String jobSeekerImage = '$imagesPath/job_seeker.png';
+  static const String logo = '$imagesPath/logo.svg';
+  static const String verified = '$imagesPath/Verified-bro.svg';
+  static const String defaultImage = '$imagesPath/default.jpg';
+  static const String emailVerify = '$imagesPath/email_verify.svg';
 }
 
 class JsonManager {

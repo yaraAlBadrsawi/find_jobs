@@ -2,12 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:graduation_project/core/network/auth/user_operation.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 import '../../model/base_model.dart';
 import '../../model/user.dart';
 import '../../resources/colors_mangaer.dart';
+import '../../resources/routes_manager.dart';
 import '../../storage/local/app_settings_shared_preferences.dart';
+import '../../storage/local/hive_data_store/hive_data_store.dart';
 import '../../storage/secure_storage/secure_storage.dart';
 import '../../widget/loading.dart';
 
@@ -52,15 +56,30 @@ class Authenticate {
           userID: userCredential.user!.uid,
           email: userCredential.user!.email!,
           name: user.name,
-          phoneNumber: user.phoneNumber,
           userType: user.userType,
         );
 
-        bool isSavedToDB = await InsertUsers.addAllUserInDB(newUser);
-        if (isSavedToDB) {
-          /// save data in SecureStorage
-          Authenticate()._saveUserDataInSecureStorage(user, password);
-        }
+        bool isSavedToDB = await UsersDB.addAllUserInDB(newUser);
+
+        // ask usr if want to save data or not ?
+        // if user said yes => go to login and make login to save Data in Hive
+
+        // if user said no => go to home page and when back to app again go to login screen and in their he can save his data in Hive by Remember me
+
+        //   if (isSavedToDB) {
+        /// save data in SecureStorage
+        print('Is data saved done ?? $isSavedToDB ');
+        // UserModel? userModel= await UsersDB.getCurrentUser(userCredential.user!.uid);
+        // HiveService().addItem( StringsManager.user,  userModel);
+        // HiveService().addItem( StringsManager.user,  userModel);
+
+        // if(userModel!=null){
+        // // print( 'HIVE DATA => ${ HiveService().getUser(key: StringsManager.user)} ');
+        //
+        //   // Authenticate()._saveUserDataInSecureStorage(userModel, password);
+        //
+        // }
+        // }
         await userCredential.user!.sendEmailVerification();
 
         return FirebaseResponse(
@@ -81,29 +100,22 @@ class Authenticate {
     }
   }
 
-  void _saveUserDataInSecureStorage(UserModel user, String password) {
-    // save email in secure storage
-    SecureStorage().writeSecureStorage(StringsManager.email, user.email);
-    // save password in secure storage
-    SecureStorage().writeSecureStorage(StringsManager.password, password);
-    // save phoneNumber in secure storage
-    SecureStorage().writeSecureStorage(StringsManager.phone, user.phoneNumber);
-    // save userType in secure storage
-    SecureStorage().writeSecureStorage(StringsManager.userType, user.userType);
-    // save userId in secure storage
-    SecureStorage().writeSecureStorage(StringsManager.userId, user.userID);
-  }
+  Future<User> get getUser async => _auth.currentUser!;
 
- Future<User> get getUser async => _auth.currentUser!;
-
-  static Future<FirebaseResponse> signInWithEmailAndPassword(
+  Future<FirebaseResponse> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-
       if (userCredential.user != null) {
-       SecureStorage().writeSecureStorage(StringsManager.userId, userCredential.user!.uid);
+        UserModel? currentUser =
+            await UsersDB.getCurrentUser(userCredential.user!.uid);
+        await HiveService().addItem('user', currentUser);
+        if (currentUser!.userType == 'employer') {
+          Get.offAllNamed(Routes.employerHome);
+        } else if(currentUser.userType == 'jobSeeker'){
+          Get.offAllNamed(Routes.jobSeekerHome);
+        }
         print('Login done <<GOOD JOBS YARA >>');
 
         return FirebaseResponse(
@@ -156,7 +168,6 @@ class Authenticate {
   // EMAIL VERIFICATION
   Future<void> sendEmailVerification() async {
     try {
-
       _auth.currentUser!.sendEmailVerification();
       // Email verification sent!
     } on FirebaseAuthException catch (e) {
@@ -196,8 +207,9 @@ class Authenticate {
   }
 
   Future<bool> getRememberMe() async {
-    return await SecureStorage().readSecureStorage(StringsManager.rememberMe) ??
-        false;
+    return false;
+    // return await SecureStorage().readSecureStorage(StringsManager.rememberMe) ??
+    //     false;
   }
 
   Future<bool> autoLogin() async {
@@ -207,6 +219,14 @@ class Authenticate {
     } catch (e) {
       return false;
     }
+  }
+
+  String getCurrentUserId() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    if (auth.currentUser != null) {
+      return auth.currentUser!.uid;
+    }
+    return '';
   }
 
   Future<bool> isUserLoggedIn() async {
