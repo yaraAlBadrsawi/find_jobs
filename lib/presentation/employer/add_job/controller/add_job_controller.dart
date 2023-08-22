@@ -1,11 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/config/constants.dart';
+import 'package:graduation_project/core/model/employer/employer_model.dart';
 import 'package:graduation_project/core/model/job.dart';
+import 'package:graduation_project/core/network/common_functions.dart';
+import 'package:graduation_project/core/storage/local/hive_data_store/hive_data_store.dart';
+import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
-import '../../../../core/network/auth/jobs/jobs_operation.dart';
+import '../../../../core/model/user.dart';
+import '../../../../core/network/auth/auth.dart';
+import '../../../../core/network/auth/user_operation.dart';
+import '../../../../core/network/jobs/jobs_operation.dart';
 import '../../../../core/resources/strings_manager.dart';
 
 class AddJobController extends GetxController {
@@ -28,12 +39,24 @@ class AddJobController extends GetxController {
   var educationLevels = StringsManager.educationLevel.obs;
   var formKey = GlobalKey<FormState>();
 
+  UserModel user =HiveService().getItem(StringsManager.user);
+late EmployerModel _employer;
+
+  getEmployer()async{
+    EmployerModel? employerModel=
+    await EmployerDB().getEmployers(await SecureStorage().readSecureStorage(StringsManager.userId));
+   if(employerModel!=null){
+     _employer=employerModel;
+   }
+
+
+  }
 
   @override
   onInit() {
     initTextEditingController();
     dateInput.text = ""; //set the initial value of text field
-
+getCurrentUserData();
     super.onInit();
   }
 
@@ -46,6 +69,7 @@ class AddJobController extends GetxController {
   JobModel get jobs {
     JobModel jobs = JobModel();
     jobs.jobName = jobNameController.text;
+    jobs.jobId= const Uuid().v4() ;
     jobs.jobType = jobTypes.value;
     jobs.jobCategory = categories.value;
     jobs.jobSalary = jobSalaryController.text;
@@ -53,18 +77,21 @@ class AddJobController extends GetxController {
     jobs.educationLevel = educationLevels.value;
     jobs.experienceYear = experienceYears.value;
     jobs.expireDate = dateInput.text;
+    jobs.employerId = user.userID;
+    jobs.currentTime =Timestamp.now();
     return jobs;
   }
 
+
   addJob() async {
-  if(formKey.currentState!.validate()){
-    bool isAdded = await JobsInsert().addJobToDB(jobs);
+    if (formKey.currentState!.validate()) {
+      bool isAdded = await JobsDB().addJobToDB(jobs);
 
-    if (isAdded) {
-      Get.snackbar('Job added done ', '');
-      // go to home
-
-    }
+      print('is Job added ?? ${isAdded}');
+      if (isAdded) {
+        Get.snackbar('Job added done ', '');
+        // go to home
+      }
     }
   }
 

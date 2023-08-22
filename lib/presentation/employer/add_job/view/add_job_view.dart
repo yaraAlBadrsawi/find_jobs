@@ -43,14 +43,13 @@ class AddJobView extends GetView<AddJobController> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // page header
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'ADD JOBS ',
+                        StringsManager.addJob,
                         style: getRegularTextStyle(
                           fontSize: FontSizeManager.s38,
                           color: ColorsManager.primary,
@@ -62,7 +61,7 @@ class AddJobView extends GetView<AddJobController> {
                     height: HeightManager.h5,
                   ),
                   Text(
-                    'ADD JOB for the app and enjoy',
+                    StringsManager.addJobDes,
                     style: getTextStyle(
                         fontSize: FontSizeManager.s14,
                         color: ColorsManager.grey),

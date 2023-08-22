@@ -4,9 +4,7 @@ import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
-import 'package:graduation_project/core/resources/styles_manager.dart';
 import 'package:graduation_project/presentation/auth/login/controller/login_controller.dart';
-
 import '../../../../core/validator/validator.dart';
 import '../../../../core/widget/main_button.dart';
 import '../../../../core/widget/text_field.dart';
@@ -15,9 +13,7 @@ import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import '../../widget/check_box.dart';
 
 class LoginBody extends GetView<LoginController> {
-  LoginBody({super.key});
-
-  // bool isSignIn = false;
+  const LoginBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +37,15 @@ class LoginBody extends GetView<LoginController> {
             SizedBox(
               height: HeightManager.h10,
             ),
-            Obx(() => LabeledCheckbox(
-                  label: StringsManager.rememberMe,
-                  onChanged: (newValue) {
-                    controller.checkRememberMer(newValue);
-                    controller.toggleRememberMe(newValue);
-                  },
-                  value: controller.checkedValue.value,
-                )),
+            // Obx(() => LabeledCheckbox(
+            //       label: StringsManager.rememberMe,
+            //       onChanged: (newValue) {
+            //         controller.checkRememberMer(newValue);
+            //         controller.toggleRememberMe(newValue);
+            //       },
+            //       value: controller.checkedValue.value,
+            //     ),),
+            //
             SizedBox(
               height: HeightManager.h10,
             ),

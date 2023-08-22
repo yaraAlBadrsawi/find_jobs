@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 
+
 class LoadingDialog {
   static void show() {
     Get.dialog(

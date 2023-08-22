@@ -13,6 +13,7 @@ class HeightManager {
   static double h16 = SizeUtil.setHeight(16);
   static double h18 = SizeUtil.setHeight(18);
   static double h20 = SizeUtil.setHeight(20);
+  static double h24 = SizeUtil.setHeight(24);
   static double h28 = SizeUtil.setHeight(28);
   static double h30 = SizeUtil.setHeight(30);
   static double h35 = SizeUtil.setHeight(35);
@@ -29,8 +30,10 @@ class HeightManager {
   static double h90 = SizeUtil.setHeight(90);
   static double h100 = SizeUtil.setHeight(100);
   static double h110 = SizeUtil.setHeight(110);
+  static double h128 = SizeUtil.setHeight(128);
   static double h160 = SizeUtil.setHeight(160);
   static double h205 = SizeUtil.setHeight(205.0);
+  static double h200 = SizeUtil.setHeight(200);
   static double h206 = SizeUtil.setHeight(206);
   static double h215 = SizeUtil.setHeight(215.0);
   static double h230 = SizeUtil.setHeight(230.0);

@@ -10,6 +10,13 @@ class Constants {
   static const int sliderItems = 3;
   static const int codeVerificationMaxLine = 1;
   static const double elevationButton = 0;
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+ static const int drawerDuration = 250;
+  static const userBox = "userBox";
+  static const isLoggedBox = "isLogged";
+
 }
 
 class ConstantsPrefsKeys {
@@ -19,6 +26,7 @@ class ConstantsPrefsKeys {
   static const String password = 'password';
   static const String loggedIn = 'logged_in';
 }
+
 
 // String
 List<String> yearsOfExperience = [
@@ -38,10 +46,7 @@ List<String> categories = [
   StringsManager.sales.tr,
   StringsManager.engineering.tr,
   StringsManager.education.tr,
-  StringsManager.humanResources.tr,
   StringsManager.customerService.tr,
-  StringsManager.retail.tr,
-  StringsManager.manufacturing.tr,
   StringsManager.administration.tr,
   StringsManager.legal.tr,
   StringsManager.consulting.tr,
@@ -58,7 +63,7 @@ List<String> educationLevel = [
   StringsManager.noFormalEducation.tr,
 ];
 
-List<String > jobsType=[
+List<String> jobsType = [
   StringsManager.fullTime,
   StringsManager.partTime,
   StringsManager.contract,
@@ -66,7 +71,19 @@ List<String > jobsType=[
   StringsManager.internship,
   StringsManager.volunteer,
   StringsManager.contractToHire,
+];
 
+List<String> address = [
+  StringsManager.beitHanoun,
+  StringsManager.beitLahiya,
+  StringsManager.jabalia,
+  StringsManager.gaza,
+  StringsManager.maghaz,
+  StringsManager.nuseirat,
+  StringsManager.bureij,
+  StringsManager.deir,
+  StringsManager.khanYuins,
+  StringsManager.rafah,
 ];
 
 String privacyPolicyIntro = 'Welcome to Find Jobs App .\n'

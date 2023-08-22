@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
+import 'package:hive/hive.dart';
+import '../../../../core/resources/assets_manager.dart';
 import '../../widget/headers.dart';
 import '../../widget/register_details.dart';
 import '../controller/register_controller.dart';
@@ -12,7 +14,7 @@ class RegisterBody extends GetView<RegisterController> {
   final List<String> heads = [
     StringsManager.user,
     StringsManager.employer,
-    StringsManager.userAndEmployer,
+    // StringsManager.userAndEmployer,
   ];
 
   RegisterBody({super.key});
@@ -23,11 +25,11 @@ class RegisterBody extends GetView<RegisterController> {
       child: Column(
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (int i = 0; i < heads.length; i++)
-                Obx(() => GestureDetector(
+                Obx(() =>
+                    GestureDetector(
                       onTap: () {
                         controller.changeCurrent(i);
                         print('Selected index => ${controller.current}');
@@ -36,14 +38,19 @@ class RegisterBody extends GetView<RegisterController> {
                     )),
             ],
           ),
+
+
+
           Container(
-            padding: EdgeInsets.all(WidthManager.w10),
+            padding: EdgeInsets.symmetric(
+              vertical: HeightManager.h30, horizontal: HeightManager.h24),
             width: double.infinity,
-            decoration: const BoxDecoration(
-              color: ColorsManager.white,
-            ),
-            child: const Details(),
-          ),
+
+            child:const Details(),
+
+
+          )
+
         ],
       ),
     );
