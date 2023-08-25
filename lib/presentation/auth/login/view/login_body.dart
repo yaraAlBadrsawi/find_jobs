@@ -37,21 +37,13 @@ class LoginBody extends GetView<LoginController> {
             SizedBox(
               height: HeightManager.h10,
             ),
-            // Obx(() => LabeledCheckbox(
-            //       label: StringsManager.rememberMe,
-            //       onChanged: (newValue) {
-            //         controller.checkRememberMer(newValue);
-            //         controller.toggleRememberMe(newValue);
-            //       },
-            //       value: controller.checkedValue.value,
-            //     ),),
-            //
+
             SizedBox(
               height: HeightManager.h10,
             ),
             MainButton(
                 width: double.infinity,
-                height: HeightManager.h40,
+                height: HeightManager.h50,
                 color: ColorsManager.primary,
                 onPressed: () {
                   if (controller.formKey.currentState!.validate()) {
@@ -72,7 +64,7 @@ class LoginBody extends GetView<LoginController> {
                 Get.toNamed(Routes.registerView);
               },
               width: double.infinity,
-              height: HeightManager.h40,
+              height: HeightManager.h50,
               child: Text(
                 StringsManager.signUp.tr,
                 style: TextStyle(fontSize: FontSizeManager.s16),

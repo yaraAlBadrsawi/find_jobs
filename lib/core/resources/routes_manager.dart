@@ -2,13 +2,14 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:graduation_project/presentation/auth/login/view/login_view.dart';
 import 'package:graduation_project/presentation/auth/register/view/register_view.dart';
 import 'package:graduation_project/presentation/employer/add_job/view/add_job_view.dart';
+import 'package:graduation_project/presentation/employer/bottom_navigation/view/employer_drawer.dart';
 import 'package:graduation_project/presentation/employer/employer_info/controller/binding/employer_info_binding.dart';
 import 'package:graduation_project/presentation/employer/employer_info/view/employer_info_view.dart';
 import 'package:graduation_project/presentation/employer/employer_profile/view/employer_profile_view.dart';
 import 'package:graduation_project/presentation/employer/home/controller/binding/employer_binding.dart';
 import 'package:graduation_project/presentation/employer/home/view/employer_home_view.dart';
 import 'package:graduation_project/presentation/employer/job_details/controller/binding/job_details_binding.dart';
-import 'package:graduation_project/presentation/employer/job_details/view/job_detailes_view.dart';
+import 'package:graduation_project/presentation/employer/job_details/view/employer_job_detailes_view.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/binding/job_seeker_drawer_binding.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/controller/bottom_navigation_controller.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/view/bottom_navigation_view.dart';
@@ -55,6 +56,7 @@ class Routes {
   static const String userType = '/userType';
   static const String askToSave = '/ask_to_save';
   static const String verifyEmail = '/verify_email';
+  static const String employerDrawer = '/employer_drawer';
 
   static final routes = [
     GetPage(
@@ -65,7 +67,6 @@ class Routes {
         name: Routes.onBoarding,
         page: () => const OnBoardingView(),
         binding: OnBoardingBinding()),
-
     GetPage(
         name: Routes.registerView,
         page: () => RegisterView(),
@@ -82,7 +83,6 @@ class Routes {
         name: Routes.employerHome,
         page: () => EmployerHomeView(),
         binding: EmployerHomeBinding()),
-
     GetPage(
         name: Routes.jobSeekerHome,
         page: () => UserHomeView(),
@@ -91,32 +91,26 @@ class Routes {
         name: Routes.jobSeekerBottomBarView,
         page: () => UserBottomNavigationBarView(),
         binding: UserBottomNavigationBinding()),
-
     GetPage(
         name: Routes.employerBottomBarView,
         page: () => const EmployerBottomNavigationBarView(),
         binding: EmployerBottomNavigationBinding()),
-
     GetPage(
         name: Routes.addJobView,
         page: () => const AddJobView(),
         binding: AddJobBinding()),
-
     GetPage(
         name: Routes.employerProfile,
         page: () => const EmployerProfileView(),
         binding: EmployerProfileBinding()),
-
     GetPage(
         name: Routes.employerInfoView,
         page: () => const EmployerInfoView(),
         binding: EmployerInfoBinding()),
-
-
     GetPage(
         name: Routes.jobDetails,
-        page: () => const JobDetailsView(),
-        binding: JobDetailsBinding()),
+        page: () => const EmployerJobDetailsView(),
+        binding: EmployerJobDetailsBinding()),
     GetPage(
         name: Routes.jobSeekerDrawer,
         page: () => JobSeekerDrawer(),
@@ -125,23 +119,24 @@ class Routes {
         name: Routes.interestView,
         page: () => InterestView(),
         binding: InterestBinding()),
-
     GetPage(
         name: Routes.userType,
         page: () => InterestView(),
         binding: InterestBinding()),
-
     GetPage(
-        name: Routes.askToSave,
-        page: () => SaveUserRequest(),
-    //    binding: InterestBinding()
+      name: Routes.askToSave,
+      page: () => SaveUserRequest(),
+      //    binding: InterestBinding()
     ),
-
     GetPage(
       name: Routes.verifyEmail,
       page: () => VerifyEmailView(),
-         binding: VerifyBinding(),
+      binding: VerifyBinding(),
     ),
-
+    GetPage(
+      name: Routes.employerDrawer,
+      page: () => EmployerDrawer(),
+      binding: EmployerHomeBinding(),
+    ),
   ];
 }

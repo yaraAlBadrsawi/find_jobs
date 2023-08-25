@@ -15,20 +15,20 @@ class EmployerProfileController extends GetxController {
   var phoneNumber = ''.obs;
 
   var employerModel = EmployerModel();
-  UserModel userModel = HiveService().getItem(StringsManager.user);
+  UserModel? userModel = HiveService().getItem(StringsManager.user);
   var address = '';
 
   @override
   void onInit() {
     getEmployerData();
     print('you in profile controller ');
-    print('current Data store in HIVE = > ${userModel.name} ');
+    print('current Data store in HIVE = > ${userModel!.name} ');
     // getCurrentUserData();
     super.onInit();
   }
 
   getEmployerData() async {
-    employerModel = await EmployerDB().getEmployers(userModel.userID);
+    employerModel = await EmployerDB().getEmployers(userModel!.userID);
     update();
   }
 }

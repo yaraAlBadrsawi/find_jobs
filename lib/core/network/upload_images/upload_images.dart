@@ -10,8 +10,6 @@ class FireBaseStorage {
   Future<String> uploadImageToFirebase(XFile? imageFile) async {
     String imageUrl = '';
 
-    LoadingDialog.show();
-
     //Get a reference to storage root
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImages = referenceRoot.child('profile_images');
@@ -28,9 +26,6 @@ class FireBaseStorage {
       imageUrl = await referenceImageToUpload.getDownloadURL();
 
         // Get.snackbar(imageUrl.isNotEmpty ? 'image upload done ': 'error occur' , '');
-
-      LoadingDialog.hide();
-
       return imageUrl;
     } catch (error) {
       //Some error occurred

@@ -26,6 +26,7 @@ class StringsManager {
   static const String name = 'name';
   static const String phone = 'phone number';
   static const String forgetPassword = ' forgot password ? Rest it ';
+  static const String forgetPasswordTitle = ' Forgot Password ?';
   static const String forgetPasswordC = ' Forgot Password ? ';
   static const String password = 'Password';
   static const String email = 'Email';
@@ -199,12 +200,15 @@ class StringsManager {
   static var completeInfo  = 'Continue the rest of your information to be able to post jobs';
   static var interestDes  = 'What Type Of Job your Looking For?';
   static var profileInfo  = 'Profile Info';
+  static var profile  = 'Profile';
   static var addJobDes  = 'Add Job to find best ';
   static var askToSaveLogin  = 'Save your login info? ';
   static var askToSaveLoginSub1  = "We'll save the login info for you\n";
   static var askToSaveLoginSub2  = "you won't need to enter it next time you log in.";
   static var interestCat  = 'Choose your job  categories and well click the job vacancy for you';
   static var notNow  = 'Not now';
+  static var freelancerJobs  = 'Freelancer Jobs';
+  static var employerDes  = 'Discover Exceptional Employers and Opportunities';
   // static var categories  = 'About Us';
 
 

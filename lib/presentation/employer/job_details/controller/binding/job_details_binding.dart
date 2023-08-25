@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 
-import '../job_details_controller.dart';
+import '../employer_job_details_controller.dart';
 
-class JobDetailsBinding extends Bindings {
+class EmployerJobDetailsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => JobDetailsController());
+    Get.lazyPut(() => EmployerJobDetailsController());
   }
 }

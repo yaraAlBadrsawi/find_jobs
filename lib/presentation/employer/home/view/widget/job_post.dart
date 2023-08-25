@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/core/model/job.dart';
 import 'package:graduation_project/core/resources/assets_manager.dart';
@@ -23,25 +24,22 @@ class EmployerJobsPosts extends GetView<EmployerHomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return        GetBuilder<EmployerHomeController>(builder: (controller) {
-        return SliverList(
-
-            delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-
-              return JobItem(
-                  controller.jobsList[index], controller.employerModel);
-            },childCount: controller.jobsList.length
-
-            )
-        );
-      }
-    );
+    return GetBuilder<EmployerHomeController>(builder: (controller) {
+      return SliverList(
+          delegate:
+              SliverChildBuilderDelegate((BuildContext context, int index) {
+        // controller.jobsList.isNotEmpty
+        //     ? JobItem(controller.jobsList[index], controller.employerModel)
+        //     :
+                SvgPicture.asset(
+                  AssetsManager.noData,
+                  // height: HeightManager.h50,
+                  // width: WidthManager.w40,
+                );      },
+                  childCount: 1));
+    });
   }
 }
-
-
-
 
 //
 // return Expanded(

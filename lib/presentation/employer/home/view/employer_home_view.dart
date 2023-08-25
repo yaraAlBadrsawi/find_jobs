@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
@@ -11,21 +12,53 @@ import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/widget/home_box.dart';
 
 class EmployerHomeView extends GetView<EmployerHomeController> {
-  const EmployerHomeView({super.key});
+EmployerHomeView({super.key});
+  final _advancedDrawerController = AdvancedDrawerController();
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer:EmployerDrawer() ,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(Routes.addJobView);
-        },
-        backgroundColor: ColorsManager.primary,
-        child: const Icon(Icons.add),
-      ),
+    return AdvancedDrawer(
+        drawer: EmployerDrawer(),
+        backdrop: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [ColorsManager.primary, Colors.blueGrey.withOpacity(0.2)],
+            ),
+          ),
+        ),
 
-      body: HomeBox('Find the best person to work to your jobs '),
-    );
+        controller: _advancedDrawerController,
+        animationCurve: Curves.easeInOut,
+        animationDuration: const Duration(milliseconds: 300),
+        animateChildDecoration: true,
+        rtlOpening: false,
+        // openScale: 1.0,
+        disabledGestures: false,
+        childDecoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
+          child: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Get.toNamed(Routes.addJobView);
+              },
+              backgroundColor: ColorsManager.primary,
+              child: const Icon(Icons.add),
+            ),
+          body:
+
+
+          HomeBox('Find the best person to work to your jobs '),
+
+          )
+
+          );
+
+
   }
 }

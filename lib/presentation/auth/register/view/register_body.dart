@@ -28,8 +28,7 @@ class RegisterBody extends GetView<RegisterController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (int i = 0; i < heads.length; i++)
-                Obx(() =>
-                    GestureDetector(
+                Obx(() => GestureDetector(
                       onTap: () {
                         controller.changeCurrent(i);
                         print('Selected index => ${controller.current}');
@@ -38,19 +37,12 @@ class RegisterBody extends GetView<RegisterController> {
                     )),
             ],
           ),
-
-
-
           Container(
             padding: EdgeInsets.symmetric(
-              vertical: HeightManager.h30, horizontal: HeightManager.h24),
+                vertical: HeightManager.h30, horizontal: HeightManager.h24),
             width: double.infinity,
-
-            child:const Details(),
-
-
+            child: const Details(),
           )
-
         ],
       ),
     );

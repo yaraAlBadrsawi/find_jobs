@@ -27,8 +27,14 @@ class RadiusBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(RadiusManager.r6),
           color: color.withOpacity(0.5)),
       padding: EdgeInsets.all(WidthManager.w8),
-      child: Text(text, textAlign:  TextAlign.center ,style: getRegularTextStyle(
-          fontSize: FontSizeManager.s16, color: Colors.black,),),
+      child: Column(
+        children: [
+
+        //  Icon()
+          Text(text, textAlign:  TextAlign.center ,style: getRegularTextStyle(
+              fontSize: FontSizeManager.s16, color: Colors.black,),),
+        ],
+      ),
     );
   }
 }

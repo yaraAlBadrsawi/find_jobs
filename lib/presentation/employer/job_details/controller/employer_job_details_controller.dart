@@ -7,7 +7,7 @@ import 'package:graduation_project/core/network/auth/auth.dart';
 import 'package:graduation_project/core/network/jobs/jobs_operation.dart';
 import 'package:uuid/uuid.dart';
 
-class JobDetailsController extends GetxController {
+class EmployerJobDetailsController extends GetxController {
   late JobModel jobModel;
 
   @override

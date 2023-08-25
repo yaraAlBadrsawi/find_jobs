@@ -86,24 +86,66 @@ class EmployerInformation extends GetView<EmployerInfoController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            showDialog();
-          },
-          child: Obx(
-            () => Container(
-              width: WidthManager.w140,
-              height: HeightManager.h160,
-              decoration: const BoxDecoration(
-                  color: ColorsManager.lightGrey, shape: BoxShape.circle),
-              child: controller.pickedImage.value != null
-                  ? Image.file(
-                      controller.pickedImage.value!,
-                      fit: BoxFit.fill,
-                    )
-                  : ClipOval(
-                      child: Image.asset(AssetsManager.defaultImage ,fit: BoxFit.fill,),
+        Obx(
+          () => SizedBox(
+            width: WidthManager.w166,
+            height: HeightManager.h170,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: WidthManager.w140,
+                  height: HeightManager.h160,
+                  decoration: const BoxDecoration(
+                      color: ColorsManager.lightGrey, shape: BoxShape.circle),
+                  child: ClipOval(
+                    child: controller.imageUrl.value.isNotEmpty
+                        ? Image.network(
+                            controller.imageUrl.value,
+                            fit: BoxFit.fill,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: ColorsManager.primary,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          )
+                        : Image.asset(
+                            AssetsManager.defaultImage,
+                            fit: BoxFit.fill,
+                          ),
+                  ),
+                ),
+                Positioned(
+                  top: HeightManager.h120,
+                  right: WidthManager.w26,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog();
+                    },
+                    child: Container(
+                      width: WidthManager.w45,
+                      height: HeightManager.h45,
+                      decoration: BoxDecoration(
+                        color: ColorsManager.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
                     ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -115,14 +157,21 @@ class EmployerInformation extends GetView<EmployerInfoController> {
             child: Column(
               children: [
                 // job name
-                AppTextFields(
-                  hint: StringsManager.companyDescription.tr,
-                  controller: controller.companyDescriptionController,
-                  keyboardType: TextInputType.text,
-                  maxLines: 3,
-                  validator: (value) {
-                    return FieldValidator.validateData(value);
-                  },
+                GetBuilder<EmployerInfoController>(
+                  builder: (controller) {
+                    return AppTextFields(
+                      hint: StringsManager.companyDescription.tr,
+                      controller: controller.companyDescriptionController,
+                      keyboardType: TextInputType.text,
+                      isConstraints: true ,
+                      maxLines: 5,
+                      length: 100,
+                      validator: (value) {
+                        return FieldValidator.validateData(value);
+
+                      },
+                    );
+                  }
                 ),
                 // employer address
                 SizedBox(
@@ -141,6 +190,43 @@ class EmployerInformation extends GetView<EmployerInfoController> {
                         })),
                   ),
                 ),
+
+                SizedBox(
+                  height: HeightManager.h20,
+                ),
+                SizedBox(
+                    child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(
+                        () => Expanded(
+                            child: AppTextFields(
+                          readOnly: true,
+                          hint: controller.countryCode.value,
+                          suffixIcon: AppPopUpMenu(
+                              list: countryCodes,
+                              txt: 'code',
+                              onSelect: ((value) {
+                                //   controller.countryCode.
+                                controller.updateCountryCode(value as int);
+                              })),
+                        )),
+                      ),
+                      SizedBox(
+                        width: WidthManager.w15,
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: AppTextFields(
+                            controller: controller.phoneController,
+                            hint: 'Phone Number',
+                            keyboardType: TextInputType.number,
+                          )),
+                    ],
+                  )
+                ])),
+
                 SizedBox(
                   height: HeightManager.h20,
                 ),
@@ -148,6 +234,7 @@ class EmployerInformation extends GetView<EmployerInfoController> {
                   hint: StringsManager.sizeAndIndustry.tr,
                   controller: controller.sizeAndIndustryController,
                   keyboardType: TextInputType.text,
+                  maxLines: 2,
                   validator: (value) {
                     return FieldValidator.validateData(value);
                   },
@@ -181,12 +268,16 @@ class EmployerInformation extends GetView<EmployerInfoController> {
             )),
         MainButton(
           width: double.infinity,
-          height: HeightManager.h40,
+          height: HeightManager.h50,
           color: ColorsManager.primary,
           onPressed: () {
             controller.saveInfo();
           },
-          child: const Text(StringsManager.save),
+          child: Text(
+            StringsManager.save,
+            style: getRegularTextStyle(
+                fontSize: FontSizeManager.s18, color: ColorsManager.white),
+          ),
         ),
       ],
     );

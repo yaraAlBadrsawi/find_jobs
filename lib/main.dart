@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: Routes.loginView,
+            initialRoute: Routes.jobSeekerBottomBarView ,
             getPages: Routes.routes,
           );
         });

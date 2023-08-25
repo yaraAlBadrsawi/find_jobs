@@ -8,56 +8,36 @@ import '../../../presentation/job_seeker/home/controller/user_home_controller.da
 import '../../resources/sizes_manager.dart';
 import '../../resources/strings_manager.dart';
 
-class DrawerWidget extends GetView<UserHomeController> {
+class DrawerWidget extends StatelessWidget {
   final List<String> titles;
   final List<IconData> iconData;
+  final Function() onTap;
 
-  const DrawerWidget({required this.titles, required this.iconData, super.key});
+  const DrawerWidget(
+      {required this.titles,
+      required this.iconData,
+      required this.onTap,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Container(
-            child: ListTileTheme(
-                textColor: ColorsManager.white,
-                iconColor: ColorsManager.white,
-                child: Column(mainAxisSize: MainAxisSize.max, children: [
-                  Container(
-                    width: WidthManager.w128,
-                    height: HeightManager.h128,
-                    margin: EdgeInsets.only(
-                      top: HeightManager.h24,
-                      bottom: 64.0,
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: Colors.black26,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      controller.employerModel.imageUrl, // app logo
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: titles.length,
-                      itemBuilder: (context, index) {
-                        return DrawerItem(
-                            title: titles[index],
-                            icon: iconData[index],
-                            onTap: () {
-                              //
-                              print('item is clicked');
-
-                              if (titles[index] == StringsManager.logout) {
-
-                                controller.signOut();
-                              }
-                            });
-                      },
-                      padding: EdgeInsets.zero,
-                    ),
-                  ),
-                ]))));
+    return ListTileTheme(
+        textColor: ColorsManager.white,
+        iconColor: ColorsManager.white,
+        child: Column(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: titles.length,
+              itemBuilder: (context, index) {
+                return DrawerItem(
+                  title: titles[index],
+                  icon: iconData[index],
+                  onTap: onTap,
+                );
+              },
+              padding: EdgeInsets.zero,
+            ),
+          ),
+        ]));
   }
 }

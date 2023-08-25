@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
-import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
-
 import '../../../../core/model/base_model.dart';
 import '../../../../core/network/auth/auth.dart';
 import '../../../../core/network/auth/user_operation.dart';
@@ -23,34 +21,46 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-//getUser(key: StringsManager.user)
-  //  checkUserLogin();
+// getUser(key: StringsManager.user)
+    checkUserLogin();
     getData();
   }
 
   getData() async {
-    UserModel user = await HiveService().getItem(StringsManager.user);
-    print('HIVE DATA BASE => ${user.name}');
+    UserModel user = await HiveService().getItem('user');
+    print('HIVE DATA BASE => ${user}');
   }
 
   checkUserLogin() async {
     final userLoggedIn = await Authenticate().isUserLoggedIn();
 
-    print('current user is => $userLoggedIn');
-    print('user type is => ......');
-    User user = await Authenticate().getUser;
-    // UserModel? userModel=  await UsersDB.getCurrentUser(user.uid);
-    // if(userModel !=null ){
-    //   print('userModel =>> $userModel');
-    // print('user type  =>> ${userModel.userType}');
-    // if ( userModel.userType == UserType.employer) {
-    Get.offNamed(Routes.jobSeekerHome);
+    if(userLoggedIn){
+      goToPage();
+    }
 
-    // } else {
-    //   Get.offNamed(Routes.employerBottomBarView);
-    // Get.offNamed(Routes.jobSeekerHome);
   }
 
+
+  void goToPage()async {
+
+    User user = await Authenticate().getUser;
+
+    UserModel? userModel = await UsersDB.getCurrentUser(user.uid);
+    if (userModel != null) {
+      print('userModel =>> $userModel');
+      print('user type  =>> ${userModel.userType}');
+      if (userModel.userType == UserType.employer.name) {
+        // if user not complete his data go to complete it if complete , go to bottom bar
+        Get.offNamed(Routes.employerInfoView);
+        //   Get.offNamed(Routes.employerBottomBarView);
+      } else if (userModel.userType == UserType.jobSeeker.name) {
+        // go to bottom bar
+        // but if user not complete his interest then should go to it first
+        Get.offNamed(Routes.jobSeekerBottomBarView);
+      }
+
+    }
+  }
 
   performLogin(context) async {
     LoadingDialog.show();
@@ -61,12 +71,16 @@ class LoginController extends GetxController {
       LoadingDialog.hide();
 
       if (fbResponse.status) {
+
         Get.snackbar(StringsManager.loginDone, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
+
+
+        goToPage();
+
       } else {
         Get.snackbar(fbResponse.message, StringsManager.empty,
-            
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
       }

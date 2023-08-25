@@ -8,7 +8,6 @@ import 'package:graduation_project/core/widget/main_button.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
-import 'package:graduation_project/presentation/auth/widget/popup.dart';
 import '../../../../config/constants.dart';
 import '../../../../core/validator/validator.dart';
 import '../../../../core/widget/dialog.dart';
@@ -151,8 +150,7 @@ class Details extends GetView<RegisterController> {
             ],
           ),
 
-          Obx(()
-            => MainButton(
+        MainButton(
                 width: double.infinity,
                 height: HeightManager.h50,
                 color: ColorsManager.primary,
@@ -160,10 +158,9 @@ class Details extends GetView<RegisterController> {
                 onPressed: () async {
                   await controller.performRegister(context);
                 },
-                child: controller.registering.value
-                    ? const CircularProgressIndicator(color: ColorsManager.white,)
-                    : Text(StringsManager.register.tr)),
-          ),
+                child:
+            Text(StringsManager.register.tr)),
+
           SizedBox(
             height: HeightManager.h20,
           ),

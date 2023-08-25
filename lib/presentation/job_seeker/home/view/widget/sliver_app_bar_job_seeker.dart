@@ -4,8 +4,8 @@ import 'package:graduation_project/core/resources/colors_mangaer.dart';
 
 import '../../../../../core/resources/sizes_manager.dart';
 
-class SliverAppBarBldr extends StatelessWidget {
-  const SliverAppBarBldr({super.key});
+class SliverAppBarJS extends StatelessWidget {
+  const SliverAppBarJS({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class SliverAppBarBldr extends StatelessWidget {
       stretch: true,
 
       leading:
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Icon(FontAwesomeIcons.barsStaggered,
-            color: ColorsManager.primary.withOpacity(0.5),),
-        ),
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Icon(FontAwesomeIcons.barsStaggered,color: ColorsManager.primary.withOpacity(0.5),),
+      ),
+
 
       // expandedHeight: HeightManager.h100,
       flexibleSpace: FlexibleSpaceBar(

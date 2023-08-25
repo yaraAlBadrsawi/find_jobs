@@ -3,13 +3,11 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/widget/main_button.dart';
-import 'package:graduation_project/presentation/employer/job_details/controller/binding/job_details_binding.dart';
-import 'package:graduation_project/presentation/job_seeker/home/controller/user_home_controller.dart';
+import 'package:graduation_project/presentation/employer/job_details/controller/employer_job_details_controller.dart';
 
-import '../controller/job_details_controller.dart';
 
-class JobDetailsView extends GetView<JobDetailsController> {
-  const JobDetailsView({super.key});
+class EmployerJobDetailsView extends GetView<EmployerJobDetailsController> {
+  const EmployerJobDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {

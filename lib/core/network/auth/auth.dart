@@ -69,17 +69,7 @@ class Authenticate {
         //   if (isSavedToDB) {
         /// save data in SecureStorage
         print('Is data saved done ?? $isSavedToDB ');
-        // UserModel? userModel= await UsersDB.getCurrentUser(userCredential.user!.uid);
-        // HiveService().addItem( StringsManager.user,  userModel);
-        // HiveService().addItem( StringsManager.user,  userModel);
 
-        // if(userModel!=null){
-        // // print( 'HIVE DATA => ${ HiveService().getUser(key: StringsManager.user)} ');
-        //
-        //   // Authenticate()._saveUserDataInSecureStorage(userModel, password);
-        //
-        // }
-        // }
         await userCredential.user!.sendEmailVerification();
 
         return FirebaseResponse(
@@ -107,25 +97,35 @@ class Authenticate {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        UserModel? currentUser =
-            await UsersDB.getCurrentUser(userCredential.user!.uid);
-        await HiveService().addItem('user', currentUser);
-        if (currentUser!.userType == 'employer') {
-          Get.offAllNamed(Routes.employerHome);
-        } else if(currentUser.userType == 'jobSeeker'){
-          Get.offAllNamed(Routes.jobSeekerHome);
-        }
-        print('Login done <<GOOD JOBS YARA >>');
+      // if (userCredential.user != null) {
+      //   UserModel? currentUser =
+      //       await UsersDB.getCurrentUser(userCredential.user!.uid);
+      //   await HiveService().addItem('user', currentUser);
+      //   HiveService().isUserLogged('isLogged', true);
+      //   print('Hive => ${HiveService().getLoginStatus('isLogged')}') ;
+      //
+      //   if (currentUser!.userType == UserType.employer) {
+      //     Get.offAllNamed(Routes.employerInfoView);
+      //   } else if (currentUser.userType == UserType.jobSeeker) {
+      //     Get.offAllNamed(Routes.jobSeekerBottomBarView);
+      //   }
+      //   print('Login done <<GOOD JOBS YARA >>');
+      //
+      //   return FirebaseResponse(
+      //     message: StringsManager.accountCreatedSuccessfully,
+      //     status: true,
+      //   );
+      // }
 
+      if(userCredential.user !=null  ){
         return FirebaseResponse(
-          message: StringsManager.accountCreatedSuccessfully,
-          status: true,
-        );
+            message: StringsManager.loginDone, status: true );
+      }
+      else {
+        return FirebaseResponse(
+          message: StringsManager.loginDone, status: false  );
       }
 
-      return FirebaseResponse(
-          message: StringsManager.somethingWrong, status: false);
     } on FirebaseAuthException catch (e) {
       return _controlFirebaseException(e);
     } catch (error) {
@@ -232,5 +232,16 @@ class Authenticate {
   Future<bool> isUserLoggedIn() async {
     final user = _auth.currentUser;
     return user != null;
+  }
+
+  checkUserLogin() {
+    _auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        // what you want to happen in sing out
+      } else {
+        print('User is signed in!');
+      }
+    });
   }
 }

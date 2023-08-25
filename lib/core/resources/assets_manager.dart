@@ -10,7 +10,7 @@ class AssetsManager {
       '$imagesPath/onBoarding2.svg';
   static const String outBoardingIllustration3 =
       '$imagesPath/onBoarding3.svg';
-  static const String notData =
+  static const String noData =
       '$imagesPath/no_data.svg';
   static const String home = '$imagesPath/home.png';
   static const String category = '$imagesPath/category.png';
@@ -48,7 +48,10 @@ class AssetsManager {
   static const String verified = '$imagesPath/Verified-bro.svg';
   static const String defaultImage = '$imagesPath/default.jpg';
   static const String emailVerify = '$imagesPath/email_verify.svg';
+  static const String forgetPassword = '$imagesPath/Forgot_password.svg';
+  static const String termsAndPrivacy = '$imagesPath/Accept_terms.svg';
 }
+
 
 class JsonManager {
   static const String loading = '$jsonPath/loading.json';

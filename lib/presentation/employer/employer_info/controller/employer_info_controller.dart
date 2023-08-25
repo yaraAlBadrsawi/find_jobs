@@ -9,9 +9,12 @@ import 'package:graduation_project/core/network/auth/auth.dart';
 import 'package:graduation_project/core/network/auth/user_operation.dart';
 import 'package:graduation_project/core/network/upload_images/upload_images.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/routes_manager.dart';
+import 'package:graduation_project/core/widget/loading.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbols.dart';
+import '../../../../config/constants.dart';
 import '../../../../core/model/user.dart';
 import '../../../../core/resources/strings_manager.dart';
 import '../../../../core/widget/dialog.dart';
@@ -25,22 +28,53 @@ class EmployerInfoController extends GetxController {
   late TextEditingController sizeAndIndustryController;
   late TextEditingController socialMediaController;
   late TextEditingController companyAchievementsController;
+  late TextEditingController phoneController;
 
   var address = StringsManager.address.obs;
+
+   var countryIndex;
+  var countryCode = '+20'.obs;
+  var countrySt = 'Country'.obs;
+  var area = 'Area'.obs;
+
   var _selectedImages = [].obs; // List<HLPickerItem>
   // XFile? file = (null).obs;
   Rx<File?> pickedImage = Rx<File?>(null);
 
-  var email='';
-  var name='';
- var phoneNumber='';
-  var userType='';
-  String imageUrl='';
+  var email = '';
+  var name = '';
+  var phoneNumber = '';
+  var userType = '';
+  var imageUrl = ''.obs;
 
   setAddress(String value) {
     address.value = value;
     update();
   }
+
+  void updateCountryCode(int index) {
+    countryCode.value = countryCodes[index]['code'] as String;
+  }
+
+  void updateCountry(int index) {
+    countrySt.value = country[index]['code'] as String;
+    countryIndex.value = index;
+  }
+
+  void updateArea(int index) {
+    if (country[countryIndex.value] != null &&
+        country[countryIndex.value]['locations'] != null) {
+      final locationList = country[countryIndex.value]['locations'] as List;
+      if (index < locationList.length) {
+        area.value = locationList[index]['loc'] as String;
+      }
+    }
+  }
+
+  void updateCountryIndex(int newIndex) {
+    countryIndex.value = newIndex;
+  }
+
 
   Future<UserModel?> getCurrentUserData() async {
     User user = await Authenticate().getUser;
@@ -58,28 +92,34 @@ class EmployerInfoController extends GetxController {
     EmployerModel employer = EmployerModel();
     employer.email = email;
     employer.name = name;
-    employer.phone = phoneNumber;
+    employer.phone ='${countryCode.value} ${phoneController.text}';
     employer.userType = userType;
     employer.description = companyDescriptionController.text;
     employer.address = address.value;
     employer.sizeAndIndustry = sizeAndIndustryController.text;
     employer.socialMedia = socialMediaController.text;
     employer.companyAchievements = companyDescriptionController.text;
-    employer.imageUrl = imageUrl;
+    employer.imageUrl = imageUrl.value;
     return employer;
   }
 
   saveInfo() async {
+
     if (formKey.currentState!.validate()) {
+     LoadingDialog.show();
       print('employer info => $employer');
       print('employer email  => ${employer.email}');
       print('employer name => ${employer.name}');
       print('employer address  => ${employer.address}');
-
-      EmployerDB().addEmployerToDB(employer).then((value) => Get.snackbar(
+      EmployerDB().addEmployerToDB(employer).then((value) {
+        Get.snackbar(
           'user data update done ', '',
-          backgroundColor: ColorsManager.primary,
-          snackPosition: SnackPosition.BOTTOM));
+          backgroundColor: ColorsManager.primary.withOpacity(0.5),
+          snackPosition: SnackPosition.BOTTOM);
+        LoadingDialog.hide();
+        Get.toNamed(Routes.employerBottomBarView);
+     }
+      );
     }
   }
 
@@ -102,6 +142,7 @@ class EmployerInfoController extends GetxController {
     sizeAndIndustryController = TextEditingController();
     socialMediaController = TextEditingController();
     companyAchievementsController = TextEditingController();
+    phoneController = TextEditingController();
   }
 
   disposeTextEditingController() {
@@ -110,14 +151,12 @@ class EmployerInfoController extends GetxController {
     sizeAndIndustryController.dispose();
     socialMediaController.dispose();
     companyAchievementsController.dispose();
+    phoneController.dispose();
   }
 
   Future<void> pickImage(ImageSource source) async {
-
-
     ImagePicker imagePicker = ImagePicker();
-    XFile? file =
-    await imagePicker.pickImage(source: source );
+    XFile? file = await imagePicker.pickImage(source: source);
     print('${file?.path}');
 
     if (file == null) return;
@@ -153,16 +192,9 @@ class EmployerInfoController extends GetxController {
     // // Display the cropped image in the Container
     //   pickedImage.value = File(croppedFile.path); // Convert CroppedFile to File
 
-
     Get.back();
-   imageUrl=  await FireBaseStorage().uploadImageToFirebase(file);
-   print('picked image is => $imageUrl');
+    imageUrl.value = await FireBaseStorage().uploadImageToFirebase(file);
+    print('picked image is => $imageUrl');
     update();
   }
-
-
 }
-
-
-
-
