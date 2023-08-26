@@ -85,19 +85,26 @@ class EmployerDB {
 
 class JobSeekerDB{
 
-  Future<bool> addInterestsToDB(List<String> interests) async {
+  Future<bool> addInterestsToDB(List<dynamic> interests) async {
+    try {
     User currentUser = await Authenticate().getUser;
-
     UserModel? userModel = await UsersDB.getCurrentUser(currentUser.uid);
+
+    print(
+     'user Model is = ${userModel!.userID}'
+    );
 
     await _fireStore
         .collection(FireBaseConstants.userCollection)
         .doc(currentUser.uid)
-        .set({'interests':interests})
-        .then((value) => true)
-        .catchError((error) => false);
+        .update({'interests':interests});
+    return true; // Return true if the update is successful
+    }
+    catch (error) {
+      print('Error updating interests: $error');
+      return false; // Return false if an error occurs
+    }
 
-    return false;
   }
 
 

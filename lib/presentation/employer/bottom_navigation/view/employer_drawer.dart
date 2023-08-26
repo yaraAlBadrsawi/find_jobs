@@ -51,7 +51,9 @@ class DrawerWidget extends GetView<EmployerHomeController> {
     return ListTileTheme(
         textColor: ColorsManager.white,
         iconColor: ColorsManager.white,
-        child: Column(mainAxisSize: MainAxisSize.max, children: [
+        child: Column( children: [
+          SizedBox(height: HeightManager.h200,),
+
           Expanded(
             child: ListView.builder(
               itemCount: titles.length,
@@ -60,7 +62,10 @@ class DrawerWidget extends GetView<EmployerHomeController> {
                   title: titles[index],
                   icon: iconData[index],
                   onTap: (){
-                    if(titles == StringsManager.logout){
+                    print('clicked ');
+
+                    if(titles[index]== StringsManager.logout){
+                     print('sign out clicked ');
                       controller.signOut();
                     }
                   },

@@ -3,6 +3,8 @@ import 'package:graduation_project/presentation/auth/login/view/login_view.dart'
 import 'package:graduation_project/presentation/auth/register/view/register_view.dart';
 import 'package:graduation_project/presentation/employer/add_job/view/add_job_view.dart';
 import 'package:graduation_project/presentation/employer/bottom_navigation/view/employer_drawer.dart';
+import 'package:graduation_project/presentation/employer/edit_job/controller/binding/edit_job_binding.dart';
+import 'package:graduation_project/presentation/employer/edit_job/view/edit_job_view.dart';
 import 'package:graduation_project/presentation/employer/employer_info/controller/binding/employer_info_binding.dart';
 import 'package:graduation_project/presentation/employer/employer_info/view/employer_info_view.dart';
 import 'package:graduation_project/presentation/employer/employer_profile/view/employer_profile_view.dart';
@@ -11,12 +13,12 @@ import 'package:graduation_project/presentation/employer/home/view/employer_home
 import 'package:graduation_project/presentation/employer/job_details/controller/binding/job_details_binding.dart';
 import 'package:graduation_project/presentation/employer/job_details/view/employer_job_detailes_view.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/binding/job_seeker_drawer_binding.dart';
-import 'package:graduation_project/presentation/job_seeker/bottom_navigation/controller/bottom_navigation_controller.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/view/bottom_navigation_view.dart';
 import 'package:graduation_project/presentation/job_seeker/bottom_navigation/view/job_seeker_drawer_view.dart';
 import 'package:graduation_project/presentation/job_seeker/home/view/user_home_view.dart';
 import 'package:graduation_project/presentation/job_seeker/interest/controller/binding/interest_binding.dart';
 import 'package:graduation_project/presentation/job_seeker/interest/view/interest_view.dart';
+import 'package:graduation_project/presentation/job_seeker/notification/controller/binding/job_seeker_notification_binding.dart';
 import 'package:graduation_project/presentation/onboarding/view/on_boarding_view.dart';
 import '../../presentation/auth/foregot_password/controller/binding/forget_password_binding.dart';
 import '../../presentation/auth/foregot_password/view/forget_password.dart';
@@ -26,11 +28,16 @@ import '../../presentation/auth/register/view/save_user_request.dart';
 import '../../presentation/auth/verify/controller/binding/verify_binding.dart';
 import '../../presentation/auth/verify/view/verify_view.dart';
 import '../../presentation/employer/add_job/controller/binding/add_job_binding.dart';
-import '../../presentation/employer/bottom_navigation/binding/bottom_navigation_binding.dart';
+import '../../presentation/employer/bottom_navigation/controller/binding/bottom_navigation_binding.dart';
 import '../../presentation/employer/bottom_navigation/view/bottom_navigation_view.dart';
 import '../../presentation/employer/employer_profile/controller/binding/employer_profile_binding.dart';
+import '../../presentation/employer/notification/controller/binding/employer_notification_binding.dart';
+import '../../presentation/employer/notification/view/employer_notification_view.dart';
 import '../../presentation/job_seeker/bottom_navigation/binding/bottom_navigation_binding.dart';
 import '../../presentation/job_seeker/home/controller/binding/user_binding.dart';
+import '../../presentation/job_seeker/notification/view/job_seeker_notification_view.dart';
+import '../../presentation/job_seeker/profile/controller/binding/job_seeker_profile_binding.dart';
+import '../../presentation/job_seeker/profile/view/job_seeker_profile.dart';
 import '../../presentation/onboarding/controller/binding/on_boaring_binding.dart';
 import '../../presentation/splash/view/splash_view/splash_view.dart';
 
@@ -38,7 +45,6 @@ class Routes {
   static const String jobsHome = '/job_seeker_home';
   static const String jobSeekerHome = '/job_seeker_home';
   static const String employerHome = '/employer_home';
-
   static const String onBoarding = '/on_boarding';
   static const String splashView = '/splash_view';
   static const String loginView = '/login_view';
@@ -49,6 +55,7 @@ class Routes {
   static const String verificationView = '/verification_view';
   static const String addJobView = '/add_job_view';
   static const String employerProfile = '/employer_profile';
+  static const String jobSeekerProfile = '/job_seeker_profile';
   static const String employerInfoView = '/employer_info';
   static const String jobDetails = '/job_details';
   static const String jobSeekerDrawer = '/job_seeker_drawer ';
@@ -57,6 +64,9 @@ class Routes {
   static const String askToSave = '/ask_to_save';
   static const String verifyEmail = '/verify_email';
   static const String employerDrawer = '/employer_drawer';
+  static const String employerNotification = '/employer_notification';
+  static const String jobSeekerNotification = '/job_seeker_notification';
+  static const String editJobView = '/edit_job_view';
 
   static final routes = [
     GetPage(
@@ -137,6 +147,26 @@ class Routes {
       name: Routes.employerDrawer,
       page: () => EmployerDrawer(),
       binding: EmployerHomeBinding(),
+    ),
+    GetPage(
+      name: Routes.employerNotification,
+      page: () => EmployerNotificationView(),
+      binding: EmployerNotificationBinding(),
+    ),
+    GetPage(
+      name: Routes.jobSeekerNotification,
+      page: () => JobSeekerNotificationView(),
+      binding: JobSeekerNotificationBinding(),
+    ),
+    GetPage(
+      name: Routes.jobSeekerProfile,
+      page: () => JobSeekerProfileView(),
+      binding: JobSeekerProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.editJobView,
+      page: () => EditJobView(),
+      binding: EditJobBinding(),
     ),
   ];
 }

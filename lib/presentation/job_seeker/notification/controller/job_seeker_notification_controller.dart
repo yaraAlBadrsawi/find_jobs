@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class EmployerNotificationController extends GetxController{
+class JobSeekerNotificationController extends GetxController{
 
 
 

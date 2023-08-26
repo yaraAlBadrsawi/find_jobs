@@ -9,10 +9,11 @@ import 'package:graduation_project/presentation/employer/home/controller/employe
 import 'package:graduation_project/presentation/employer/home/view/widget/job_post.dart';
 
 import '../../../../core/resources/routes_manager.dart';
-import '../../../../core/widget/home_box.dart';
+import 'widget/employer_home_box.dart';
 
 class EmployerHomeView extends GetView<EmployerHomeController> {
-EmployerHomeView({super.key});
+  EmployerHomeView({super.key});
+
   final _advancedDrawerController = AdvancedDrawerController();
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
@@ -31,7 +32,6 @@ EmployerHomeView({super.key});
             ),
           ),
         ),
-
         controller: _advancedDrawerController,
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 300),
@@ -42,23 +42,15 @@ EmployerHomeView({super.key});
         childDecoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
-          child: Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Get.toNamed(Routes.addJobView);
-              },
-              backgroundColor: ColorsManager.primary,
-              child: const Icon(Icons.add),
-            ),
-          body:
-
-
-          HomeBox('Find the best person to work to your jobs '),
-
-          )
-
-          );
-
-
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Get.toNamed(Routes.addJobView);
+            },
+            backgroundColor: ColorsManager.primary,
+            child: const Icon(Icons.add),
+          ),
+          body: EmployerHomeBox('Find the best person to work to your jobs '),
+        ));
   }
 }

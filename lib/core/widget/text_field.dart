@@ -23,6 +23,7 @@ class AppTextFields extends StatelessWidget {
     this.onTap,
    this. isConstraints= false ,
     this.length=0,
+    // this.initialValue='',
   }
 );
 
@@ -42,6 +43,7 @@ class AppTextFields extends StatelessWidget {
   final Function()? onTap;
   final bool isConstraints  ;
   final int length;
+ // final  String? initialValue;
 
   Widget build(BuildContext context) {
     return Column(
@@ -72,6 +74,7 @@ class AppTextFields extends StatelessWidget {
             // This will move the label to the top
             labelStyle: TextStyle(color: ColorsManager.lightGrey),
             labelText: hint,
+
 
             border: underlineInputBorder(),
             //grey

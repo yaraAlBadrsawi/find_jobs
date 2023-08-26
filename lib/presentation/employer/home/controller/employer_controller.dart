@@ -1,5 +1,6 @@
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:get/get.dart';
+import 'package:graduation_project/config/constants.dart';
 import 'package:graduation_project/core/model/employer/employer_model.dart';
 import 'package:graduation_project/core/model/job.dart';
 import 'package:graduation_project/core/network/auth/auth.dart';
@@ -17,28 +18,42 @@ class EmployerHomeController extends GetxController {
   var isDrawerOpen = false.obs;
   EmployerModel employerModel = EmployerModel();
 
+// late  String userId;
+//   UserModel user=HiveService().getItem(Constants.user);
+  late UserModel currentUser;
+
   @override
   void onInit() {
     super.onInit();
-
     getEmployer();
     getJobs();
     advancedDrawerController.showDrawer();
   }
 
   getEmployer() async {
-    employerModel = await EmployerDB()
-        .getEmployers(HiveService().getItem(StringsManager.user).userID);
-    print('current User is => $employerModel');
+    UserModel user = HiveService().getItem(Constants.user);
+    print('my user is => $user');
+    currentUser = user;
+    print('current user UID  is ${user.userID}');
+    employerModel = await EmployerDB().getEmployers(user.userID);
     update();
   }
 
   void getJobs() async {
-    // jobModel =
-    jobsList = await JobsDB()
-        .getEmployerJobs(HiveService().getItem(StringsManager.user).userID);
+    jobsList = await JobsDB().getEmployerJobs(currentUser.userID);
     print('Job Model => $jobsList');
+    print('Current user id :  ${jobsList}');
+    print('Job Model => ${jobsList[0].jobName}');
     update();
+  }
+
+  void deleteJob(index)async {
+  await JobsDB().deleteJob(jobsList[index].jobId);
+  }
+
+  void goToEditJob(index){
+    Get.toNamed(Routes.editJobView,arguments: jobsList[index]);
+
   }
 
   void signOut() {

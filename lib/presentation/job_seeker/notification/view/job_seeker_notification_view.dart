@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EmployerNotificationView extends StatelessWidget {
-  const EmployerNotificationView({super.key});
+class JobSeekerNotificationView extends StatelessWidget {
+  const JobSeekerNotificationView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -48,9 +48,9 @@ class JobItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    employer!.imageUrl.isNotEmpty
+                    employer.imageUrl.isNotEmpty
                         ? Image.network(
-                            employer!.imageUrl,
+                            employer.imageUrl,
                             width: WidthManager.w70,
                             height: HeightManager.h80,
                             fit: BoxFit.cover,
@@ -70,7 +70,7 @@ class JobItem extends StatelessWidget {
                                 color: ColorsManager.black),
                           ),
                           Text(
-                            HiveService().getItem(StringsManager.user).name,
+                           employer.name,
                             style: getRegularTextStyle(
                                 fontSize: FontSizeManager.s20,
                                 color: ColorsManager.grey),

@@ -43,6 +43,8 @@ dependencies:
   awesome_drawer_bar: ^1.2.0
   hidden_drawer_menu: ^3.0.1
   loading_animation_widget: ^1.2.0+4
+  flutter_slidable: ^3.0.0
+  shimmer: ^3.0.0
 
 #  google_sign_in: '^4.5.1'
 

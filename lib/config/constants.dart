@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:graduation_project/core/resources/assets_manager.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../core/resources/strings_manager.dart';
 
@@ -15,6 +17,7 @@ class Constants {
   double scaleFactor = 1;
  static const int drawerDuration = 250;
   static const userBox = "userBox";
+  static const user = "user";
   static const isLoggedBox = "isLogged";
 
 }
@@ -46,12 +49,25 @@ List<String> categories = [
   StringsManager.sales.tr,
   StringsManager.engineering.tr,
   StringsManager.education.tr,
-  StringsManager.customerService.tr,
-  StringsManager.administration.tr,
+//  StringsManager.customerService.tr,
+//  StringsManager.administration.tr,
   StringsManager.legal.tr,
-  StringsManager.consulting.tr,
+ // StringsManager.consulting.tr,
   StringsManager.scienceAndResearch.tr,
 ];
+List<String> categoriesImage = [
+ AssetsManager.customService,
+ AssetsManager.education,
+ AssetsManager.engineer,
+ AssetsManager.finance,
+ AssetsManager.healt,
+ AssetsManager.it,
+ AssetsManager.legal,
+ AssetsManager.marketing,
+ AssetsManager.resarch,
+ AssetsManager.sales,
+
+  ];
 
 List<String> educationLevel = [
   StringsManager.highSchoolOrDiploma.tr,
@@ -164,3 +180,7 @@ List<Map<String, Object>> country = [
     ]
   },
 ];
+
+
+
+// Shimmer getShimmer(){}

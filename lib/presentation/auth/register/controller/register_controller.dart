@@ -124,32 +124,33 @@ class RegisterController extends GetxController
           currentUser = (FirebaseAuth.instance.currentUser)!;
           print('current user => $currentUser');
           print('current user email => ${currentUser.email}');
-          // if (current == 0) {
-          //   Get.toNamed(Routes.interestView);
-          // } else if(current == 1 ){
+          if (current == 0) {
+            Get.toNamed(Routes.interestView);
+          } else if (current == 1) {
+            Get.offNamed(Routes.employerInfoView);
+          }
           // orign
-          Get.offNamed(Routes.verifyEmail,
-              arguments: [user, passwordController.text]);
+          // Get.offNamed(Routes.verifyEmail,
+          //     arguments: [user, passwordController.text]);
 
 //          Get.toNamed(Routes.jobSeekerBottomBarView);
         }
       } else {
+        DialogUtil.showCustomDialog(
+          title: StringsManager.error,
+          content: Column(
+            children: [
+              // image
 
-       DialogUtil.showCustomDialog(
-         title: StringsManager.error,
-         content: Column(children: [
-           // image
-
-           // message
-           Text(StringsManager.shouldAgreePolicies,style: getRegularTextStyle(fontSize: FontSizeManager.s16,
-               color: ColorsManager.black),)
-
-         ],),
-
-         actionText: StringsManager.ok,
-
-
-
+              // message
+              Text(
+                StringsManager.shouldAgreePolicies,
+                style: getRegularTextStyle(
+                    fontSize: FontSizeManager.s16, color: ColorsManager.black),
+              )
+            ],
+          ),
+          actionText: StringsManager.ok,
         );
       }
     } else {
@@ -160,7 +161,6 @@ class RegisterController extends GetxController
 
   // for verify ui
   void goToHomePage() async {
-
     LoadingDialog.show();
     print('user Arg => ${userArg.email} \n password Arg => ${passwordArg}');
     FirebaseResponse firebaseResponse = await Authenticate()
@@ -173,7 +173,7 @@ class RegisterController extends GetxController
         'user',
         UserModel(
           userID: Authenticate().getCurrentUserId(),
-          userType: userArg.userType ,
+          userType: userArg.userType,
           email: userArg.email,
           name: userArg.name,
         ));
@@ -181,11 +181,10 @@ class RegisterController extends GetxController
     print('Firebase Response => ${firebaseResponse.status}');
     print('user ARG => ${userArg.userType}');
     if (firebaseResponse.status) {
-     if (userArg.userType == UserType.jobSeeker.name) {
-
+      if (userArg.userType == UserType.jobSeeker.name) {
         Get.offNamed(Routes.jobSeekerHome);
       } else if (userArg.userType == UserType.employer.name) {
-      print('EMPLOYER INFO VIEW MUST OPEN ');
+        print('EMPLOYER INFO VIEW MUST OPEN ');
         Get.offNamed(Routes.employerInfoView);
       }
     }

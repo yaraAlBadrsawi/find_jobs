@@ -122,21 +122,22 @@ class JobsDetails extends GetView<AddJobController> {
           ),
         ),
         SizedBox(height: HeightManager.h20,),
-
         AppTextFields(
           hint: StringsManager.jobDescription.tr,
           controller: controller.jobDescriptionController,
           keyboardType: TextInputType.text,
+          length: 150,
+          isConstraints: true,
           maxLines: 8,
 
           validator: (value) {
             return FieldValidator.validateData(value);
           },
         ),
-        SizedBox(height:HeightManager.h40),
+        SizedBox(height:HeightManager.h20),
         MainButton(
           width: double.infinity,
-          height: HeightManager.h40,
+          height: HeightManager.h50,
           color: ColorsManager.primary,
           onPressed: () {
             controller.addJob();

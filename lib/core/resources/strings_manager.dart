@@ -146,7 +146,7 @@ class StringsManager {
   static var experienceNotRequired = 'Experience Not Required';
 
   //categories:
-  static var it = 'Information Technology (IT)';
+  static var it = 'IT';
   static var healthcare = 'Healthcare';
   static var finance = 'Finance';
   static var marketing = 'Marketing';
@@ -160,7 +160,7 @@ class StringsManager {
   static var administration = 'Administration';
   static var legal = 'Legal';
   static var consulting = 'Consulting';
-  static var scienceAndResearch = 'Science and Research';
+  static var scienceAndResearch = 'Research';
 
   //job Types :
   static var fullTime = 'Full-Time';
@@ -208,6 +208,15 @@ class StringsManager {
   static var interestCat  = 'Choose your job  categories and well click the job vacancy for you';
   static var notNow  = 'Not now';
   static var freelancerJobs  = 'Freelancer Jobs';
+  static var editInterest  = 'Edit Interest';
+  static var edit  = 'Edit ';
+  static var editJobDet  = 'Edit Job Details';
+  static var editJob  = 'Edit Job';
+  static var delete  = 'Delete ';
+  static var jobUpdated  = 'Job updated done ';
+  static var review  = 'Review';
+  static var application  = 'Application';
+  static var completed  = 'Completed';
   static var employerDes  = 'Discover Exceptional Employers and Opportunities';
   // static var categories  = 'About Us';
 

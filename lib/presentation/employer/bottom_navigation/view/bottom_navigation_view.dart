@@ -26,10 +26,11 @@ class EmployerBottomNavigationBarView
               children: [
                 // _screens[controller.tabIndex.value]
                 EmployerHomeView(),
-                const EmployerProfileView(),
-                const EmployerNotificationView(),
                 const EmployerApplicationView(),
-                // OffersScreen(),
+                const EmployerNotificationView(),
+                const EmployerProfileView(),
+
+                // // OffersScreen(),
               ],
             )),
         bottomNavigationBar: ScrollToHideWidget(

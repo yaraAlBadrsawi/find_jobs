@@ -25,6 +25,7 @@ class LoginBody extends GetView<LoginController> {
             AppTextFields(
               controller: controller.emailController,
               hint: StringsManager.email,
+              keyboardType: TextInputType.emailAddress,
               validator: (value) => FieldValidator.validateEmail(value),
             ),
             SizedBox(

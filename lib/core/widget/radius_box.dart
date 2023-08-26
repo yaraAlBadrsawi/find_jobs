@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../resources/fonts_manager.dart';
 import '../resources/sizes_manager.dart';
@@ -13,11 +14,14 @@ class RadiusBox extends StatelessWidget {
   final double fontSize;
   final Color color;
 
+
   const RadiusBox({
     super.key,
     required this.text,
     required this.color,
+
     this.fontSize= 16,
+
   }) ;
 
   @override
@@ -30,7 +34,7 @@ class RadiusBox extends StatelessWidget {
       child: Column(
         children: [
 
-        //  Icon()
+
           Text(text, textAlign:  TextAlign.center ,style: getRegularTextStyle(
               fontSize: FontSizeManager.s16, color: Colors.black,),),
         ],

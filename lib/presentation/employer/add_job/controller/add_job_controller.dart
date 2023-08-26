@@ -7,8 +7,11 @@ import 'package:graduation_project/config/constants.dart';
 import 'package:graduation_project/core/model/employer/employer_model.dart';
 import 'package:graduation_project/core/model/job.dart';
 import 'package:graduation_project/core/network/common_functions.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/storage/local/hive_data_store/hive_data_store.dart';
 import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
+import 'package:graduation_project/core/widget/loading.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -39,24 +42,21 @@ class AddJobController extends GetxController {
   var educationLevels = StringsManager.educationLevel.obs;
   var formKey = GlobalKey<FormState>();
 
-  UserModel user =HiveService().getItem(StringsManager.user);
-late EmployerModel _employer;
+  UserModel user = HiveService().getItem(Constants.user);
+  late EmployerModel _employer;
 
-  getEmployer()async{
-    EmployerModel? employerModel=
-    await EmployerDB().getEmployers(await SecureStorage().readSecureStorage(StringsManager.userId));
-   if(employerModel!=null){
-     _employer=employerModel;
-   }
-
-
+  getEmployer() async {
+    EmployerModel? employerModel = await EmployerDB().getEmployers(user.userID);
+    if (employerModel != null) {
+      _employer = employerModel;
+    }
   }
 
   @override
   onInit() {
     initTextEditingController();
     dateInput.text = ""; //set the initial value of text field
-getCurrentUserData();
+    // getCurrentUserData();
     super.onInit();
   }
 
@@ -69,7 +69,7 @@ getCurrentUserData();
   JobModel get jobs {
     JobModel jobs = JobModel();
     jobs.jobName = jobNameController.text;
-    jobs.jobId= const Uuid().v4() ;
+    jobs.jobId = const Uuid().v4();
     jobs.jobType = jobTypes.value;
     jobs.jobCategory = categories.value;
     jobs.jobSalary = jobSalaryController.text;
@@ -78,20 +78,26 @@ getCurrentUserData();
     jobs.experienceYear = experienceYears.value;
     jobs.expireDate = dateInput.text;
     jobs.employerId = user.userID;
-    jobs.currentTime =Timestamp.now();
+    jobs.currentTime = Timestamp.now();
     return jobs;
   }
 
-
   addJob() async {
+    LoadingDialog.show();
     if (formKey.currentState!.validate()) {
       bool isAdded = await JobsDB().addJobToDB(jobs);
 
       print('is Job added ?? ${isAdded}');
       if (isAdded) {
-        Get.snackbar('Job added done ', '');
+        Get.snackbar('Job added done ', '',
+            backgroundColor: ColorsManager.primary.withOpacity(0.5),
+            colorText: ColorsManager.white);
+        Get.toNamed(Routes.employerHome);
+        LoadingDialog.hide();
         // go to home
       }
+      LoadingDialog.hide();
+      Get.toNamed(Routes.employerBottomBarView);
     }
   }
 
@@ -141,11 +147,26 @@ getCurrentUserData();
 
   showCalender(context) async {
     DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1950),
-        //DateTime.now() - not to allow to choose before today.
-        lastDate: DateTime(2100));
+      context: context,
+
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1950),
+      //DateTime.now() - not to allow to choose before today.
+      lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: ColorsManager.primary,
+            // Change header and selected date color
+            textTheme: TextTheme(
+              subtitle1:
+                  TextStyle(color: Colors.black), // Change the text color
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
 
     if (pickedDate != null) {
       print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000

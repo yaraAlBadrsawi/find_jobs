@@ -10,11 +10,12 @@ class SliverAppBarBldr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
-      pinned: true,
+     // pinned: true,
       centerTitle: false,
-      stretch: true,
+     stretch: true,
 
       leading:
         Padding(
@@ -23,7 +24,7 @@ class SliverAppBarBldr extends StatelessWidget {
             color: ColorsManager.primary.withOpacity(0.5),),
         ),
 
-      // expandedHeight: HeightManager.h100,
+      // expandedHeight: HeightManager.h200,
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: const [StretchMode.zoomBackground],
         background: Container(

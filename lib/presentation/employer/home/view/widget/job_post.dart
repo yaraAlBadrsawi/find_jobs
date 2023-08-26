@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/core/model/job.dart';
 import 'package:graduation_project/core/resources/assets_manager.dart';
@@ -18,6 +20,7 @@ import '../../../../../core/resources/styles_manager.dart';
 import '../../../../../core/widget/job_item.dart';
 import '../../controller/employer_controller.dart';
 import 'job_title.dart';
+import 'package:shimmer/shimmer.dart';
 
 class EmployerJobsPosts extends GetView<EmployerHomeController> {
   const EmployerJobsPosts({super.key});
@@ -28,15 +31,51 @@ class EmployerJobsPosts extends GetView<EmployerHomeController> {
       return SliverList(
           delegate:
               SliverChildBuilderDelegate((BuildContext context, int index) {
-        // controller.jobsList.isNotEmpty
-        //     ? JobItem(controller.jobsList[index], controller.employerModel)
-        //     :
-                SvgPicture.asset(
+        return controller.jobsList.isNotEmpty
+            ? Slidable(
+                startActionPane: ActionPane(
+                  motion: const StretchMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context) {
+                     controller.goToEditJob(index);
+
+                      },
+                      backgroundColor: ColorsManager.green,
+                      icon: FontAwesomeIcons.pen,
+                      label: StringsManager.edit,
+                    )
+                  ],
+                ),
+
+                endActionPane: ActionPane(
+                  motion: const StretchMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context) {},
+                      backgroundColor: ColorsManager.red,
+                     icon: FontAwesomeIcons.trash,
+                      label: StringsManager.delete,
+                    )
+                  ],
+                ),
+                // child: Shimmer.fromColors(
+                //   baseColor: Colors.white,
+                //   highlightColor: ColorsManager.lightGrey,
+                 child:
+                  JobItem(
+                      controller.jobsList[index], controller.employerModel),
+              //  )
+        )
+
+            : Center(
+                child: SvgPicture.asset(
                   AssetsManager.noData,
-                  // height: HeightManager.h50,
-                  // width: WidthManager.w40,
-                );      },
-                  childCount: 1));
+                  height: HeightManager.h300,
+                  width: WidthManager.w300,
+                ),
+              );
+      }, childCount: controller.jobsList.length));
     });
   }
 }

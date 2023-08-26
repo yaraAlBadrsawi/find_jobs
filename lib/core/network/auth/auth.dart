@@ -117,15 +117,13 @@ class Authenticate {
       //   );
       // }
 
-      if(userCredential.user !=null  ){
+      if (userCredential.user != null) {
         return FirebaseResponse(
-            message: StringsManager.loginDone, status: true );
-      }
-      else {
+            message: StringsManager.loginDone, status: true);
+      } else {
         return FirebaseResponse(
-          message: StringsManager.loginDone, status: false  );
+            message: StringsManager.loginDone, status: false);
       }
-
     } on FirebaseAuthException catch (e) {
       return _controlFirebaseException(e);
     } catch (error) {
@@ -234,14 +232,17 @@ class Authenticate {
     return user != null;
   }
 
-  checkUserLogin() {
+  bool checkUserLogin() {
     _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
         // what you want to happen in sing out
-      } else {
+
+      }
+      else {
         print('User is signed in!');
       }
     });
+    return false;
   }
 }

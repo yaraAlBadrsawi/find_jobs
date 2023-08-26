@@ -17,26 +17,7 @@ class AddJobView extends GetView<AddJobController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     StringsManager.addJob,
-      //     style: getMediumTextStyle(
-      //       fontSize: FontSizeManager.s18,
-      //       color: ColorsManager.black,
-      //     ),
-      //   ),
-      //   actions: [
-      //     GestureDetector(
-      //       child: Text(StringsManager.addJob),
-      //       onTap: () {
-      //         controller.addJob();
-      //       },
-      //     ),
-      //   ],
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   backgroundColor: ColorsManager.white,
-      // ),
+
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: WidthManager.w20, vertical: HeightManager.h50),

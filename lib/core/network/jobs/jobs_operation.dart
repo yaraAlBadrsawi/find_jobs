@@ -52,7 +52,24 @@ class JobsDB {
     return jobsList;
   }
 
-  getSpecificJob(String jobId) async {
+  Future<void>  deleteJob(jobId){
+    return _fireStore.collection(FireBaseConstants.jobsCollection)
+        .doc(jobId)
+        .delete();
+
+  }
+
+  Future<bool> editJob(String jobId, JobModel newJob) async {
+
+    try {
+      await _fireStore.collection(FireBaseConstants.jobsCollection).doc(jobId).update(newJob.toJson());
+      return true; // Data updated successfully
+    } catch (error) {
+      print("Error updating job: $error");
+      return false; // Data not updated
+    }
+  }
+  getJobById(String jobId) async {
     JobModel jobModel = JobModel();
     List<JobModel> jobsList = [];
     String employerId;

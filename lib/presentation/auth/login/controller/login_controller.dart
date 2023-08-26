@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:graduation_project/config/constants.dart';
 import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
@@ -27,16 +30,26 @@ class LoginController extends GetxController {
   }
 
   getData() async {
-    UserModel user = await HiveService().getItem('user');
-    print('HIVE DATA BASE => ${user}');
-  }
+    UserModel? user = await HiveService().getItem('user');
+   if(user != null ){
+     print('HIVE DATA BASE => ${user}');
+
+   }
+     }
 
   checkUserLogin() async {
-    final userLoggedIn = await Authenticate().isUserLoggedIn();
+    //final userLoggedIn = await Authenticate().checkUserLogin();
 
-    if(userLoggedIn){
-      goToPage();
-    }
+ FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        // what you want to happen in sing out
+      }
+      else {
+        print('User is signed in!');
+        goToPage();
+      }
+    });
 
   }
 
@@ -51,7 +64,9 @@ class LoginController extends GetxController {
       print('user type  =>> ${userModel.userType}');
       if (userModel.userType == UserType.employer.name) {
         // if user not complete his data go to complete it if complete , go to bottom bar
-        Get.offNamed(Routes.employerInfoView);
+
+        HiveService().addItem('user',userModel);
+        Get.offNamed(Routes.employerBottomBarView);
         //   Get.offNamed(Routes.employerBottomBarView);
       } else if (userModel.userType == UserType.jobSeeker.name) {
         // go to bottom bar
@@ -68,21 +83,32 @@ class LoginController extends GetxController {
       FirebaseResponse fbResponse = await Authenticate()
           .signInWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
-      LoadingDialog.hide();
+
 
       if (fbResponse.status) {
+
+        User user = await Authenticate().getUser;
+
+        UserModel? userModel = await UsersDB.getCurrentUser(user.uid);
+        print('user Model is => $userModel');
+        print('user Model is => ${userModel!.email}');
+        print('user Model is => ${userModel!.userID}');
+        HiveService().addItem(Constants.user, userModel);
 
         Get.snackbar(StringsManager.loginDone, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
 
-
+        LoadingDialog.hide();
         goToPage();
 
+
       } else {
+        LoadingDialog.hide();
         Get.snackbar(fbResponse.message, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
+
       }
     }
   }

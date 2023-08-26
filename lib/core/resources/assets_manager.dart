@@ -50,6 +50,18 @@ class AssetsManager {
   static const String emailVerify = '$imagesPath/email_verify.svg';
   static const String forgetPassword = '$imagesPath/Forgot_password.svg';
   static const String termsAndPrivacy = '$imagesPath/Accept_terms.svg';
+  static const String customService = '$imagesPath/categories/custom_service.svg';
+  static const String education = '$imagesPath/categories';
+  static const String categories = '$imagesPath/categories.svg';
+  static const String engineer = '$imagesPath/categories/engineer.svg';
+  static const String finance = '$imagesPath/categories/finance.svg';
+  static const String healt = '$imagesPath/categories/healt.svg';
+  static const String it = '$imagesPath/categories/it.svg';
+  static const String legal = '$imagesPath/categories/legal.svg';
+  static const String marketing = '$imagesPath/categories/marketing.svg';
+  static const String resarch = '$imagesPath/categories/resarch.svg';
+  static const String sales = '$imagesPath/categories/sales.svg';
+
 }
 
 

@@ -85,7 +85,7 @@ class EmployerProfileView extends GetView<EmployerProfileController> {
                   height: HeightManager.h20,
                 ),
                 Text(
-                  controller.userModel!.name,
+                  controller.userModel.name,
                   style: getBoldTextStyle(
                       fontSize: FontSizeManager.s22,
                       color: ColorsManager.primary),

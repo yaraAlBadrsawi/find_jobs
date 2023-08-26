@@ -10,6 +10,7 @@ class ColorsManager{
   static const Color accent2=Color(0xff476D7C ); //DDE6ED
   static const Color background=Color(0xffF6F4EB); //F5F5F5
   static const Color transparent=Color(0xf5f5f5); //F5F5F5
+  static const Color red=Colors.red; //F5F5F5
 //text color => 333333
 // Call-to-Action Color: #FF5722 (Deep Orange)
   static const Color white= Color(0xffffffff);

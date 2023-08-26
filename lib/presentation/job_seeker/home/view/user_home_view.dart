@@ -7,7 +7,7 @@ import 'package:graduation_project/config/constants.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
-import 'package:graduation_project/core/widget/home_box.dart';
+import 'package:graduation_project/presentation/employer/home/view/widget/employer_home_box.dart';
 import 'package:graduation_project/presentation/job_seeker/home/controller/user_home_controller.dart';
 import 'package:graduation_project/presentation/job_seeker/home/view/widget/job_seeker_home_box.dart';
 import '../../../../core/resources/fonts_manager.dart';
@@ -47,7 +47,6 @@ class UserHomeView extends GetView<UserHomeController> {
 
           // key:_key,
           body:
-
           // Sliver list
           JobSeekerHomeBox()  ,
 

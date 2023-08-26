@@ -97,10 +97,13 @@ class InterestView extends GetView<InterestController> {
                                 () => Checkbox(
                                   value: controller.isCheckedList[index],
                                   onChanged: (val) {
-                                    controller.isCheckedList[index] =
-                                        val ?? false;
 
-                                    controller.toggle();
+                                    // print();
+                                    // controller.isCheckedList[index] =
+                                    // !controller.isCheckedList[index];
+
+                                   controller.toggle(index);
+                                    print('item ${controller.isCheckedList[index]} isChecked ');
                                   },
                                   activeColor: ColorsManager.primary,
                                   shape: RoundedRectangleBorder(
@@ -119,7 +122,6 @@ class InterestView extends GetView<InterestController> {
               height: HeightManager.h40,
               color: ColorsManager.primary,
               onPressed: () {
-
                 // final checkedValues = List<int>.generate(
                 //   controller.isCheckedList.length,
                 //   (index) => controller.isCheckedList[index] ? index : -1,
@@ -127,13 +129,16 @@ class InterestView extends GetView<InterestController> {
 
                 // final selectedCategories = <String>[];
 
-                for (int index = 0; index < controller.isCheckedList.length; index++) {
+                for (int index = 0;
+                    index < controller.isCheckedList.length;
+                    index++) {
                   if (controller.isCheckedList[index]) {
                     controller.selectedInterest.add(categories[index]);
+                    print('item => ${categories[index]} is added to list done');
                   }
                 }
-              controller.storeInterest(controller.selectedInterest.value);
-
+                print('interest select is : ${controller.selectedInterest}');
+                controller.storeInterest(controller.selectedInterest.value);
               })
         ],
       ),
