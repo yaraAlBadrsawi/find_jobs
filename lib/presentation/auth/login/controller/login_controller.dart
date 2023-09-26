@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -10,10 +9,10 @@ import 'package:graduation_project/core/resources/strings_manager.dart';
 import '../../../../core/model/base_model.dart';
 import '../../../../core/network/auth/auth.dart';
 import '../../../../core/network/auth/user_db.dart';
+import '../../../../core/network/auth/user_operation.dart';
 import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/storage/local/hive_data_store/hive_data_store.dart';
 import '../../../../core/widget/loading.dart';
-
 class LoginController extends GetxController {
   var formKey = GlobalKey<FormState>();
   var checkedValue = false.obs;
@@ -89,6 +88,14 @@ class LoginController extends GetxController {
         Get.snackbar(fbResponse.message, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
+        var userID =
+            await SecureStorage().readSecureStorage(StringsManager.userId);
+        UserModel? user = await GetUsers.getCurrentUser(userID);
+        if (user!.userType == 1) {
+          Get.offNamed(Routes.employerHome);
+        } else {
+          Get.offNamed(Routes.jobSeekerHome);
+        }
       }
     }
   }

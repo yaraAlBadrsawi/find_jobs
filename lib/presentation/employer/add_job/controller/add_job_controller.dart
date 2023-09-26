@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +18,8 @@ import '../../../../core/network/auth/user_db.dart';
 import '../../../../core/network/jobs/jobs_db.dart';
 import '../../../../core/resources/strings_manager.dart';
 import '../../home/controller/employer_controller.dart';
-
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 class AddJobController extends GetxController {
   late TextEditingController jobNameController;
   late TextEditingController jobIdController;
@@ -31,7 +33,6 @@ class AddJobController extends GetxController {
   late TextEditingController responsibilitiesController;
   late TextEditingController jobDescriptionController;
   TextEditingController dateInput = TextEditingController();
-
   var categories = StringsManager.jobCategory.obs;
   var jobTypes = StringsManager.jobType.obs;
   var experienceYears = StringsManager.experienceYear.obs;
@@ -52,8 +53,10 @@ class AddJobController extends GetxController {
   @override
   onInit() {
     initTextEditingController();
+
     dateInput.text = ""; //set the initial value of text field
     // getCurrentUserData();
+
     super.onInit();
   }
 
@@ -113,6 +116,21 @@ class AddJobController extends GetxController {
     experienceYearController = TextEditingController();
     responsibilitiesController = TextEditingController();
     jobDescriptionController = TextEditingController();
+
+  addJob() {}
+
+  initTextEditingController() {
+    late TextEditingController jobNameController;
+    late TextEditingController jobIdController;
+    late TextEditingController employerIdController;
+    late TextEditingController jobCategoryController;
+    late TextEditingController jobTypeController;
+    late TextEditingController jobSalaryController;
+    late TextEditingController expireDateController;
+    late TextEditingController educationLevelController;
+    late TextEditingController experienceYearController;
+    late TextEditingController responsibilitiesController;
+    late TextEditingController jobDescriptionController;
   }
 
   disposeTextEditingController() {
@@ -177,4 +195,5 @@ class AddJobController extends GetxController {
       update();
     } else {}
   }
+
 }

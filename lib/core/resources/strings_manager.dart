@@ -78,7 +78,7 @@ class StringsManager {
   static const String contactInfo = 'Contact Info';
   static const String doNotHaveAccount = "don't have an account";
   static const String invalidEmptyCode = "This field is required";
-  static const String resendCode = 'If you didn\'t receive a code';
+  static const String resendCode = 'If you didn\'t receive a code"; 
   static const String resend = 'Resend Email link';
   static const String INTERNAL_SERVER_ERROR =
       'Internal Server Error, Try Again Later';
@@ -104,11 +104,13 @@ class StringsManager {
   static const String somethingWrong = 'Something went wrong';
   static const String passwordResetDone =
       'Password reset email sent successfully';
+
   static const String subTitleVerification = "Enter the code please";
   static const String verificationCode = "Verification Code";
   static const String close = "Close";
   static const String confirm = "Confirm";
   static const String changeEmail = "Change Email";
+
   static const String changePassword = "Reset Password";
   static const String checkEmail = "Check Email first ";
   static const String verifyYourEmail = "Verify your email address ";
@@ -202,6 +204,17 @@ class StringsManager {
   static var khanYuins = 'Khan Yunis';
   static var rafah  = 'Rafah ';
 
+  static const String checkEmail = "Check Email first ";
+  static const String verifyYourEmail = "Verify your email ";
+  static const String verifyDone = "You successfully verify your email account";
+    static const String verifyMessage =
+      'Please , check your email we sent code to verify your account';
+
+
+  static var rememberMe='Remember me'; //TODO:WARNING
+  static var addJob='Add Job';
+
+
   static var selectImageSource  = 'Select Image Source ';
   static var gallery  = 'Gallery';
   static var camera  = 'Camera';
@@ -253,8 +266,6 @@ class StringsManager {
   static var unacceptable =  'unacceptable';
   static var requrstDone = 'Your request has been sent successfully';
   static var employerDes  = 'Discover Exceptional Employers and Opportunities';
-
-  // static var categories  = 'About Us';
 
 
 }

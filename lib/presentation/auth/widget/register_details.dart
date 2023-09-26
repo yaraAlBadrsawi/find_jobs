@@ -188,9 +188,11 @@ class Details extends GetView<RegisterController> {
                                         // text
                                       ],
                                     ),
+
                                   ),
                                 ),
                               );
+                                  ), actionText: StringsManager.ok);
                             },
                         )
                       ])),
@@ -206,6 +208,10 @@ class Details extends GetView<RegisterController> {
               radius: RadiusManager.r10,
               onPressed: () {
                 controller.performRegister(context);
+              onPressed: () async {
+                await controller.performRegister(context);
+
+
               },
               child: Text(StringsManager.register.tr)),
 
@@ -234,4 +240,5 @@ class Details extends GetView<RegisterController> {
       ),
     );
   }
+
 }

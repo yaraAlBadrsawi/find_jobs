@@ -59,6 +59,7 @@ class Authenticate {
           userType: user.userType,
         );
 
+
         bool isSavedToDB = await UsersDB.addAllUserInDB(newUser);
 
         // ask usr if want to save data or not ?
@@ -69,6 +70,13 @@ class Authenticate {
         //   if (isSavedToDB) {
         /// save data in SecureStorage
         print('Is data saved done ?? $isSavedToDB ');
+
+
+        bool isSavedToDB = await InsertUsers.addAllUserInDB(newUser);
+        if (isSavedToDB) {
+          /// save data in SecureStorage
+          Authenticate()._saveUserDataInSecureStorage(user, password);
+        }
 
         await userCredential.user!.sendEmailVerification();
 
@@ -91,6 +99,21 @@ class Authenticate {
   }
 
   Future<User> get getUser async => auth.currentUser!;
+
+  void _saveUserDataInSecureStorage(UserModel user, String password) {
+    // save email in secure storage
+    SecureStorage().writeSecureStorage(StringsManager.email, user.email);
+    // save password in secure storage
+    SecureStorage().writeSecureStorage(StringsManager.password, password);
+    // save phoneNumber in secure storage
+    SecureStorage().writeSecureStorage(StringsManager.phone, user.phoneNumber);
+    // save userType in secure storage
+    SecureStorage().writeSecureStorage(StringsManager.userType, user.userType);
+    // save userId in secure storage
+    SecureStorage().writeSecureStorage(StringsManager.userId, user.userID);
+  }
+
+ Future<User> get getUser async => _auth.currentUser!;
 
   Future<FirebaseResponse> signInWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -119,6 +142,10 @@ class Authenticate {
 
       if (userCredential.user != null) {
         User user = await Authenticate().getUser;
+
+       SecureStorage().writeSecureStorage(StringsManager.userId, userCredential.user!.uid);
+        print('Login done <<GOOD JOBS YARA >>');
+
 
         UserModel userModel = await UsersDB.getCurrentUser(user.uid);
         HiveService().addItem(Constants.user, userModel);
@@ -170,8 +197,10 @@ class Authenticate {
   // EMAIL VERIFICATION
   Future<void> sendEmailVerification() async {
     try {
+
       auth.currentUser!.sendEmailVerification();
-      // Email verification sent!
+
+      _auth.currentUser!.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
 // e.message!
     }
@@ -193,6 +222,17 @@ class Authenticate {
   void resendVerificationCode() async {
     try {
       User? user = auth.currentUser;
+      if (user != null) {
+        await user.sendEmailVerification();
+      }
+    } catch (e) {
+      // Handle errors
+    }
+  }
+
+  void resendVerificationCode() async {
+    try {
+      User? user = _auth.currentUser;
       if (user != null) {
         await user.sendEmailVerification();
       }

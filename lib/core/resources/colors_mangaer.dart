@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class ColorsManager{
+
   static const Color primary=Color(0xff4A55A2);// old=> 146C94 // 27374D
   static const Color primaryDark=Color(0xff13172e);// old=> 146C94 // 27374D
+  static const Color primary=Color(0xff4682A9);// old=> 146C94 // 27374D
   static const Color secondary=Color(0xff254B62); //526D82
   static const Color accent=Color(0xff476D7C ); //9DB2BF
   static const Color textColor = Color(0xFF072A33);
@@ -14,8 +16,7 @@ class ColorsManager{
   static const Color splashBackground=Color(0xfff3f3f5); //F5F5F5
   static const Color transparent=Color(0xf5f5f5); //F5F5F5
   static const Color red=Colors.red; //F5F5F5
-//text color => 333333
-// Call-to-Action Color: #FF5722 (Deep Orange)
+
   static const Color white= Color(0xffffffff);
   static const Color lightWhite= Color(0xffbcbcbc);
   static const Color lightWhite2= Color(0xffe6e6e6);

@@ -2,6 +2,7 @@ import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 
 class FieldValidator {
+
   //TODO :delete static and make instance of class in controller
   static String? validateEmail(String? email) {
     if (email!.isEmpty) {
@@ -58,6 +59,7 @@ class FieldValidator {
 
     return null;
   }
+
 
   static String? validateData(value) {
     if (value == null) {

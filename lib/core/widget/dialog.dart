@@ -32,7 +32,11 @@ required Widget content,required String actionText}
           TextButton(
             onPressed: () {
               Get.back();
+
             }, child: Text(''),
+
+            },
+            child: Text(actionText),
           ),
         ],
       ),

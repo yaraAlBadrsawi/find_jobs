@@ -12,7 +12,6 @@ class Constants {
   static const int sliderItems = 3;
   static const int codeVerificationMaxLine = 1;
   static const double elevationButton = 0;
-  // static const double  = 3;
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
@@ -20,6 +19,8 @@ class Constants {
   static const userBox = "userBox";
   static const user = "user";
   static const isLoggedBox = "isLogged";
+
+
 
 }
 

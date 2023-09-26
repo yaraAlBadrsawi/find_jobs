@@ -5,7 +5,6 @@ import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/presentation/job_seeker/home/controller/user_home_controller.dart';
 import 'package:graduation_project/presentation/job_seeker/home/view/widget/job_seeker_home_box.dart';
 import '../../bottom_navigation/view/job_seeker_drawer_view.dart';
-
 class UserHomeView extends GetView<UserHomeController> {
   UserHomeView({super.key});
 
@@ -37,6 +36,20 @@ class UserHomeView extends GetView<UserHomeController> {
         child: const Scaffold(
           body: JobSeekerHomeBox(),
         ));
+
+import '../../../../core/resources/fonts_manager.dart';
+
+class UserHomeView extends StatelessWidget {
+  const UserHomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+        body: Center(child: Text('UserHomeView',style: TextStyle(fontSize: FontSizeManager.s50)
+
+    )));
+
   }
 
 }

@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
             themeMode: _themeService.getThemeMode(),
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.splashView ,
+            initialRoute: Routes.loginView,
             getPages: Routes.routes,
           );
         });

@@ -7,7 +7,10 @@ import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/presentation/employer/bottom_navigation/view/employer_drawer.dart';
 import 'package:graduation_project/presentation/employer/home/controller/employer_controller.dart';
 import 'package:graduation_project/presentation/employer/home/view/widget/job_post.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:graduation_project/core/resources/fonts_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
 import 'widget/employer_home_box.dart';
 
@@ -52,5 +55,13 @@ class EmployerHomeView extends GetView<EmployerHomeController> {
           ),
           body: EmployerHomeBox('Find the best person to work to your jobs '),
         ));
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Get.toNamed(Routes.addJobView);
+
+      },),
+      body: Center(child: Text('EmployerHomeView',style: TextStyle(fontSize: FontSizeManager.s50),))
+      ,
+    );
   }
 }

@@ -21,6 +21,8 @@ class JobModel {
   late String experienceYear;
   late String jobDescription;
   late Timestamp? currentTime;
+  late String responsibilities;
+  late String jobDescription;
 
   JobModel({
     this.jobName = '',
@@ -35,6 +37,8 @@ class JobModel {
     // this.responsibilities = '',
     this.jobDescription = '',
     this.currentTime,
+    this.responsibilities = '',
+    this.jobDescription = '',
   });
 
   factory JobModel.fromJson(Map<String, dynamic> parsedJson) {
@@ -54,6 +58,8 @@ class JobModel {
               (parsedJson['currentTime'] as Timestamp).millisecondsSinceEpoch,
             )
           : null, // Parse the DateTime value
+      responsibilities: parsedJson['responsibilities'] ?? '',
+      jobDescription: parsedJson['jobDescription'] ?? '',
     );
   }
 
@@ -62,6 +68,7 @@ class JobModel {
       'jobName': jobName,
       'jobId': jobId,
       'employerId': employerId,
+
       'jobCategory': jobCategory,
       'jobType': jobType,
       'jobSalary': jobSalary,
@@ -70,6 +77,8 @@ class JobModel {
       'experienceYear': experienceYear,
       'jobDescription': jobDescription,
       'currentTime': currentTime
+      'responsibilities': responsibilities,
+      'jobDescription': jobDescription,
     };
   }
 }
