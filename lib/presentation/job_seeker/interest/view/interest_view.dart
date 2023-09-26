@@ -56,8 +56,8 @@ class InterestView extends GetView<InterestController> {
                 decoration: BoxDecoration(
                   color: ColorsManager.white,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(RadiusManager.r50),
-                      topRight: Radius.circular(RadiusManager.r50)),
+                      topLeft: Radius.circular(RadiusManager.r30),
+                      topRight: Radius.circular(RadiusManager.r30)),
                 ),
                 child: ListView.builder(
                     itemCount: categories.length,
@@ -97,13 +97,13 @@ class InterestView extends GetView<InterestController> {
                                 () => Checkbox(
                                   value: controller.isCheckedList[index],
                                   onChanged: (val) {
-
                                     // print();
                                     // controller.isCheckedList[index] =
                                     // !controller.isCheckedList[index];
 
-                                   controller.toggle(index);
-                                    print('item ${controller.isCheckedList[index]} isChecked ');
+                                    controller.toggle(index);
+                                    print(
+                                        'item ${controller.isCheckedList[index]} isChecked ');
                                   },
                                   activeColor: ColorsManager.primary,
                                   shape: RoundedRectangleBorder(
@@ -118,7 +118,6 @@ class InterestView extends GetView<InterestController> {
                     })),
           ),
           MainButton(
-              child: Text(StringsManager.continues),
               height: HeightManager.h40,
               color: ColorsManager.primary,
               onPressed: () {
@@ -139,118 +138,14 @@ class InterestView extends GetView<InterestController> {
                 }
                 print('interest select is : ${controller.selectedInterest}');
                 controller.storeInterest(controller.selectedInterest.value);
-              })
+              },
+              child: Text(
+                StringsManager.continues,
+                style: getRegularTextStyle(
+                    fontSize: FontSizeManager.s16, color: ColorsManager.white),
+              ))
         ],
       ),
-      /**
-          Column(
-          children: [
-          SizedBox(
-          height: HeightManager.h100,
-          ),
-          Text(
-          StringsManager.interest,
-          style: getRegularTextStyle(
-          fontSize: FontSizeManager.s20, color: ColorsManager.white),
-          ),
-          SizedBox(
-          height: HeightManager.h20,
-          ),
-          Text(
-          StringsManager.interestDes,
-          style: getRegularTextStyle(
-          fontSize: FontSizeManager.s18, color: ColorsManager.white),
-          ),
-          Padding(
-          padding: EdgeInsets.all(WidthManager.w20),
-          child: Text(
-          StringsManager.interestCat,
-          style: getMediumTextStyle(
-          fontSize: FontSizeManager.s14, color: ColorsManager.lightWhite),
-          ),
-          ),
-          SizedBox(
-          height: HeightManager.h20,
-          ),
-          Expanded(
-          child: Container(
-          padding: EdgeInsets.symmetric(
-          vertical: HeightManager.h30, horizontal: HeightManager.h10),
-          width: double.infinity,
-          decoration: BoxDecoration(
-          color: ColorsManager.white,
-          borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(RadiusManager.r50),
-          topRight: Radius.circular(RadiusManager.r50)),
-          ),
-          child: ListView.builder(
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-          return Container(
-          height: HeightManager.h60,
-          padding: EdgeInsets.all(WidthManager.w20),
-          margin: EdgeInsets.all(WidthManager.w8),
-          decoration: BoxDecoration(
-          color: ColorsManager.white,
-          borderRadius: BorderRadius.all(
-          Radius.circular(RadiusManager.r20)),
-          boxShadow: [
-          BoxShadow(
-          color: Colors.black.withOpacity(0.3),
-          spreadRadius: 2,
-          blurRadius: 5,
-          offset: Offset(0, 3),
-          ),
-          ],
-          ),
-          child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          Row(children: [
-          SizedBox(
-          width: WidthManager.w5,
-          ),
-          Text(
-          categories[index],
-          style: getRegularTextStyle(
-          fontSize: FontSizeManager.s16,
-          color: ColorsManager.black),
-          ),
-          ]),
-          Obx(
-          () => Checkbox(
-          value: controller.isCheckedList[index],
-          onChanged: (val) {
-          controller.isCheckedList[index] =
-          val ?? false;
-
-          controller.toggle();
-          },
-          activeColor: ColorsManager.primary,
-          shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-          RadiusManager.r20,
-          ),
-          ),
-          ),
-          ),
-          ],
-          ));
-          })),
-          ),
-          MainButton(child: Text(StringsManager.continues), height: HeightManager.h40,
-          color:ColorsManager.primary, onPressed: (){
-          final checkedValues = List<int>.generate(
-          controller.isCheckedList.length,
-          (index) => controller.isCheckedList[index] ? index : -1,
-          ).where((value) => value >= 0).toList();
-          })
-
-          ],
-          ),
-
-
-       **/
     );
   }
 }

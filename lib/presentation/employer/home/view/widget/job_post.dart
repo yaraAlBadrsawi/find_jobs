@@ -27,55 +27,72 @@ class EmployerJobsPosts extends GetView<EmployerHomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<EmployerHomeController>(builder: (controller) {
-      return SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-        return controller.jobsList.isNotEmpty
-            ? Slidable(
-                startActionPane: ActionPane(
-                  motion: const StretchMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) {
-                     controller.goToEditJob(index);
+    return Obx(() {
+      controller.getJobWithEmployer();
+      return controller.jobWithEmployer.isNotEmpty
+          ? SliverList(
+              delegate:
+                  SliverChildBuilderDelegate((BuildContext context, int index) {
+              return Slidable(
+                  startActionPane: ActionPane(
+                    motion: const StretchMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          controller.goToEditJob(index);
+                        },
+                        backgroundColor: ColorsManager.green,
+                        icon: FontAwesomeIcons.pen,
+                        label: StringsManager.edit,
+                      )
+                    ],
+                  ),
+                  endActionPane: ActionPane(
+                    motion: const StretchMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          controller.deleteJob(index);
+                        },
+                        backgroundColor: ColorsManager.red,
+                        icon: FontAwesomeIcons.trash,
+                        label: StringsManager.delete,
+                      )
+                    ],
+                  ),
+                  child: JobSeekerJobItem(
+                    controller.jobWithEmployer[index],
+                    controller.jobWithEmployer[index],
+                    // controller.jobsList[index],
+                    // controller.employerModel,
+                  )
+                  //  )
+                  );
+            }, childCount: controller.jobWithEmployer.length))
+          :const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator())
 
-                      },
-                      backgroundColor: ColorsManager.green,
-                      icon: FontAwesomeIcons.pen,
-                      label: StringsManager.edit,
-                    )
-                  ],
-                ),
+        // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     SvgPicture.asset(
+              //       AssetsManager.noData,
+              //       height: HeightManager.h200,
+              //       width: WidthManager.w200,
+              //     ),
+              //     SizedBox(
+              //       height: HeightManager.h10,
+              //     ),
+              //     Text('No Jobs Added Yet !!',style: getBoldTextStyle(fontSize: IconSizeManager.s20,
+              //         color: ColorsManager.black),),
+              //     SizedBox(
+              //       height: HeightManager.h20,
+              //     ),
+              //   ],
+              // ),
+              //
 
-                endActionPane: ActionPane(
-                  motion: const StretchMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) {},
-                      backgroundColor: ColorsManager.red,
-                     icon: FontAwesomeIcons.trash,
-                      label: StringsManager.delete,
-                    )
-                  ],
-                ),
-                // child: Shimmer.fromColors(
-                //   baseColor: Colors.white,
-                //   highlightColor: ColorsManager.lightGrey,
-                 child:
-                  JobItem(
-                      controller.jobsList[index], controller.employerModel),
-              //  )
-        )
-
-            : Center(
-                child: SvgPicture.asset(
-                  AssetsManager.noData,
-                  height: HeightManager.h300,
-                  width: WidthManager.w300,
-                ),
               );
-      }, childCount: controller.jobsList.length));
     });
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/core/model/employer/employer_model.dart';
 import 'package:graduation_project/core/network/auth/auth.dart';
-import 'package:graduation_project/core/network/auth/user_operation.dart';
+import 'package:graduation_project/core/network/auth/user_db.dart';
 import 'package:graduation_project/core/network/upload_images/upload_images.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
@@ -39,7 +39,7 @@ class EmployerInfoController extends GetxController {
 
   var _selectedImages = [].obs; // List<HLPickerItem>
   // XFile? file = (null).obs;
-  Rx<File?> pickedImage = Rx<File?>(null);
+  // Rx<File?> pickedImage = Rx<File?>(null);
 
   var email = '';
   var name = '';

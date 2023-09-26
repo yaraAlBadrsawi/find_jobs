@@ -1,5 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'employer/employer_model.dart';
+
+class JobWithEmployer {
+  final JobModel job;
+  final EmployerModel employer;
+
+  JobWithEmployer({required this.job, required this.employer});
+}
+
 class JobModel {
   late String jobName;
   late String jobId;
@@ -10,28 +19,23 @@ class JobModel {
   late String expireDate;
   late String educationLevel;
   late String experienceYear;
-  // late String responsibilities;
   late String jobDescription;
   late Timestamp? currentTime;
 
-  JobModel(
-
-      {
-        this.jobName = '',
-        this.jobId = '',
-        this.employerId = '',
-        this.jobCategory = '',
-        this.jobType = '',
-        this.jobSalary = '',
-        this.expireDate = '',
-        this.educationLevel = '',
-        this.experienceYear='',
-        // this.responsibilities = '',
-        this.jobDescription = '',
-        this.currentTime ,
-      }
-
-      ) ;
+  JobModel({
+    this.jobName = '',
+    this.jobId = '',
+    this.employerId = '',
+    this.jobCategory = '',
+    this.jobType = '',
+    this.jobSalary = '',
+    this.expireDate = '',
+    this.educationLevel = '',
+    this.experienceYear = '',
+    // this.responsibilities = '',
+    this.jobDescription = '',
+    this.currentTime,
+  });
 
   factory JobModel.fromJson(Map<String, dynamic> parsedJson) {
     return JobModel(
@@ -47,8 +51,8 @@ class JobModel {
       jobDescription: parsedJson['jobDescription'] ?? '',
       currentTime: parsedJson['currentTime'] != null
           ? Timestamp.fromMillisecondsSinceEpoch(
-        (parsedJson['currentTime'] as Timestamp).millisecondsSinceEpoch,
-      )
+              (parsedJson['currentTime'] as Timestamp).millisecondsSinceEpoch,
+            )
           : null, // Parse the DateTime value
     );
   }
@@ -57,7 +61,7 @@ class JobModel {
     return {
       'jobName': jobName,
       'jobId': jobId,
-      'employerId':employerId,
+      'employerId': employerId,
       'jobCategory': jobCategory,
       'jobType': jobType,
       'jobSalary': jobSalary,
@@ -65,7 +69,7 @@ class JobModel {
       'educationLevel': educationLevel,
       'experienceYear': experienceYear,
       'jobDescription': jobDescription,
-      'currentTime':currentTime
+      'currentTime': currentTime
     };
   }
 }

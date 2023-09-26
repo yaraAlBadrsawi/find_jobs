@@ -6,6 +6,9 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
+import 'package:graduation_project/presentation/job_seeker/application/view/job_seeker_application.dart';
+import 'package:graduation_project/presentation/job_seeker/notification/view/job_seeker_notification_view.dart';
+import 'package:graduation_project/presentation/job_seeker/profile/view/job_seeker_profile.dart';
 
 import '../../../../core/resources/sizes_manager.dart';
 import '../../home/view/user_home_view.dart';
@@ -19,16 +22,18 @@ class UserBottomNavigationBarView
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => IndexedStack(
-        index: controller.tabIndex.value,
-        children: [
-          // _screens[controller.tabIndex.value]
+            index: controller.tabIndex.value,
+            children: [
+              // _screens[controller.tabIndex.value]
 
-         UserHomeView(),
-           // OffersScreen(),
-          // CartScreen(),
-        ],
-      )
-    ),
+              UserHomeView(),
+              const JobSeekerApplication(),
+              const JobSeekerNotificationView(),
+              const JobSeekerProfileView(),
+              // OffersScreen(),
+              // CartScreen(),
+            ],
+          )),
       bottomNavigationBar: buildBottomNavigationMenu(context),
     );
   }
@@ -46,16 +51,14 @@ class UserBottomNavigationBarView
         currentIndex: controller.tabIndex.value,
         items: [
           BottomNavigationBarItem(
-      icon: Icon(
-      FontAwesomeIcons.house,
-        size: IconSizeManager.s24,
-      ),
-        label: 'home'),
-
-
+              icon: Icon(
+                FontAwesomeIcons.house,
+                size: IconSizeManager.s24,
+              ),
+              label: 'home'),
           BottomNavigationBarItem(
               icon: Icon(
-                FontAwesomeIcons.codePullRequest,
+                FontAwesomeIcons.box,
                 size: IconSizeManager.s24,
               ),
               label: 'application'),
@@ -65,10 +68,9 @@ class UserBottomNavigationBarView
                 size: IconSizeManager.s24,
               ),
               label: 'notification'),
-
           BottomNavigationBarItem(
               icon: Icon(
-               FontAwesomeIcons.user,
+                FontAwesomeIcons.user,
                 size: IconSizeManager.s24,
               ),
               label: 'profile'),

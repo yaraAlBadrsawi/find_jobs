@@ -11,9 +11,11 @@ class LoadingDialog {
       const Center(
         child: CircularProgressIndicator(
           color: ColorsManager.primary,
+
         ),
       ),
       barrierDismissible: false,
+
     );
   }
 

@@ -4,30 +4,25 @@ import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/widget/loading.dart';
 
-import '../../../../core/network/auth/user_operation.dart';
+import '../../../../core/network/auth/user_db.dart';
 
 class InterestController extends GetxController {
   var isChecked = false.obs;
-  // var isCheckedList = false;
-  var selectOptions=[].obs;
+  var selectOptions = [].obs;
   var isCheckedList = List.filled(categories.length, false).obs;
-  // List<bool> selectedCategories = List.generate(categories.length, (index) => false);
-
-
-  List<Map> interests=[
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-    {'categories':categories[0],'value':false },
-
+  List<Map> interests = [
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
+    {'categories': categories[0], 'value': false},
   ];
   var selectedInterest = [].obs;
 
@@ -36,17 +31,16 @@ class InterestController extends GetxController {
     // isChecked.value = value;
   }
 
-  void storeInterest(var interests)async {
+  void storeInterest(var interests) async {
     LoadingDialog.show();
-bool isAdd=
-await JobSeekerDB().addInterestsToDB(interests);
-print('IS ADD =>> $isAdd');
-
-    if(isAdd){
+    bool isAdd = await JobSeekerDB().addInterestsToDB(interests);
+    print('IS ADD =>> $isAdd');
+    if (isAdd) {
       print('interest add done ');
-    Get.snackbar('interests added done','',backgroundColor: ColorsManager.primary.withOpacity(0.5));
+      Get.snackbar('interests added done', '',colorText: ColorsManager.white,
+          backgroundColor: ColorsManager.primary.withOpacity(0.5));
       LoadingDialog.hide();
-      Get.toNamed(Routes.jobSeekerBottomBarView);
+      Get.toNamed(Routes.jobSeekerInfo);
     }
   }
 }

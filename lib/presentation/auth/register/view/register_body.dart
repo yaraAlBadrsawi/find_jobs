@@ -14,7 +14,6 @@ class RegisterBody extends GetView<RegisterController> {
   final List<String> heads = [
     StringsManager.user,
     StringsManager.employer,
-    // StringsManager.userAndEmployer,
   ];
 
   RegisterBody({super.key});

@@ -16,24 +16,26 @@ class JobSeekerJobsPosts extends GetView<UserHomeController> {
         child: Column(
       children: [
         GetBuilder<UserHomeController>(builder: (controller) {
-          return Expanded(
-            child: controller.jobsList.isNotEmpty
-                ? ListView.builder(
-                    itemCount: controller.jobsList.length,
-                    itemBuilder: (context, index) {
-                      controller.getEmployer(
-                        controller.jobsList[index].employerId,
-                      );
-                      return JobItem(
-                        controller.jobsList[index],
-                        controller.employerModel,
-                      );
-                    })
-                : const Center(
-                    child: CircularProgressIndicator(
-                    backgroundColor: ColorsManager.primary,
-                  )),
-          );
+
+          return SizedBox();
+          // return Expanded(
+          //   child: controller.recommendedJobs.isNotEmpty
+          //       ? ListView.builder(
+          //           itemCount: controller.jobsList.length,
+          //           itemBuilder: (context, index) {
+          //             controller.getEmployer(
+          //               controller.jobsList[index].employerId,
+          //             );
+          //             return JobItem(
+          //               controller.jobsList[index],
+          //               controller.employerModel,
+          //             );
+          //           })
+          //       : const Center(
+          //           child: CircularProgressIndicator(
+          //           backgroundColor: ColorsManager.primary,
+          //         )),
+          // );
         }),
       ],
     ));

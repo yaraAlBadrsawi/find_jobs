@@ -6,21 +6,17 @@ import 'package:get/get.dart';
 import 'package:graduation_project/config/constants.dart';
 import 'package:graduation_project/core/model/employer/employer_model.dart';
 import 'package:graduation_project/core/model/job.dart';
-import 'package:graduation_project/core/network/common_functions.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/storage/local/hive_data_store/hive_data_store.dart';
-import 'package:graduation_project/core/storage/secure_storage/secure_storage.dart';
 import 'package:graduation_project/core/widget/loading.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../../core/model/user.dart';
-import '../../../../core/network/auth/auth.dart';
-import '../../../../core/network/auth/user_operation.dart';
-import '../../../../core/network/jobs/jobs_operation.dart';
+import '../../../../core/network/auth/user_db.dart';
+import '../../../../core/network/jobs/jobs_db.dart';
 import '../../../../core/resources/strings_manager.dart';
+import '../../home/controller/employer_controller.dart';
 
 class AddJobController extends GetxController {
   late TextEditingController jobNameController;
@@ -39,6 +35,7 @@ class AddJobController extends GetxController {
   var categories = StringsManager.jobCategory.obs;
   var jobTypes = StringsManager.jobType.obs;
   var experienceYears = StringsManager.experienceYear.obs;
+  var jobCategory = StringsManager.jobCategory.obs;
   var educationLevels = StringsManager.educationLevel.obs;
   var formKey = GlobalKey<FormState>();
 
@@ -82,23 +79,26 @@ class AddJobController extends GetxController {
     return jobs;
   }
 
-  addJob() async {
+  void addJob() async {
     LoadingDialog.show();
     if (formKey.currentState!.validate()) {
       bool isAdded = await JobsDB().addJobToDB(jobs);
-
       print('is Job added ?? ${isAdded}');
       if (isAdded) {
+        EmployerHomeController controller = Get.find<EmployerHomeController>();
+        EmployerHomeController().getJobWithEmployer(); // Update the job list after adding a job
         Get.snackbar('Job added done ', '',
             backgroundColor: ColorsManager.primary.withOpacity(0.5),
             colorText: ColorsManager.white);
-        Get.toNamed(Routes.employerHome);
+        Get.toNamed(Routes.employerBottomBarView);
         LoadingDialog.hide();
         // go to home
       }
       LoadingDialog.hide();
       Get.toNamed(Routes.employerBottomBarView);
+      update();
     }
+    LoadingDialog.hide();
   }
 
   initTextEditingController() {

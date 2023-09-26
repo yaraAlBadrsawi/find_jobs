@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../../core/resources/fonts_manager.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:graduation_project/core/resources/colors_mangaer.dart';
+import 'package:graduation_project/core/resources/routes_manager.dart';
 import '../../../../../core/resources/sizes_manager.dart';
-import '../../../../../core/resources/styles_manager.dart';
 
 class CategoryBox extends StatelessWidget {
   final String text;
@@ -24,32 +23,31 @@ class CategoryBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin:  EdgeInsets.symmetric(horizontal: WidthManager.w20,
-          vertical: HeightManager.h5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(RadiusManager.r6),
-          color: color.withOpacity(0.5)),
-      padding: EdgeInsets.all(WidthManager.w8),
-      child: Column(
-        children: [
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: getRegularTextStyle(
-              fontSize: FontSizeManager.s10,
-              color: Colors.black,
-            )),
-          SvgPicture.asset(
-            image,
-            height: HeightManager.h50,
-            width: WidthManager.w50,
-            // fit: BoxFit.contain, // Adjust how the SVG fits within the widget
-            // alignment: Alignment.center,
-          ),
-
-
-        ],
+    return TextButton(
+      style: TextButton.styleFrom(
+          padding: EdgeInsets.zero, foregroundColor: ColorsManager.primary),
+      onPressed: () {
+        Get.toNamed(Routes.jobsView, arguments: text);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: HeightManager.h5),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(RadiusManager.r6),
+            color: color.withOpacity(0.8)),
+        padding: EdgeInsets.all(WidthManager.w8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              image,
+              height: HeightManager.h40,
+              width: WidthManager.w40,
+              // fit: BoxFit.contain, // Adjust how the SVG fits within the widget
+              // alignment: Alignment.center,
+            ),
+          ],
+        ),
       ),
     );
   }

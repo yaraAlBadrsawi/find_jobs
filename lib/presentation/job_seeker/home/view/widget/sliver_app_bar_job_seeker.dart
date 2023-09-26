@@ -23,7 +23,7 @@ class SliverAppBarJS extends StatelessWidget {
       ),
 
 
-      // expandedHeight: HeightManager.h100,
+      // expandedHeight: HeightManager.h200,
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: const [StretchMode.zoomBackground],
         background: Container(

@@ -8,14 +8,14 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(WidthManager.w30),
+      padding: EdgeInsets.all(WidthManager.w20),
       child: Container(
         margin: EdgeInsets.zero,
         color: Colors.transparent,
         child: Container(
           margin: EdgeInsets.zero,
           width: MediaQuery.of(context).size.width,
-          height: 70,
+          height: HeightManager.h60,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(RadiusManager.r20),

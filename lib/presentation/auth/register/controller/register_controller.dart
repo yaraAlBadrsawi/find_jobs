@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_state_render_dialog/flutter_state_render_dialog.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -11,11 +12,14 @@ import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
+import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
 import 'package:graduation_project/core/storage/local/hive_data_store/hive_data_store.dart';
 import 'package:graduation_project/core/widget/dialog.dart';
+import 'package:hive/hive.dart';
 import '../../../../core/network/auth/auth.dart';
+import '../../../../core/resources/assets_manager.dart';
 import '../../../../core/widget/dialog_button.dart';
 import '../../../../core/widget/loading.dart';
 
@@ -104,54 +108,69 @@ class RegisterController extends GetxController
     return user;
   }
 
-  performRegister(context) async {
-    LoadingDialog.show();
+  void performRegister(context) async {
     if (formKey.currentState!.validate()) {
+      LoadingDialog.show();
       if (isAgreementPolicy.value) {
         registering.value = true; // Set the progress indicator to true
-
         FirebaseResponse fbResponse = await Authenticate()
             .signUpWithEmailAndPassword(
                 user: user, password: passwordController.text);
         print('Firebase response => ${fbResponse.message}');
-
-        LoadingDialog.hide();
         Get.snackbar(fbResponse.message, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
-
         if (fbResponse.status) {
           currentUser = (FirebaseAuth.instance.currentUser)!;
-          print('current user => $currentUser');
-          print('current user email => ${currentUser.email}');
-          if (current == 0) {
-            Get.toNamed(Routes.interestView);
-          } else if (current == 1) {
-            Get.offNamed(Routes.employerInfoView);
-          }
-          // orign
-          // Get.offNamed(Routes.verifyEmail,
-          //     arguments: [user, passwordController.text]);
+          FirebaseResponse fb = await Authenticate()
+              .signInWithEmailAndPassword(
+              email: user.email, password: passwordController.text);
+          LoadingDialog.hide();
+          if (fb.status) {
 
-//          Get.toNamed(Routes.jobSeekerBottomBarView);
+            if (current.value == 0) {
+              Get.toNamed(Routes.interestView);
+            } else if (current.value == 1) {
+              Get.offNamed(Routes.employerInfoView);
+            }
+            LoadingDialog.hide();
+          }else {
+            LoadingDialog.hide();
+
+          }
         }
       } else {
-        DialogUtil.showCustomDialog(
-          title: StringsManager.error,
-          content: Column(
-            children: [
-              // image
-
-              // message
-              Text(
-                StringsManager.shouldAgreePolicies,
-                style: getRegularTextStyle(
-                    fontSize: FontSizeManager.s16, color: ColorsManager.black),
-              )
-            ],
-          ),
-          actionText: StringsManager.ok,
-        );
+      LoadingDialog.hide();
+      Get.bottomSheet(Container(
+        decoration: BoxDecoration(
+            color: ColorsManager.white,
+            borderRadius: BorderRadius.
+            only(topLeft: Radius. circular(RadiusManager.r40),topRight:Radius. circular(RadiusManager.r40) )
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+           SizedBox(height: HeightManager.h20,),
+            Text(
+              StringsManager.shouldAgreePoliciesSubtitle,
+              textAlign: TextAlign.center,
+              style: getRegularTextStyle(
+                  fontSize: FontSizeManager.s16, color: ColorsManager.grey),
+            ),
+            SizedBox(
+              height: HeightManager.h20,
+            ),
+            SvgPicture.asset(
+              AssetsManager.verifiedBro,
+              height: HeightManager.h200,
+              width: WidthManager.w200,
+            ),
+            // message
+          ],
+        ),
+      ),);
+      
       }
     } else {
       LoadingDialog.hide();

@@ -9,7 +9,7 @@ import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 import '../../../../core/model/base_model.dart';
 import '../../../../core/network/auth/auth.dart';
-import '../../../../core/network/auth/user_operation.dart';
+import '../../../../core/network/auth/user_db.dart';
 import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/storage/local/hive_data_store/hive_data_store.dart';
 import '../../../../core/widget/loading.dart';
@@ -30,42 +30,35 @@ class LoginController extends GetxController {
   }
 
   getData() async {
-    UserModel? user = await HiveService().getItem('user');
-   if(user != null ){
-     print('HIVE DATA BASE => ${user}');
-
-   }
-     }
+    UserModel? user = await HiveService().getItem(Constants.user);
+    if (user != null) {
+      print('HIVE DATA BASE => ${user}');
+    }
+  }
 
   checkUserLogin() async {
     //final userLoggedIn = await Authenticate().checkUserLogin();
 
- FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    Authenticate().auth.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        print('user is currently sign out ');
         // what you want to happen in sing out
-      }
-      else {
+      } else {
         print('User is signed in!');
+        print('current user is => ${FirebaseAuth.instance.currentUser!.email}');
         goToPage();
       }
     });
-
   }
 
-
-  void goToPage()async {
-
+  void goToPage() async {
     User user = await Authenticate().getUser;
-
     UserModel? userModel = await UsersDB.getCurrentUser(user.uid);
     if (userModel != null) {
-      print('userModel =>> $userModel');
-      print('user type  =>> ${userModel.userType}');
       if (userModel.userType == UserType.employer.name) {
         // if user not complete his data go to complete it if complete , go to bottom bar
 
-        HiveService().addItem('user',userModel);
+        HiveService().addItem(Constants.user, userModel);
         Get.offNamed(Routes.employerBottomBarView);
         //   Get.offNamed(Routes.employerBottomBarView);
       } else if (userModel.userType == UserType.jobSeeker.name) {
@@ -73,7 +66,6 @@ class LoginController extends GetxController {
         // but if user not complete his interest then should go to it first
         Get.offNamed(Routes.jobSeekerBottomBarView);
       }
-
     }
   }
 
@@ -83,32 +75,20 @@ class LoginController extends GetxController {
       FirebaseResponse fbResponse = await Authenticate()
           .signInWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
-
-
       if (fbResponse.status) {
-
         User user = await Authenticate().getUser;
-
         UserModel? userModel = await UsersDB.getCurrentUser(user.uid);
-        print('user Model is => $userModel');
-        print('user Model is => ${userModel!.email}');
-        print('user Model is => ${userModel!.userID}');
-        HiveService().addItem(Constants.user, userModel);
 
         Get.snackbar(StringsManager.loginDone, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
-
         LoadingDialog.hide();
         goToPage();
-
-
       } else {
         LoadingDialog.hide();
         Get.snackbar(fbResponse.message, StringsManager.empty,
             colorText: ColorsManager.white,
             backgroundColor: ColorsManager.primary.withOpacity(0.5));
-
       }
     }
   }

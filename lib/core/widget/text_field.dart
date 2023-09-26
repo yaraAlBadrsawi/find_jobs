@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
 class AppTextFields extends StatelessWidget {
   const AppTextFields({
@@ -22,12 +23,16 @@ class AppTextFields extends StatelessWidget {
     this.maxLines = 1,
     this.onTap,
    this. isConstraints= false ,
-    this.length=0,
+    this.length=40,
+    this.label='',
+
+
     // this.initialValue='',
   }
 );
 
   final TextEditingController? controller;
+  final String label;
   final TextInputType? keyboardType;
   final bool obscure;
   final String? Function(String?)? validator;
@@ -43,8 +48,8 @@ class AppTextFields extends StatelessWidget {
   final Function()? onTap;
   final bool isConstraints  ;
   final int length;
- // final  String? initialValue;
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -52,8 +57,9 @@ class AppTextFields extends StatelessWidget {
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+
           inputFormatters: [
-            LengthLimitingTextInputFormatter(100), // Set maximum length to 100 characters
+            LengthLimitingTextInputFormatter(length), // Set maximum length to 100 characters
           ],
           // style: getRegularTextStyle() // TODO: ADD STYLE
           obscureText: obscure,
@@ -64,7 +70,9 @@ class AppTextFields extends StatelessWidget {
           onTap: onTap,
           cursorColor: ColorsManager.primary,
           decoration: InputDecoration(
-            // hintStyle: AppStyles.light(),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+
+            hintText: hint,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             filled: filled,
@@ -73,7 +81,7 @@ class AppTextFields extends StatelessWidget {
             alignLabelWithHint: true,
             // This will move the label to the top
             labelStyle: TextStyle(color: ColorsManager.lightGrey),
-            labelText: hint,
+            labelText: label,
 
 
             border: underlineInputBorder(),
@@ -130,7 +138,9 @@ class AppPassFields extends StatelessWidget {
       this.fillColor,
       this.onChanged,
       this.validator,
-      this.controller});
+      this.controller,
+      this.label='',
+      });
 
   final bool? filled;
   final Color? fillColor;
@@ -138,18 +148,20 @@ class AppPassFields extends StatelessWidget {
   final Widget? prefixIcon;
   final Function(String)? onChanged;
   final TextEditingController? controller;
-
+final String label;
   bool secure = true;
 
   @override
   Widget build(BuildContext context) {
     return AppTextFields(
-      hint: 'Password',
+  label: label,
+      hint: StringsManager.enterPassword,
       controller: controller,
       validator: validator,
       obscure: secure,
       onChanged: onChanged,
       prefixIcon: prefixIcon,
+
       suffixIcon: IconButton(
           onPressed: () {
             // setState(() {

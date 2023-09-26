@@ -12,6 +12,7 @@ class Constants {
   static const int sliderItems = 3;
   static const int codeVerificationMaxLine = 1;
   static const double elevationButton = 0;
+  // static const double  = 3;
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
@@ -45,27 +46,21 @@ List<String> categories = [
   StringsManager.it.tr,
   StringsManager.healthcare.tr,
   StringsManager.finance.tr,
-  StringsManager.marketing.tr,
+  StringsManager.education.tr,
+  StringsManager.scienceAndResearch.tr,
   StringsManager.sales.tr,
   StringsManager.engineering.tr,
-  StringsManager.education.tr,
-//  StringsManager.customerService.tr,
-//  StringsManager.administration.tr,
   StringsManager.legal.tr,
- // StringsManager.consulting.tr,
-  StringsManager.scienceAndResearch.tr,
 ];
 List<String> categoriesImage = [
- AssetsManager.customService,
- AssetsManager.education,
- AssetsManager.engineer,
- AssetsManager.finance,
- AssetsManager.healt,
- AssetsManager.it,
- AssetsManager.legal,
- AssetsManager.marketing,
- AssetsManager.resarch,
- AssetsManager.sales,
+  AssetsManager.it,
+  AssetsManager.healt,
+  AssetsManager.finance,
+  AssetsManager.education,
+  AssetsManager.resarch,
+  AssetsManager.sales,
+  AssetsManager.engineer,
+  AssetsManager.legal,
 
   ];
 
@@ -102,18 +97,19 @@ List<String> address = [
   StringsManager.rafah,
 ];
 
-String privacyPolicyIntro = 'Welcome to Find Jobs App .\n'
-    ' This Privacy Policy outlines how we collect, '
-    'use, and protect your personal information when you use our job-finding app.';
+String welcome='Welcome to ';
+String jobHorizon='Job Horizon app';
+String privacyPolicyIntro = ' This Privacy Policy outlines how we collect, use, and protect your personal information when you use our job-finding app.'
+    ;
 
 String privacyPolicy =
-    'Information We Collect :\n Personal Information: We collect your name, email address,'
+    'Information We Collect :\n 🔹 Personal Information: We collect your name, email address,'
     ' and other necessary details during registration to create and manage your account\n'
-    'Profile Information: You can provide additional details such as a profile picture, job preferences, and location to enhance your app experience.\nHow We Use Your Information:\n'
-    'Account Management: We use your personal information to create and manage your account, provide job recommendations, and facilitate communication with potential employers.\n '
+    '🔹 Profile Information: You can provide additional details such as a profile picture, job preferences, and location to enhance your app experience.\n🔹 How We Use Your Information:\n'
+    '🔹Account Management: We use your personal information to create and manage your account, provide job recommendations, and facilitate communication with potential employers.\n '
     'Communication: We may use your email address to send important notifications and updates related to job opportunities. \n'
-    'Sharing Your Information:\n Employer Interaction: When you apply for a job, your profile and relevant information will be shared with the employer for consideration. \n'
-    'Service Providers: We may share your information with service providers who assist in delivering our services, such as email communication or data analytics.';
+    '🔹 Sharing Your Information:\n 🔹Employer Interaction: When you apply for a job, your profile and relevant information will be shared with the employer for consideration. \n'
+    '🔹 Service Providers: We may share your information with service providers who assist in delivering our services, such as email communication or data analytics.';
 
 List<Map<String, Object>> countryCodes = [
   {'code': '+972', 'index': 0},

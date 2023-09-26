@@ -2,7 +2,6 @@ import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
 
 class FieldValidator {
-
   //TODO :delete static and make instance of class in controller
   static String? validateEmail(String? email) {
     if (email!.isEmpty) {
@@ -16,11 +15,10 @@ class FieldValidator {
     if (!GetUtils.isEmail(email)) {
       return StringsManager.invalidEmail;
     }
-
     return null;
   }
 
- static String? validatePassword(String? password) {
+  static String? validatePassword(String? password) {
     if (password!.isEmpty) {
       return StringsManager.emptyPassword;
     }
@@ -35,15 +33,12 @@ class FieldValidator {
       return StringsManager.passwordNeedsLetter;
     }
 
-
-
     return null;
   }
 
- static String? validateName(String? fullName) {
+  static String? validateName(String? fullName) {
     if (fullName!.isEmpty) {
       return StringsManager.requiredName;
-
     }
     if (fullName.length < 3) {
       return StringsManager.tooShort;
@@ -52,7 +47,7 @@ class FieldValidator {
     return null;
   }
 
- static String? validatePhone(String? phone) {
+  static String? validatePhone(String? phone) {
     if (phone!.isEmpty) {
       return StringsManager.requiredPhone;
     }
@@ -64,13 +59,22 @@ class FieldValidator {
     return null;
   }
 
-  static String? validateData(value){
-    if(value == null ){
+  static String? validateData(value) {
+    if (value == null) {
       return StringsManager.dataCantBeEmpty;
     }
-    return null ;
+    return null;
   }
 
+  static String? validateAbout(value) {
+    if (value == null) {
+      return StringsManager.dataCantBeEmpty;
+    }
+    if (value.toString().length < 150) {
+      return StringsManager.writeMore;
+    }
+    return null;
+  }
 
   String? validateCode(value) {
     if (value == null || value.trim().isEmpty) {

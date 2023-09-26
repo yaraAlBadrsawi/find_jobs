@@ -22,63 +22,31 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(
-                  top: HeightManager.h70),
+              padding: EdgeInsets.only(top: HeightManager.h70),
               color: ColorsManager.white,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(AssetsManager.logo,
-                          height: HeightManager.h50,
-                          width: WidthManager.w50,
-                          colorFilter: const ColorFilter.mode(
-                              ColorsManager.primary, BlendMode.srcIn)),
-                      SizedBox(
-                        width: WidthManager.w20,
-                      ),
-                      Text(
-                        StringsManager.appName,
-                        style: getBoldTextStyle(
-                            fontSize: FontSizeManager.s28,
-                            color: ColorsManager.primary),
-                      ),
-
-
-                    ]
-                    ,
-                  ),
-                  SizedBox(height: HeightManager.h20,),
-
-                ],
+              child: Text(
+                header,
+                style: getBoldTextStyle(
+                    fontSize: FontSizeManager.s20, color: ColorsManager.black),
               ),
             ),
 
-            SizedBox(height: HeightManager.h10,),
-            // Container(
-            //   height: HeightManager.h07,
-            //   width: double.infinity,
-            //   color: ColorsManager.black,
-            // ),
-            // SizedBox(height: HeightManager.h10,),
-
-            // page header
+            SizedBox(
+              height: HeightManager.h20,
+            ),
             Column(
               children: [
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      header,
+                      dis,
                       style: getRegularTextStyle(
-                        fontSize: FontSizeManager.s30,
+                        fontSize: FontSizeManager.s35,
                         color: ColorsManager.primary,
                       ),
                     ),
@@ -87,12 +55,10 @@ class AuthLayout extends StatelessWidget {
                 SizedBox(
                   height: HeightManager.h5,
                 ),
-
                 Text(
                   subtitle,
                   style: getTextStyle(
-                      fontSize: FontSizeManager.s14,
-                      color: ColorsManager.grey),
+                      fontSize: FontSizeManager.s14, color: ColorsManager.grey),
                 )
               ],
             ),
@@ -136,7 +102,6 @@ class AuthLayout extends StatelessWidget {
                     )
                   ],
                 ),
-
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

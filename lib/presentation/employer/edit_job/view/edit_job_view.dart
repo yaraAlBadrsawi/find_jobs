@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../core/resources/colors_mangaer.dart';
 import '../../../../core/resources/fonts_manager.dart';
@@ -23,30 +25,33 @@ class EditJobView extends StatelessWidget {
               Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      IconButton(
+
+                        icon:const Icon( Icons.arrow_back),
+                        color: ColorsManager.black, onPressed: () { Get.back(); },
+                      ),
                       Text(
                         StringsManager.editJobDet,
-                        style: getRegularTextStyle(
-                          fontSize: FontSizeManager.s38,
+                        style: getBoldTextStyle(
+                          fontSize: FontSizeManager.s22,
                           color: ColorsManager.primary,
                         ),
                       ),
+                      SizedBox(width: WidthManager.w20,),
                     ],
                   ),
+
+
                   SizedBox(
                     height: HeightManager.h5,
                   ),
-                  Text(
-                    StringsManager.addJobDes,
-                    style: getTextStyle(
-                        fontSize: FontSizeManager.s14,
-                        color: ColorsManager.grey),
-                  )
+
                 ],
               ),
               SizedBox(
-                height: HeightManager.h45,
+                height: HeightManager.h20,
               ),
 
               const EditJobsDetails(),

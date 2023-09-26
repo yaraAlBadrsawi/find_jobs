@@ -6,9 +6,6 @@ import '../../../../core/resources/colors_mangaer.dart';
 import '../../../../core/resources/fonts_manager.dart';
 import '../../../../core/resources/strings_manager.dart';
 import '../../../../core/resources/styles_manager.dart';
-import '../../../../core/validator/validator.dart';
-import '../../../../core/widget/text_field.dart';
-import '../../../auth/widget/popup.dart';
 import 'add_job_details.dart';
 
 class AddJobView extends GetView<AddJobController> {
@@ -26,31 +23,30 @@ class AddJobView extends GetView<AddJobController> {
             children: [
               Column(
                 children: [
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      IconButton(
+
+                        icon:const Icon( Icons.arrow_back),
+                        color: ColorsManager.black, onPressed: () { Get.back(); },
+                      ),
                       Text(
                         StringsManager.addJob,
-                        style: getRegularTextStyle(
-                          fontSize: FontSizeManager.s38,
+                        style: getBoldTextStyle(
+                          fontSize: FontSizeManager.s22,
                           color: ColorsManager.primary,
                         ),
                       ),
+                    SizedBox(width: WidthManager.w20,),
                     ],
                   ),
-                  SizedBox(
-                    height: HeightManager.h5,
-                  ),
-                  Text(
-                    StringsManager.addJobDes,
-                    style: getTextStyle(
-                        fontSize: FontSizeManager.s14,
-                        color: ColorsManager.grey),
-                  )
+
                 ],
               ),
               SizedBox(
-                height: HeightManager.h45,
+                height: HeightManager.h20,
               ),
 
               const JobsDetails(),

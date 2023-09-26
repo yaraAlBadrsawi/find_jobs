@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graduation_project/core/network/jobs/jobs_operation.dart';
+import 'package:graduation_project/core/network/jobs/jobs_db.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/widget/loading.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../core/model/job.dart';
 import '../../../../core/resources/colors_mangaer.dart';
 import '../../../../core/resources/strings_manager.dart';
@@ -67,7 +66,7 @@ class EditJobController extends GetxController {
     return jobs;
   }
 
-  editJob() async {
+  void editJob() async {
     LoadingDialog.show();
     bool isUpdate = await JobsDB().editJob(jobModel.jobId, newJob);
     if (isUpdate) {

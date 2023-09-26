@@ -5,7 +5,7 @@ import 'package:graduation_project/core/model/user.dart';
 import 'package:graduation_project/core/network/common_functions.dart';
 
 import '../../../../core/network/auth/auth.dart';
-import '../../../../core/network/auth/user_operation.dart';
+import '../../../../core/network/auth/user_db.dart';
 
 class EmployerBottomNavigationBarController extends GetxController {
   var tabIndex = 0.obs;

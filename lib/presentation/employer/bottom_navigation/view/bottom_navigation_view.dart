@@ -28,7 +28,7 @@ class EmployerBottomNavigationBarView
                 EmployerHomeView(),
                 const EmployerApplicationView(),
                 const EmployerNotificationView(),
-                const EmployerProfileView(),
+               const EmployerProfileView(),
 
                 // // OffersScreen(),
               ],

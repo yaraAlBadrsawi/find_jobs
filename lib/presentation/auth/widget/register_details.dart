@@ -28,10 +28,12 @@ class Details extends GetView<RegisterController> {
       child: Column(
         children: [
           AppTextFields(
-            hint: StringsManager.name.tr,
+            hint: StringsManager.enterName.tr,
+            label: StringsManager.name.tr,
             controller: controller.nameController,
+            maxLines: 1,
             prefixIcon: Icon(
-            FontAwesomeIcons.solidUser,
+              FontAwesomeIcons.solidUser,
               color: ColorsManager.primary,
               size: IconSizeManager.s20,
             ),
@@ -43,11 +45,12 @@ class Details extends GetView<RegisterController> {
             height: HeightManager.h20,
           ),
           AppTextFields(
-            hint: StringsManager.email.tr,
+            hint: StringsManager.enterEmail.tr,
+            label: StringsManager.email.tr,
             controller: controller.emailController,
             keyboardType: TextInputType.emailAddress,
             prefixIcon: Icon(
-            FontAwesomeIcons.solidEnvelope,
+              FontAwesomeIcons.solidEnvelope,
               size: IconSizeManager.s20,
               color: ColorsManager.primary,
             ),
@@ -59,7 +62,8 @@ class Details extends GetView<RegisterController> {
             height: HeightManager.h20,
           ),
           AppTextFields(
-            hint: StringsManager.password.tr,
+            label: StringsManager.password.tr,
+            hint: StringsManager.enterPassword.tr,
             controller: controller.passwordController,
             prefixIcon: Icon(
               FontAwesomeIcons.key,
@@ -109,22 +113,66 @@ class Details extends GetView<RegisterController> {
                               color: ColorsManager.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              DialogUtil.showCustomDialog(
-                                  title: StringsManager.termsAndPrivacy,
-                                  content: SingleChildScrollView(
+                              Get.bottomSheet(
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: WidthManager.w15,vertical: HeightManager.h10),
+                                  decoration: BoxDecoration(
+                                      color: ColorsManager.white,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(
+                                              RadiusManager.r30),
+                                          topLeft: Radius.circular(
+                                              RadiusManager.r30))),
+                                  child: SingleChildScrollView(
                                     child: Column(
+                                     // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         //image
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.all(WidthManager.w20),
+                                          child: Text(
+                                            StringsManager.termsAndPrivacy,
+                                            textAlign: TextAlign.center,
+                                            style: getBoldTextStyle(
+                                                fontSize: FontSizeManager.s18,
+                                                color: ColorsManager.black),
+                                          ),
+                                        ),
+
                                         SvgPicture.asset(
-                                            AssetsManager.googleIcon,
-                                            height: HeightManager.h100,
-                                            width: WidthManager.w100,
-                                            colorFilter: const ColorFilter.mode(
-                                                ColorsManager.primary,
-                                                BlendMode.srcIn)),
+                                          AssetsManager.acceptTerms,
+                                          height: HeightManager.h150,
+                                          width: WidthManager.w150,
+                                        ),
                                         SizedBox(
                                           height: HeightManager.h20,
                                         ),
+                                        RichText(
+                                            text: TextSpan(
+                                                text: welcome,
+                                                style: getBoldTextStyle(
+                                                    fontSize:
+                                                        FontSizeManager.s18,
+                                                    color: ColorsManager.black),
+                                                children: [
+                                              TextSpan(
+                                                  text: jobHorizon,
+                                                  style: getBoldTextStyle(
+                                                      fontSize:
+                                                          FontSizeManager.s16,
+                                                      color: ColorsManager
+                                                          .primary),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () {})
+                                            ])),
+
+                                        SizedBox(height: HeightManager.h15,),
                                         Text(
                                           privacyPolicyIntro,
                                           style: getMediumTextStyle(
@@ -141,7 +189,8 @@ class Details extends GetView<RegisterController> {
                                       ],
                                     ),
                                   ),
-                                  actionText: StringsManager.ok);
+                                ),
+                              );
                             },
                         )
                       ])),
@@ -150,16 +199,15 @@ class Details extends GetView<RegisterController> {
             ],
           ),
 
-        MainButton(
-                width: double.infinity,
-                height: HeightManager.h50,
-                color: ColorsManager.primary,
-                radius: RadiusManager.r10,
-                onPressed: () async {
-                  await controller.performRegister(context);
-                },
-                child:
-            Text(StringsManager.register.tr)),
+          MainButton(
+              width: double.infinity,
+              height: HeightManager.h50,
+              color: ColorsManager.primary,
+              radius: RadiusManager.r10,
+              onPressed: () {
+                controller.performRegister(context);
+              },
+              child: Text(StringsManager.register.tr)),
 
           SizedBox(
             height: HeightManager.h20,

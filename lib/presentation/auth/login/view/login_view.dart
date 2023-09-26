@@ -22,7 +22,8 @@ class LoginView extends GetView<LoginController> {
               color: ColorsManager.white,
               borderRadius: BorderRadius.circular(RadiusManager.r30)),
           padding: EdgeInsets.all(WidthManager.w20),
-          child: LoginBody()),
+          child: LoginBody()
+      ),
     );
   }
 }

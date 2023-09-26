@@ -1,3 +1,5 @@
+import 'package:graduation_project/core/model/job.dart';
+
 import '../user.dart';
 
 class EmployerModel {
@@ -23,7 +25,8 @@ class EmployerModel {
     this.socialMedia = '',
     this.companyAchievements = '',
     this.imageUrl = '',
-  });
+  }
+  );
 
   factory EmployerModel.fromJson(Map<String, dynamic> parsedJson) {
     return EmployerModel(

@@ -11,8 +11,10 @@ class MainButton extends StatelessWidget {
   final double height;
   final Function() onPressed;
   final Color color;
+  final Color shadow;
   final double radius; // optional
   final double horizontalMargin;
+
 
   MainButton(
       {super.key,
@@ -21,6 +23,7 @@ class MainButton extends StatelessWidget {
       required this.height,
       required this.color,
       required this.onPressed,
+        this.shadow = Colors.transparent,
       double? horizontalMargin,
       double? radius})
       : radius = radius ?? SizeUtil.setRadius(RadiusManager.r10),
@@ -35,15 +38,16 @@ class MainButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           vertical: HeightManager.h10, horizontal: horizontalMargin),
       decoration: BoxDecoration(
-          border: color == ColorsManager.primary
-              ? const Border.fromBorderSide(BorderSide.none)
-              : Border.all(width: 1, color: ColorsManager.grey),
+          // border: color == ColorsManager.primary
+          //     ? const Border.fromBorderSide(BorderSide.none)
+          //     : Border.all(width: 1, color: ColorsManager.grey),
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           color: color),
       child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             elevation: 0,
+            shadowColor: shadow,
             backgroundColor: ColorsManager.transparent,
           ),
           child: child),

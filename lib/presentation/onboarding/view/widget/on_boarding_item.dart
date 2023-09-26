@@ -5,6 +5,8 @@ import 'package:graduation_project/presentation/onboarding/view/widget/slider_in
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
 
+import '../../../../core/resources/colors_mangaer.dart';
+import '../../../../core/resources/fonts_manager.dart';
 
 class OnBoardingItem extends StatelessWidget {
   final String image;
@@ -33,19 +35,19 @@ class OnBoardingItem extends StatelessWidget {
         SizedBox(height: HeightManager.h50),
         Text(
           title,
-          // style: getBoldTextStyle(
-          //   fontSize:FontSize Manager.s34,
-          //   color: ColorsManager.textColor,
-          // ),
+          style: getBoldTextStyle(
+            fontSize: FontSizeManager.s34,
+            color: ColorsManager.black,
+          ),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: HeightManager.h20),
         Text(
           subTitle,
-          // style: getTextStyle(
-          //     fontSize: ManagerFontSize.s16,
-          //     color: ManagerColors.textColorLight,
-          //     weight: ManagerFontWeight.w300),
+          style: getTextStyle(
+              fontSize: FontSizeManager.s16,
+              color: ColorsManager.textColorLight,
+              weight: FontWeightManager.w300),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: HeightManager.h20),

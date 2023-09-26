@@ -37,17 +37,24 @@ class EmployerInfoView extends GetView<EmployerInfoController> {
               Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      IconButton(
+
+                        icon:Icon( Icons.arrow_back),
+                        color: ColorsManager.black, onPressed: () { Get.back(); },
+                      ),
                       Text(
                         StringsManager.profileInfo,
-                        style: getRegularTextStyle(
-                          fontSize: FontSizeManager.s38,
+                        style: getBoldTextStyle(
+                          fontSize: FontSizeManager.s22,
                           color: ColorsManager.primary,
                         ),
                       ),
+                      SizedBox(),
                     ],
                   ),
+
                   SizedBox(
                     height: HeightManager.h5,
                   ),
@@ -78,7 +85,6 @@ class EmployerInfoView extends GetView<EmployerInfoController> {
 class EmployerInformation extends GetView<EmployerInfoController> {
   EmployerInformation({super.key});
 
-  String _selectImage = '';
 
   XFile? file;
 
@@ -134,7 +140,7 @@ class EmployerInformation extends GetView<EmployerInfoController> {
                     child: Container(
                       width: WidthManager.w45,
                       height: HeightManager.h45,
-                      decoration: BoxDecoration(
+                      decoration:const BoxDecoration(
                         color: ColorsManager.primary,
                         shape: BoxShape.circle,
                       ),
@@ -165,7 +171,7 @@ class EmployerInformation extends GetView<EmployerInfoController> {
                       keyboardType: TextInputType.text,
                       isConstraints: true ,
                       maxLines: 5,
-                      length: 100,
+                      length: 150,
                       validator: (value) {
                         return FieldValidator.validateData(value);
 
