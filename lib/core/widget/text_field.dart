@@ -1,65 +1,10 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:graduation_project/core/resources/colors_mangaer.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
+import 'package:graduation_project/core/resources/strings_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
-
-// TextFormField baseTextFormField({
-//   required TextEditingController controller,
-//   String? hintText,
-//   TextInputType? keyboardType,
-//   bool? obscureText,
-//   validator,
-//   FocusNode? focusNode,
-//   onChange,
-// }) {
-//   return TextFormField(
-//     style: getRegularTextStyle(
-//       fontSize: FontSizeManager.s16,
-//       color: ColorsManager.black,
-//     ),
-//     controller: controller,
-//     keyboardType: keyboardType,
-//     cursorColor: ColorsManager.primary,
-//     // obscureText: obscureText.onNull(),
-//     validator: validator,
-//     focusNode: focusNode,
-//     onChanged: onChange ?? (val) {},
-//     decoration: InputDecoration(
-//       filled: true,
-//       contentPadding: EdgeInsets.symmetric(
-//         horizontal: WidthManager.w16,
-//         vertical: HeightManager.h6,
-//       ),
-//       fillColor: ColorsManager.white,
-//       // hintText: hintText!.onNull(),
-//       hintStyle: getRegularTextStyle(
-//         fontSize: FontSizeManager.s16,
-//         color: ColorsManager.grey,
-//       ),
-//       enabledBorder: OutlineInputBorder(
-//         borderSide: const BorderSide(
-//           color: ColorsManager.white,
-//         ),
-//         borderRadius: BorderRadius.circular(
-//           RadiusManager.r6,
-//         ),
-//       ),
-//       focusedBorder: OutlineInputBorder(
-//         borderSide: const BorderSide(
-//           color: ColorsManager.primary,
-//         ),
-//         borderRadius: BorderRadius.circular(
-//           RadiusManager.r6,
-//         ),
-//       ),
-//     ),
-//   );
-// }
-
-
-
 class AppTextFields extends StatelessWidget {
   const AppTextFields({
     super.key,
@@ -76,10 +21,18 @@ class AppTextFields extends StatelessWidget {
     this.prefixIcon,
     this.errorText,
     this.maxLines = 1,
-  });
+    this.onTap,
+   this. isConstraints= false ,
+    this.length=40,
+    this.label='',
 
+
+    // this.initialValue='',
+  }
+);
 
   final TextEditingController? controller;
+  final String label;
   final TextInputType? keyboardType;
   final bool obscure;
   final String? Function(String?)? validator;
@@ -92,30 +45,78 @@ class AppTextFields extends StatelessWidget {
   final Widget? prefixIcon;
   final bool readOnly;
   final String? errorText;
+  final Function()? onTap;
+  final bool isConstraints  ;
+  final int length;
 
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      // style: getRegularTextStyle() // TODO: ADD STYLE
-      obscureText: obscure,
-      readOnly:readOnly,
-      validator: validator,
-      onChanged: onChanged,
-      maxLines: maxLines,
-      cursorColor: ColorsManager.primary,
-      decoration: InputDecoration(
-        hintText: hint,
-        // hintStyle: AppStyles.light(),
-        prefixIcon:prefixIcon,
-        suffixIcon: suffixIcon,
-        filled: filled,
-        fillColor:fillColor,
-        errorText: errorText,
-        border: underlineInputBorder(), //grey
-        errorBorder: underlineInputBorder(color: Colors.red), //red
-        focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        TextFormField(
+          controller: controller,
+          keyboardType: keyboardType,
+
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(length), // Set maximum length to 100 characters
+          ],
+          // style: getRegularTextStyle() // TODO: ADD STYLE
+          obscureText: obscure,
+          readOnly: readOnly,
+          validator: validator,
+          onChanged: onChanged,
+          maxLines: maxLines,
+          onTap: onTap,
+          cursorColor: ColorsManager.primary,
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+
+            hintText: hint,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            filled: filled,
+            fillColor: fillColor,
+            errorText: errorText,
+            alignLabelWithHint: true,
+            // This will move the label to the top
+            labelStyle: TextStyle(color: ColorsManager.lightGrey),
+            labelText: label,
+
+
+            border: underlineInputBorder(),
+            //grey
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            //red
+            // focusedBorder: underlineInputBorder(color: ColorsManager.primary), //primary
+
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: ColorsManager.lightGrey,
+              ),
+              borderRadius: BorderRadius.circular(
+                RadiusManager.r10,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: ColorsManager.primary,
+              ),
+              borderRadius: BorderRadius.circular(
+                RadiusManager.r10,
+              ),
+            ),
+          ),
+        ),
+
+        SizedBox(height: HeightManager.h5), // Add spacing between text field and character count
+        Text(
+          isConstraints ? '${controller!.text.length}/$length':'',
+          style: TextStyle(color: Colors.grey),
+        ),
+      ],
     );
   }
 }
@@ -130,14 +131,15 @@ UnderlineInputBorder underlineInputBorder({Color color = Colors.grey}) {
 }
 
 class AppPassFields extends StatelessWidget {
-   AppPassFields(
+  AppPassFields(
       {super.key,
-        this.filled,
-        this.prefixIcon,
-        this.fillColor,
-        this.onChanged,
-        this.validator,
-      this.controller
+      this.filled,
+      this.prefixIcon,
+      this.fillColor,
+      this.onChanged,
+      this.validator,
+      this.controller,
+      this.label='',
       });
 
   final bool? filled;
@@ -146,21 +148,24 @@ class AppPassFields extends StatelessWidget {
   final Widget? prefixIcon;
   final Function(String)? onChanged;
   final TextEditingController? controller;
+final String label;
+  bool secure = true;
 
-bool secure=true;
-@override
+  @override
   Widget build(BuildContext context) {
     return AppTextFields(
-      hint: 'Password',
+  label: label,
+      hint: StringsManager.enterPassword,
       controller: controller,
       validator: validator,
       obscure: secure,
       onChanged: onChanged,
-      prefixIcon:prefixIcon,
+      prefixIcon: prefixIcon,
+
       suffixIcon: IconButton(
           onPressed: () {
             // setState(() {
-              secure = !secure;
+            secure = !secure;
             // });
           },
           icon: Icon(Icons.remove_red_eye_rounded,

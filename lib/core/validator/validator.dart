@@ -16,11 +16,10 @@ class FieldValidator {
     if (!GetUtils.isEmail(email)) {
       return StringsManager.invalidEmail;
     }
-
     return null;
   }
 
- static String? validatePassword(String? password) {
+  static String? validatePassword(String? password) {
     if (password!.isEmpty) {
       return StringsManager.emptyPassword;
     }
@@ -35,15 +34,12 @@ class FieldValidator {
       return StringsManager.passwordNeedsLetter;
     }
 
-
-
     return null;
   }
 
- static String? validateName(String? fullName) {
+  static String? validateName(String? fullName) {
     if (fullName!.isEmpty) {
       return StringsManager.requiredName;
-
     }
     if (fullName.length < 3) {
       return StringsManager.tooShort;
@@ -52,7 +48,7 @@ class FieldValidator {
     return null;
   }
 
- static String? validatePhone(String? phone) {
+  static String? validatePhone(String? phone) {
     if (phone!.isEmpty) {
       return StringsManager.requiredPhone;
     }
@@ -61,6 +57,24 @@ class FieldValidator {
       return StringsManager.invalidMobileNumber;
     }
 
+    return null;
+  }
+
+
+  static String? validateData(value) {
+    if (value == null) {
+      return StringsManager.dataCantBeEmpty;
+    }
+    return null;
+  }
+
+  static String? validateAbout(value) {
+    if (value == null) {
+      return StringsManager.dataCantBeEmpty;
+    }
+    if (value.toString().length < 150) {
+      return StringsManager.writeMore;
+    }
     return null;
   }
 

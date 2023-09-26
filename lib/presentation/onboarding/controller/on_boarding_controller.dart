@@ -11,11 +11,6 @@ import '../view/widget/on_boarding_item.dart';
 
 class OnBoardingController extends GetxController {
 
-  // final instance = GetIt.instance;
-
-  // final AppSettingsSharedPreferences _appSettingsSharedPreferences =
-  // instance<AppSettingsSharedPreferences>();
-
   late PageController pageController;
   static const firstPage = 0;
   static const lastPage = 2;
@@ -27,12 +22,13 @@ class OnBoardingController extends GetxController {
       title: StringsManager.onBoardingTitle1,
       subTitle: StringsManager.onBoardingSubTitle1,
     ),
-    OnBoardingItem(      image: AssetsManager.onBoardingIllustration1,
+    OnBoardingItem(
+      image: AssetsManager.onBoardingIllustration2,
       title: StringsManager.onBoardingTitle2,
       subTitle: StringsManager.onBoardingSubTitle2,
     ),
-    OnBoardingItem(      image: AssetsManager.onBoardingIllustration1
-      ,
+    OnBoardingItem(
+      image: AssetsManager.onBoardingIllustration3,
       title: StringsManager.onBoardingTitle3,
       subTitle: StringsManager.onBoardingSubTitle3,
     ),
@@ -70,7 +66,6 @@ class OnBoardingController extends GetxController {
   }
 
   Future<void> getStart() async {
-    // await _appSettingsSharedPreferences.setOutBoardingViewed();
     Get.offAllNamed(Routes.loginView);
   }
 
@@ -100,5 +95,4 @@ class OnBoardingController extends GetxController {
   bool showBackButton() {
     return currentPage > firstPage && currentPage < lastPage;
   }
-
 }

@@ -2,14 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:graduation_project/core/network/auth/user_operation.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:graduation_project/core/network/auth/user_db.dart';
 import 'package:graduation_project/core/resources/strings_manager.dart';
+import '../../../config/constants.dart';
 import '../../model/base_model.dart';
 import '../../model/user.dart';
 import '../../resources/colors_mangaer.dart';
+import '../../resources/routes_manager.dart';
 import '../../storage/local/app_settings_shared_preferences.dart';
-import '../../storage/secure_storage/secure_storage.dart';
-import '../../widget/loading.dart';
+import '../../storage/local/hive_data_store/hive_data_store.dart';
+
 
 FirebaseResponse _controlFirebaseException(FirebaseAuthException exception) {
   print('Message: ${exception.message}');
@@ -37,7 +41,7 @@ FirebaseResponse _controlFirebaseException(FirebaseAuthException exception) {
 }
 
 class Authenticate {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
 // signUpWithEmailAndPassword
   Future<FirebaseResponse> signUpWithEmailAndPassword(
@@ -52,15 +56,28 @@ class Authenticate {
           userID: userCredential.user!.uid,
           email: userCredential.user!.email!,
           name: user.name,
-          phoneNumber: user.phoneNumber,
           userType: user.userType,
         );
+
+
+        bool isSavedToDB = await UsersDB.addAllUserInDB(newUser);
+
+        // ask usr if want to save data or not ?
+        // if user said yes => go to login and make login to save Data in Hive
+
+        // if user said no => go to home page and when back to app again go to login screen and in their he can save his data in Hive by Remember me
+
+        //   if (isSavedToDB) {
+        /// save data in SecureStorage
+        print('Is data saved done ?? $isSavedToDB ');
+
 
         bool isSavedToDB = await InsertUsers.addAllUserInDB(newUser);
         if (isSavedToDB) {
           /// save data in SecureStorage
           Authenticate()._saveUserDataInSecureStorage(user, password);
         }
+
         await userCredential.user!.sendEmailVerification();
 
         return FirebaseResponse(
@@ -81,6 +98,8 @@ class Authenticate {
     }
   }
 
+  Future<User> get getUser async => auth.currentUser!;
+
   void _saveUserDataInSecureStorage(UserModel user, String password) {
     // save email in secure storage
     SecureStorage().writeSecureStorage(StringsManager.email, user.email);
@@ -96,24 +115,46 @@ class Authenticate {
 
  Future<User> get getUser async => _auth.currentUser!;
 
-  static Future<FirebaseResponse> signInWithEmailAndPassword(
+  Future<FirebaseResponse> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      // if (userCredential.user != null) {
+      //   UserModel? currentUser =
+      //       await UsersDB.getCurrentUser(userCredential.user!.uid);
+      //   await HiveService().addItem('user', currentUser);
+      //   HiveService().isUserLogged('isLogged', true);
+      //   print('Hive => ${HiveService().getLoginStatus('isLogged')}') ;
+      //
+      //   if (currentUser!.userType == UserType.employer) {
+      //     Get.offAllNamed(Routes.employerInfoView);
+      //   } else if (currentUser.userType == UserType.jobSeeker) {
+      //     Get.offAllNamed(Routes.jobSeekerBottomBarView);
+      //   }
+      //   print('Login done <<GOOD JOBS YARA >>');
+      //
+      //   return FirebaseResponse(
+      //     message: StringsManager.accountCreatedSuccessfully,
+      //     status: true,
+      //   );
+      // }
 
       if (userCredential.user != null) {
+        User user = await Authenticate().getUser;
+
        SecureStorage().writeSecureStorage(StringsManager.userId, userCredential.user!.uid);
         print('Login done <<GOOD JOBS YARA >>');
 
-        return FirebaseResponse(
-          message: StringsManager.accountCreatedSuccessfully,
-          status: true,
-        );
-      }
 
-      return FirebaseResponse(
-          message: StringsManager.somethingWrong, status: false);
+        UserModel userModel = await UsersDB.getCurrentUser(user.uid);
+        HiveService().addItem(Constants.user, userModel);
+        return FirebaseResponse(
+            message: StringsManager.loginDone, status: true);
+      } else {
+        return FirebaseResponse(
+            message: StringsManager.loginDone, status: false);
+      }
     } on FirebaseAuthException catch (e) {
       return _controlFirebaseException(e);
     } catch (error) {
@@ -131,14 +172,14 @@ class Authenticate {
 
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
     } on FirebaseAuthException catch (e) {
-      // showSnackBar(context, e.message!); // Displaying the error message
+      print('error => $e');
     }
   }
 
   //ForgetPassword
   Future<FirebaseResponse> forgetPassword({required String email}) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email);
+      await auth.sendPasswordResetEmail(email: email);
       return FirebaseResponse(
           message: StringsManager.passwordResetDone, status: true);
     } on FirebaseAuthException catch (e) {
@@ -157,8 +198,9 @@ class Authenticate {
   Future<void> sendEmailVerification() async {
     try {
 
+      auth.currentUser!.sendEmailVerification();
+
       _auth.currentUser!.sendEmailVerification();
-      // Email verification sent!
     } on FirebaseAuthException catch (e) {
 // e.message!
     }
@@ -166,7 +208,26 @@ class Authenticate {
 
   //Logout
   Future<void> signOut() async {
-    await _auth.signOut();
+    await auth.signOut();
+    auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      }
+      else {
+        print('User is signed in!');
+      }
+    });
+  }
+
+  void resendVerificationCode() async {
+    try {
+      User? user = auth.currentUser;
+      if (user != null) {
+        await user.sendEmailVerification();
+      }
+    } catch (e) {
+      // Handle errors
+    }
   }
 
   void resendVerificationCode() async {
@@ -183,7 +244,7 @@ class Authenticate {
   // DELETE ACCOUNT
   Future<void> deleteAccount(BuildContext context) async {
     try {
-      await _auth.currentUser!.delete();
+      await auth.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       // Displaying the error message
       // if an error of requires-recent-login is thrown, make sure to log
@@ -191,26 +252,55 @@ class Authenticate {
     }
   }
 
-  Future<void> setRememberMe(bool value) async {
-    SecureStorage().writeSecureStorage(StringsManager.rememberMe, value);
-  }
-
-  Future<bool> getRememberMe() async {
-    return await SecureStorage().readSecureStorage(StringsManager.rememberMe) ??
-        false;
-  }
-
   Future<bool> autoLogin() async {
     try {
-      final userCredential = await _auth.signInAnonymously();
+      final userCredential = await auth.signInAnonymously();
       return userCredential.user != null;
     } catch (e) {
       return false;
     }
   }
 
+  String getCurrentUserId() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    if (auth.currentUser != null) {
+      return auth.currentUser!.uid;
+    }
+    return '';
+  }
+
   Future<bool> isUserLoggedIn() async {
-    final user = _auth.currentUser;
+    final user = auth.currentUser;
     return user != null;
+  }
+
+
+// ...
+
+  Future<void> changePassword(String newPassword) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    try {
+      await user!.updatePassword(newPassword);
+      print('Password changed successfully.');
+    } catch (e) {
+      print('Error changing password: $e');
+    }
+  }
+
+
+
+  bool checkUserLogin() {
+    auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        // what you want to happen in sing out
+
+      }
+      else {
+        print('User is signed in!');
+      }
+    });
+    return false;
   }
 }

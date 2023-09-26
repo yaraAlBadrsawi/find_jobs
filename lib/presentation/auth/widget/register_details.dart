@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graduation_project/core/resources/routes_manager.dart';
 import 'package:graduation_project/core/widget/main_button.dart';
 import 'package:graduation_project/core/resources/fonts_manager.dart';
 import 'package:graduation_project/core/resources/sizes_manager.dart';
 import 'package:graduation_project/core/resources/styles_manager.dart';
-import 'package:graduation_project/presentation/auth/widget/popup.dart';
 import '../../../../config/constants.dart';
 import '../../../../core/validator/validator.dart';
 import '../../../../core/widget/dialog.dart';
@@ -19,21 +19,21 @@ import '../../../core/resources/assets_manager.dart';
 import '../register/controller/register_controller.dart';
 
 class Details extends GetView<RegisterController> {
-  Details({super.key});
+  const Details({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = controller.current;
-
     return Form(
       key: controller.formKey,
       child: Column(
         children: [
           AppTextFields(
-            hint: StringsManager.name.tr,
+            hint: StringsManager.enterName.tr,
+            label: StringsManager.name.tr,
             controller: controller.nameController,
+            maxLines: 1,
             prefixIcon: Icon(
-              Icons.person,
+              FontAwesomeIcons.solidUser,
               color: ColorsManager.primary,
               size: IconSizeManager.s20,
             ),
@@ -45,11 +45,12 @@ class Details extends GetView<RegisterController> {
             height: HeightManager.h20,
           ),
           AppTextFields(
-            hint: StringsManager.email.tr,
+            hint: StringsManager.enterEmail.tr,
+            label: StringsManager.email.tr,
             controller: controller.emailController,
             keyboardType: TextInputType.emailAddress,
             prefixIcon: Icon(
-              Icons.mail,
+              FontAwesomeIcons.solidEnvelope,
               size: IconSizeManager.s20,
               color: ColorsManager.primary,
             ),
@@ -61,10 +62,11 @@ class Details extends GetView<RegisterController> {
             height: HeightManager.h20,
           ),
           AppTextFields(
-            hint: StringsManager.password.tr,
+            label: StringsManager.password.tr,
+            hint: StringsManager.enterPassword.tr,
             controller: controller.passwordController,
             prefixIcon: Icon(
-              Icons.lock,
+              FontAwesomeIcons.key,
               color: ColorsManager.primary,
               size: IconSizeManager.s20,
             ),
@@ -77,44 +79,9 @@ class Details extends GetView<RegisterController> {
             height: HeightManager.h20,
           ),
           //phone Number :
-          Obx(
-            () => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: AppTextFields(
-                  readOnly: true,
-                  hint: controller.countryCode.value,
-                  suffixIcon: AppPopUpMenu(
-                      list: countryCodes,
-                      txt: StringsManager.code.tr,
-                      onSelect: ((value) {
-                        controller.countryCode.value =
-                            countryCodes[value as int]['code'] as String;
-                        //TODO : make function in controller
-                      })),
-                )),
-                SizedBox(
-                  height: HeightManager.h15,
-                ),
-                Expanded(
-                    flex: 2,
-                    child: AppTextFields(
-                      controller: controller.phoneController,
-                      hint: StringsManager.phone,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        return FieldValidator.validatePhone(value);
-                      },
-                    )),
-              ],
-            ),
-          ),
 
           // appear in all three user :
-          SizedBox(
-            height: HeightManager.h20,
-          ),
+
           //terms&conditions
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -146,20 +113,66 @@ class Details extends GetView<RegisterController> {
                               color: ColorsManager.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              DialogUtil.showCustomDialog(
-                                  title: StringsManager.termsAndPrivacy,
-                                  content: SingleChildScrollView(
+                              Get.bottomSheet(
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: WidthManager.w15,vertical: HeightManager.h10),
+                                  decoration: BoxDecoration(
+                                      color: ColorsManager.white,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(
+                                              RadiusManager.r30),
+                                          topLeft: Radius.circular(
+                                              RadiusManager.r30))),
+                                  child: SingleChildScrollView(
                                     child: Column(
+                                     // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         //image
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.all(WidthManager.w20),
+                                          child: Text(
+                                            StringsManager.termsAndPrivacy,
+                                            textAlign: TextAlign.center,
+                                            style: getBoldTextStyle(
+                                                fontSize: FontSizeManager.s18,
+                                                color: ColorsManager.black),
+                                          ),
+                                        ),
+
                                         SvgPicture.asset(
-                                            AssetsManager.googleIcon,
-                                            height: HeightManager.h100,
-                                            width: WidthManager.w100,
-                                            colorFilter: const ColorFilter.mode(
-                                                ColorsManager.primary,
-                                                BlendMode.srcIn)),
-                                       SizedBox(height: HeightManager.h20,),
+                                          AssetsManager.acceptTerms,
+                                          height: HeightManager.h150,
+                                          width: WidthManager.w150,
+                                        ),
+                                        SizedBox(
+                                          height: HeightManager.h20,
+                                        ),
+                                        RichText(
+                                            text: TextSpan(
+                                                text: welcome,
+                                                style: getBoldTextStyle(
+                                                    fontSize:
+                                                        FontSizeManager.s18,
+                                                    color: ColorsManager.black),
+                                                children: [
+                                              TextSpan(
+                                                  text: jobHorizon,
+                                                  style: getBoldTextStyle(
+                                                      fontSize:
+                                                          FontSizeManager.s16,
+                                                      color: ColorsManager
+                                                          .primary),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () {})
+                                            ])),
+
+                                        SizedBox(height: HeightManager.h15,),
                                         Text(
                                           privacyPolicyIntro,
                                           style: getMediumTextStyle(
@@ -175,6 +188,10 @@ class Details extends GetView<RegisterController> {
                                         // text
                                       ],
                                     ),
+
+                                  ),
+                                ),
+                              );
                                   ), actionText: StringsManager.ok);
                             },
                         )
@@ -186,14 +203,18 @@ class Details extends GetView<RegisterController> {
 
           MainButton(
               width: double.infinity,
-              height: HeightManager.h40,
+              height: HeightManager.h50,
               color: ColorsManager.primary,
+              radius: RadiusManager.r10,
+              onPressed: () {
+                controller.performRegister(context);
               onPressed: () async {
                 await controller.performRegister(context);
 
 
               },
               child: Text(StringsManager.register.tr)),
+
           SizedBox(
             height: HeightManager.h20,
           ),
@@ -221,62 +242,3 @@ class Details extends GetView<RegisterController> {
   }
 
 }
-
-//
-// ////// OBX work for add link :
-//
-// Obx(() {
-// if (currentIndex == 1) {
-// return SizedBox(
-// child: Column(
-// children: [
-// AppTextFields(
-// controller: controller.linkController,
-// hint: 'add link',
-// keyboardType: TextInputType.url,
-// suffixIcon: IconButton(
-// onPressed: () {
-// controller.addLink();
-//
-// },
-// icon:  Icon(
-// Icons.add,
-// color: ColorsManager.primary,
-// size: IconSizeManager.s20,
-// )),
-// ),
-// SizedBox(height: HeightManager.h20,) ,
-// ExpandedSection(
-// expand: controller.showLink.value,
-// child: Container(
-// alignment: Alignment.center,
-// padding:
-// const EdgeInsets.symmetric(horizontal: 5),
-// color: ColorsManager.secondary,
-// child: Row(
-// mainAxisSize: MainAxisSize.min,
-// children: [
-// Text(
-// controller.link.value,
-// // style: AppStyles.links(),
-// overflow: TextOverflow.ellipsis,
-// ),
-// SizedBox(height: HeightManager.h8,),
-// IconButton(
-// onPressed: () {
-// controller.removeLink();
-// },
-// icon: Text(
-// 'X',
-// // style: AppStyles.regular(),
-// ))
-// ],
-// ),
-// ),
-// )
-// ],
-// ));
-// } else {
-// return SizedBox();
-// }
-// }),

@@ -12,6 +12,7 @@ class DialogUtil{
 String? title ;
 String? actionText;
 Widget? content;
+
   static void showCustomDialog({required String title ,
 required Widget content,required String actionText}
 
@@ -19,13 +20,21 @@ required Widget content,required String actionText}
 ){
 
     Get.dialog(
+      barrierDismissible:true ,
       AlertDialog(
-        title: Text(title,style: getMediumTextStyle(fontSize: AppSize.s18, color: ColorsManager.primary),),
+        title:
+        Text(title,
+          textAlign: TextAlign.center,
+          style: getMediumTextStyle(fontSize: AppSize.s18, color: ColorsManager.primary),),
+
         content:content,
         actions: [
           TextButton(
             onPressed: () {
               Get.back();
+
+            }, child: Text(''),
+
             },
             child: Text(actionText),
           ),

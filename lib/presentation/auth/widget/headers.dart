@@ -16,17 +16,18 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+      Container(
       height: isSelect == true ? HeightManager.h52 : HeightManager.h40,
-      width: isSelect == true ? WidthManager.w110 : WidthManager.w100,
+      width: isSelect == true ? WidthManager.w140 : WidthManager.w120,
       alignment: Alignment.center,
       decoration: BoxDecoration(
+
           color: isSelect == true
               ? ColorsManager.white
               : ColorsManager.white.withOpacity(.98),
-          borderRadius:  BorderRadius.only(
-            topLeft: Radius.circular(RadiusManager.r30),
-            topRight: Radius.circular(RadiusManager.r30),
+          borderRadius:  BorderRadius.all(
+       Radius.circular(RadiusManager.r10),
           ),
           boxShadow: [
             isSelect == false

@@ -68,7 +68,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                   replacement: MainButton(
                     // child =>
                     width: double.infinity,
-                    height: HeightManager.h40,
+                    height: HeightManager.h50,
                     color: ColorsManager.primary,
                     // Color =
                     // onPressed =>
